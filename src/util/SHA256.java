@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class SHA256 {
 	
-	public String toSHA256(String text)
+	public static String toSHA256(String text)
 	{
 		MessageDigest hash;
 		try 

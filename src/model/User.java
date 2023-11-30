@@ -21,10 +21,8 @@ public class User {
 	
 	public User(String login, String password, boolean admin)
 	{
-		
-		SHA256 hash = new SHA256();
 		this.login = login;
-		this.password = hash.toSHA256(password);
+		this.password = SHA256.toSHA256(password);
 		this.admin = admin;
 	}
 

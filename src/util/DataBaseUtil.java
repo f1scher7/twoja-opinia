@@ -13,7 +13,7 @@ public class DataBaseUtil {
  	private final static String dbuser = "root";
  	private final static String dbpass = "";
  	
-	public Connection connect()
+	public static Connection connect()
  	{
  		Connection connection = null;
  		try 

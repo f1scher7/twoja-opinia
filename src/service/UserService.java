@@ -6,4 +6,9 @@ package service;
 
 public class UserService {
 
+	public static void login(String login, String password)
+	{
+		
+	}
+	
 }
