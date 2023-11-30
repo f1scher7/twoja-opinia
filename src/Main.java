@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Test aplikacji Twoja Opinia");
         
-        User user = new User("admin2", "admin", false);
+        User user = new User("admin3", "admin", false);
         
         //Scanner scan = new Scanner(System.in);
         

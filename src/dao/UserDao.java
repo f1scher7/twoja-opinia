@@ -16,16 +16,20 @@ public class UserDao {
  	private Statement statement;
  	private String query;
 
+ 	public UserDao()
+ 	{
+ 		this.db = new DataBaseUtil();
+ 	}
  
 	public void save(User user) {
  		query = "INSERT INTO `users` (`login`, `password`, `admin`) VALUES ('" + user.getLogin() + "', '" + user.getPassword() + "', '" + 1 + "');";
  		try
  		{
  			this.connection = db.connect();
- 			statement = connection.createStatement();
- 			statement.executeUpdate(query);
-            statement.close();
-            connection.close();        
+ 			this.statement = connection.createStatement();
+ 			this.statement.executeUpdate(query);
+            this.statement.close();
+            this.connection.close();        
  		} 
  		catch (SQLException e)
  		{
