@@ -7,7 +7,7 @@ import dao.UserDao;
 public class Main {
     public static void main(String[] args) {
     	
-    	//Testy 30.11.23
+    	//Testy 31.11.23
     	
         System.out.println("Test aplikacji Twoja Opinia");
         
