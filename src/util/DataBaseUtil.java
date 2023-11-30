@@ -5,7 +5,30 @@
 // takie jak inicjalizacja schematu bazy danych, itp.
 
 package util;
+import java.sql.*;
 
 public class DataBaseUtil {
+	
+ 	private final static String dburl = "jdbc:mysql://127.0.0.1:3306/twojaOpinia";
+ 	private final static String dbuser = "root";
+ 	private final static String dbpass = "";
+ 	private final static String dbdriver = "com.mysql.cj.jdbc.Driver";
+ 	
+ 	public Connection connect()
+ 	{
+ 		Connection connection = null;
+ 		try 
+ 		{
+ 			
+			Class.forName(dbdriver).newInstance();
+			connection = DriverManager.getConnection(dburl, dbuser, dbpass);
+			
+ 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
+ 			
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 		return connection;
+ 	}
 
 }
