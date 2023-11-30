@@ -6,6 +6,9 @@ import dao.UserDao;
 
 public class Main {
     public static void main(String[] args) {
+    	
+    	//Testy
+    	
         System.out.println("Test aplikacji Twoja Opinia");
         
         User user = new User("admin3", "admin", false);
