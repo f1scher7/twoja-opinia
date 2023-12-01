@@ -1,9 +1,9 @@
 //User.java: Klasa reprezentująca użytkownika. Zawierać może informacje
 // takie jak identyfikator użytkownika, login, hasło, itp.
 
-package model;
+package twojaOpinia.model;
 
-import util.SHA256;
+import twojaOpinia.util.SHA256;
 
 public class User {
 	

@@ -1,4 +1,4 @@
-package controller;
+package twojaOpinia.controller;
 
 public class UserController {
 }

@@ -2,11 +2,11 @@
 // Może zawierać metody takie jak dodawanie nowego użytkownika, pobieranie informacji o użytkowniku
 // na podstawie identyfikatora, aktualizowanie danych użytkownika, itp.
 
-package dao;
+package twojaOpinia.dao;
 
 import java.sql.*;
-import model.User;
-import util.DataBaseUtil;
+import twojaOpinia.model.User;
+import twojaOpinia.util.DataBaseUtil;
 
 public class UserDao {
 	

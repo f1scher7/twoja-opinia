@@ -2,7 +2,7 @@
 // Może zawierać metody takie jak rejestracja nowego użytkownika, uwierzytelnianie,
 // pobieranie informacji o użytkowniku, zarządzanie sesją użytkownika, itp.
 
-package service;
+package twojaOpinia.service;
 
 public class UserService {
 

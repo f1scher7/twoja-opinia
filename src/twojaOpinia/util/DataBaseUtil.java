@@ -4,7 +4,7 @@
 // a także inne narzędzia związane z bazą danych,
 // takie jak inicjalizacja schematu bazy danych, itp.
 
-package util;
+package twojaOpinia.util;
 import java.sql.*;
 
 public class DataBaseUtil {

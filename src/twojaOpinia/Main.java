@@ -1,14 +1,30 @@
-import java.util.Scanner;
+package twojaOpinia;
 
-import model.User;
-import util.SHA256;
-import dao.UserDao;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class Main {
+import java.util.Objects;
+
+public class Main extends Application{
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view/admin/AdminDashboard.fxml")));
+        primaryStage.setTitle("TwojaOpinia");
+        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.show();
+    }
+
     public static void main(String[] args) {
-    	
-    	//Testy 31.11.23
-    	
+        //Testy 31.11.23
+        launch(args);
+
+
+        //Testy 31.11.23
+    	/*
         System.out.println("Test aplikacji Twoja Opinia");
         
         User user = new User("admin3", "admin", false);
@@ -36,5 +52,6 @@ public class Main {
         System.out.println(user2.getPassword());
         
         scan.close();
+        */
     }
 }
