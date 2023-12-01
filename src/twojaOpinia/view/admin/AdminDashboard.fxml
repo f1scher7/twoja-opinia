@@ -16,13 +16,15 @@
             <HBox spacing="10" alignment="CENTER">
                 <Label text="Username:"/>
                 <TextField fx:id="userNameField" promptText="Enter username"/>
-                <Button fx:id="createUserButton" text="Create User" onAction="#handleCreateUser"/>
             </HBox>
 
             <HBox spacing="10" alignment="CENTER">
-                <Label text="Survey Name:"/>
-                <TextField fx:id="surveyNameField" promptText="Enter survey name"/>
-                <Button fx:id="createSurveyButton" text="Create Survey" onAction="#handleCreateSurvey"/>
+                <Label text="Password:"/>
+                <TextField fx:id="userPasswordField" promptText="Enter password"/>
+            </HBox>
+            
+            <HBox spacing="10" alignment="CENTER">
+            	<Button fx:id="createSurveyButton" text="Create User" onAction="#handleCreateUser"/>
             </HBox>
         </VBox>
     </center>
