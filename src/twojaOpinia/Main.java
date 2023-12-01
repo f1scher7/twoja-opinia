@@ -19,7 +19,6 @@ public class Main extends Application{
     }
 
     public static void main(String[] args) {
-        //Testy 31.11.23
         launch(args);
 
 
