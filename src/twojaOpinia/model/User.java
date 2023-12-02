@@ -9,7 +9,6 @@ public class User {
 	
 	private String login;
 	private String password;
-	
 	private boolean admin;
 	
 	User()
@@ -49,7 +48,4 @@ public class User {
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
-	
-
-
 }
