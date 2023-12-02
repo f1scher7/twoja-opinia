@@ -11,6 +11,7 @@ out/
 .settings
 .springBeans
 .sts4-cache
+/javafx-sdk-21.0.1/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
