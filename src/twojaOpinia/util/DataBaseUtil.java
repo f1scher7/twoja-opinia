@@ -7,7 +7,7 @@
 package twojaOpinia.util;
 import java.sql.*;
 
-   public class DataBaseUtil {
+public class DataBaseUtil {
 	
  	private final static String dburl = "jdbc:mysql://127.0.0.1:3306/twojaOpinia";
  	private final static String dbuser = "root";
