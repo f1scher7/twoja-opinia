@@ -9,19 +9,20 @@ public class User {
 	
 	private String login;
 	private String password;
+	private String salt;
 	private boolean admin;
 	
-	User()
-	{
+	User() {
 		this.login = "";
 		this.password = "";
+		this.salt = "";
 		this.admin = false;
 	}
 	
-	public User(String login, String password, boolean admin)
-	{
+	public User(String login, String password, String salt, boolean admin) {
 		this.login = login;
 		this.password = password;
+		this.salt = salt;
 		this.admin = admin;
 	}
 
@@ -34,12 +35,16 @@ public class User {
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getSalt() { return this.salt; }
+
+	public void setSalt(String salt) { this.salt = salt; }
 
 	public boolean isAdmin() {
 		return admin;

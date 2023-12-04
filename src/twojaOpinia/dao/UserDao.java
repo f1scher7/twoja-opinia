@@ -2,9 +2,12 @@ package twojaOpinia.dao;
 
 import twojaOpinia.model.User;
 import twojaOpinia.util.DataBaseUtil;
+import static twojaOpinia.util.SaltUtil.generateSalt;
 import twojaOpinia.util.SHA256;
 
 import java.sql.*;
+
+import static twojaOpinia.util.SaltUtil.generateSalt;
 
 public class UserDao {
 	private Connection connection;
@@ -12,8 +15,10 @@ public class UserDao {
 	private String query;
 
 	public void saveUser(User user) {
-		String hashedPassword = SHA256.toSHA256(user.getPassword());
-		query = "INSERT INTO `users` (`login`, `password`, `admin`) VALUES ('" + user.getLogin() + "', '" + hashedPassword + "', '" + (user.isAdmin() ? 1 : 0) + "');";
+		String salt = generateSalt();
+		user.setSalt(salt);
+		String hashedPassword = SHA256.toSHA256(user.getPassword() + salt);
+		query = "INSERT INTO `users` (`login`, `password`, `salt`, `admin`) VALUES ('" + user.getLogin() + "', '" + hashedPassword + "', '" + salt + "', '" + (user.isAdmin() ? 1 : 0) + "');";
 		try {
 			this.connection = DataBaseUtil.connect();
 			this.statement = connection.createStatement();
@@ -33,7 +38,7 @@ public class UserDao {
 			this.statement = connection.createStatement();
 			ResultSet result = this.statement.executeQuery(query);
 			result.next();
-			user = new User(login, result.getString("password"), result.getBoolean("admin"));
+			user = new User(login, result.getString("password"), result.getString("salt"), result.getBoolean("admin"));
 			this.statement.close();
 			this.connection.close();
 		} catch (SQLException e) {
