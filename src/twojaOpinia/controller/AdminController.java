@@ -1,5 +1,7 @@
 package twojaOpinia.controller;
 
+import static twojaOpinia.util.SaltUtil.generateSalt;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -26,10 +28,11 @@ public class AdminController {
     @FXML
     private void handleCreateUser() {
         String username = userNameField.getText();
+        String salt = generateSalt();
         String password = userPasswordField.getText();
         System.out.println("Creating user: " + username);
         
-        User user = new User(username, password, false);      
+        User user = new User(username, password, salt, false);
         UserDao userDao = new UserDao();
         
         userDao.saveUser(user);

@@ -38,7 +38,7 @@ public class LoginController {
         }
 
         User user = userDao.findUser(login);
-        if (user == null || !user.getPassword().equals(SHA256.toSHA256(password))) {
+        if (user == null || !user.getPassword().equals(SHA256.toSHA256(password + user.getSalt()))) {
             errorMess.setText("Nieprawidłowe dane logowania");
             return;
         } else {
