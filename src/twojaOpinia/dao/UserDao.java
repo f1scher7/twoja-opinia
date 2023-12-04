@@ -6,12 +6,12 @@ import twojaOpinia.util.SHA256;
 
 import java.sql.*;
 
-public class UserDao {
+public class UserDao implements InterfaceDAO<User, String>{
 	private Connection connection;
 	private Statement statement;
 	private String query;
 
-	public void saveUser(User user) {
+	public void insert(User user) {
 		String hashedPassword = SHA256.toSHA256(user.getPassword());
 		query = "INSERT INTO `users` (`login`, `password`, `admin`) VALUES ('" + user.getLogin() + "', '" + hashedPassword + "', '" + (user.isAdmin() ? 1 : 0) + "');";
 		try {
@@ -25,7 +25,7 @@ public class UserDao {
 		}
 	}
 
-	public User findUser(String login) {
+	public User getByID(String login) {
 		User user = null;
 		query = "SELECT * FROM `users` WHERE users.login = '" + login + "'";
 		try {

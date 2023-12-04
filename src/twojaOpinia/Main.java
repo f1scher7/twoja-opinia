@@ -1,6 +1,10 @@
 package twojaOpinia;
 
+import twojaOpinia.dao.SurveyDao;
 import twojaOpinia.dao.UserDao;
+import twojaOpinia.model.Answer;
+import twojaOpinia.model.Question;
+import twojaOpinia.model.Survey;
 import twojaOpinia.model.User;
 import twojaOpinia.util.SHA256;
 
@@ -24,35 +28,27 @@ public class Main extends Application{
     }
 
     public static void main(String[] args) {
-        launch(args);
+        //launch(args);
 
 
-        //Testy 31.11.23
-        System.out.println("Test aplikacji Twoja Opinia");
+        //Testy 04.12
         
-        User user = new User("admin3", "admin", false);
+        User user = new User("admin", "admin", true);
+        Survey ankieta = new Survey(user, "Test nr 2", "Wielki test dzialania DAO");
         
-        Scanner scan = new Scanner(System.in);
+        ankieta.getQuestions().add(new Question(0, "Pytanie 1"));
+        ankieta.getQuestions().elementAt(0).getAnswers().add(new Answer(0, "Odpowiedz 1"));
+        ankieta.getQuestions().elementAt(0).getAnswers().add(new Answer(1, "Odpowiedz 2"));
+        ankieta.getQuestions().add(new Question(1, "Pytanie 2"));
+        ankieta.getQuestions().elementAt(1).getAnswers().add(new Answer(0, "Odpowiedz 1"));
+        ankieta.getQuestions().elementAt(1).getAnswers().add(new Answer(1, "Odpowiedz 2"));
         
-        String login = scan.next();
-        String password = scan.next();
         
-        if(user.getLogin().equals(login))
-        {
-
-        	String passwordSHA256 = SHA256.toSHA256(password);
-        	if(user.getPassword().equals(password))
-        	{
-        		System.out.println("Zalogowany pomyślnie");
-        	}
-        }
+        SurveyDao surveyDao = new SurveyDao();
         
-        UserDao userDao = new UserDao();
-        userDao.saveUser(user);
+        surveyDao.insert(ankieta);
         
-        User user2 = userDao.findUser("admin");
-        System.out.println(user2.getPassword());
         
-        scan.close();
+        
     }
 }

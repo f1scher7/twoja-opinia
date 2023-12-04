@@ -32,7 +32,7 @@ public class AdminController {
         User user = new User(username, password, false);      
         UserDao userDao = new UserDao();
         
-        userDao.saveUser(user);
+        userDao.insert(user);
         
     }
 
