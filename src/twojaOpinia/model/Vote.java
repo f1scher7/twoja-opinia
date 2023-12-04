@@ -3,6 +3,12 @@
 
 package twojaOpinia.model;
 
+import java.util.Vector;
+
 public class Vote {
+	
+	private User author;
+	private String answer;
+
 
 }
