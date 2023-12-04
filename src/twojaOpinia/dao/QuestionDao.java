@@ -1,9 +1,6 @@
 package twojaOpinia.dao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import twojaOpinia.model.Question;
 import twojaOpinia.util.DataBaseUtil;
@@ -16,28 +13,24 @@ public class QuestionDao implements InterfaceDAO<Question, Integer>{
 
 	@Override
 	public void insert(Question input) {
-		String query = "INSERT INTO `questions` (`id`, `survey_id`, `question_text`, `question_order`) VALUES (NULL, '" +
-				input.getSurveyID() + "','" + input.getQuestionText() + "','" + input.getOrder() + "') ";
-		try {
-			Connection connection = DataBaseUtil.connect();
-			Statement statement = connection.createStatement();
-			statement.executeUpdate(query);
+		String query = "INSERT INTO `questions` (`survey_id`, `question_text`, `question_order`) VALUES (?, ?, ?)";
+		try (Connection connection = DataBaseUtil.connect()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setInt(1, input.getSurveyID());
+			preparedStatement.setString(2, input.getQuestionText());
+			preparedStatement.setInt(3, input.getOrder());
+			preparedStatement.executeUpdate();
 
-			query = "SELECT id FROM `questions` ORDER BY id DESC LIMIT 1";
-			ResultSet result = statement.executeQuery(query);
-			result.next();
-			
-			int id = result.getInt("id");
-			
-			AnswerDao aDao = new AnswerDao();
-			
-			for(int i = 0; i < input.getAnswers().size(); i++) {
-				input.getAnswers().elementAt(i).setQuestionID(id);
-				aDao.insert(input.getAnswers().elementAt(i));
+			ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+
+			if(generatedKeys.next()) {
+				int id = generatedKeys.getInt(1);
+				AnswerDao answerDao = new AnswerDao();
+				for(int i = 0; i < input.getAnswers().size(); i++) {
+					input.getAnswers().elementAt(i).setQuestionID(id);
+					answerDao.insert(input.getAnswers().elementAt(i));
+				}
 			}
-			statement.close();
-			connection.close();
-
 		} catch (SQLException e) {
 			//TO_DO
 			e.printStackTrace();
