@@ -7,25 +7,21 @@ public class Question {
 	private int surveyID;
 	private int order;
 	private String questionText;
-	
 	private Vector <Answer> answers;
 	
-	Question()
-	{
+	Question() {
 		this.setSurveyID(-1);
 		this.order = -1;
 		this.questionText = "";
 		this.answers = new Vector<Answer>();
 	}
 	
-	public Question(int order, String questionText)
-	{
+	public Question(int order, String questionText) {
 		this.setSurveyID(-1);
 		this.order = order;
 		this.questionText = questionText;
 		this.answers = new Vector<Answer>();
 	}
-
 
 	public int getOrder() {
 		return order;
@@ -58,5 +54,4 @@ public class Question {
 	public void setSurveyID(int surveyID) {
 		this.surveyID = surveyID;
 	}
-
 }

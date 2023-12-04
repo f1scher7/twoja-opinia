@@ -8,7 +8,6 @@ import twojaOpinia.util.SHA256;
 import java.sql.*;
 
 public class UserDao implements InterfaceDAO<User, String>{
-
 	private Connection connection;
 	private Statement statement;
 	private String query;

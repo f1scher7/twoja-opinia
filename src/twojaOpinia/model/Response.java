@@ -6,15 +6,13 @@ public class Response {
 	private int answerID;
 	private User user;
 	
-	Response()
-	{
+	Response() {
 		this.setSurveyID(-1);
 		this.answerID = -1;
 		this.user = null;
 	}
 	
-	public Response(int answerID, User user)
-	{
+	public Response(int answerID, User user) {
 		this.setSurveyID(-1);
 		this.answerID = answerID;
 		this.user = user;

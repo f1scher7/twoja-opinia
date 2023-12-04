@@ -14,11 +14,6 @@ import twojaOpinia.util.DataBaseUtil;
 import twojaOpinia.util.SHA256;
 
 public class SurveyDao implements InterfaceDAO<Survey, Integer>{
-
-	private Connection connection;
-	private Statement statement;
-	private String query;
-	
 	@Override
 	public Survey getByID(Integer id) {
 		
@@ -28,16 +23,16 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 
 	@Override
 	public void insert(Survey input) {
-		
-		query = "INSERT INTO `surveys`(`id`, `author`, `title`, `description`) VALUES (null, + '" +
+
+		String query = "INSERT INTO `surveys`(`id`, `author`, `title`, `description`) VALUES (null, + '" +
 				input.getAuthor().getLogin() + "','" + input.getTitle() + "','" + input.getDescription() + "')";
 		try {
-			this.connection = DataBaseUtil.connect();
-			this.statement = connection.createStatement();
-			this.statement.executeUpdate(query);
+			Connection connection = DataBaseUtil.connect();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
 
 			query = "SELECT id FROM `surveys` ORDER BY id DESC LIMIT 1";
-			ResultSet result = this.statement.executeQuery(query);
+			ResultSet result = statement.executeQuery(query);
 			result.next();
 			
 			int id = result.getInt("id");
@@ -50,8 +45,8 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 				qDao.insert(input.getQuestions().elementAt(i));
 			}
 			
-			this.statement.close();
-			this.connection.close();
+			statement.close();
+			connection.close();
 			
 		} catch (SQLException e) {
 			//TO_DO

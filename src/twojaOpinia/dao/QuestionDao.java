@@ -9,46 +9,35 @@ import twojaOpinia.model.Question;
 import twojaOpinia.util.DataBaseUtil;
 
 public class QuestionDao implements InterfaceDAO<Question, Integer>{
-
-	private Connection connection;
-	private Statement statement;
-	private String query;
-	
 	@Override
 	public Question getByID(Integer id) {
 		return null;
-
-		
 	}
 
 	@Override
 	public void insert(Question input) {
-		query = "INSERT INTO `questions` (`id`, `survey_id`, `question_text`, `question_order`) VALUES (NULL, '" +
-		input.getSurveyID() + "','" + input.getQuestionText() + "','" + input.getOrder() + "') ";
+		String query = "INSERT INTO `questions` (`id`, `survey_id`, `question_text`, `question_order`) VALUES (NULL, '" +
+				input.getSurveyID() + "','" + input.getQuestionText() + "','" + input.getOrder() + "') ";
 		try {
-			this.connection = DataBaseUtil.connect();
-			this.statement = connection.createStatement();
-			this.statement.executeUpdate(query);
+			Connection connection = DataBaseUtil.connect();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
 
 			query = "SELECT id FROM `questions` ORDER BY id DESC LIMIT 1";
-			ResultSet result = this.statement.executeQuery(query);
+			ResultSet result = statement.executeQuery(query);
 			result.next();
 			
 			int id = result.getInt("id");
 			
 			AnswerDao aDao = new AnswerDao();
 			
-			for(int i = 0; i < input.getAnswers().size(); i++)
-			{
+			for(int i = 0; i < input.getAnswers().size(); i++) {
 				input.getAnswers().elementAt(i).setQuestionID(id);
 				aDao.insert(input.getAnswers().elementAt(i));
-				
 			}
-			
-			this.statement.close();
-			this.connection.close();
-			
-			
+			statement.close();
+			connection.close();
+
 		} catch (SQLException e) {
 			//TO_DO
 			e.printStackTrace();
