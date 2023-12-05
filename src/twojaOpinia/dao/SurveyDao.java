@@ -4,21 +4,13 @@
 
 package twojaOpinia.dao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import twojaOpinia.model.Survey;
 import twojaOpinia.util.DataBaseUtil;
 import twojaOpinia.util.SHA256;
 
 public class SurveyDao implements InterfaceDAO<Survey, Integer>{
-
-	private Connection connection;
-	private Statement statement;
-	private String query;
-	
 	@Override
 	public Survey getByID(Integer id) {
 		
@@ -28,36 +20,28 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 
 	@Override
 	public void insert(Survey input) {
-		
-		query = "INSERT INTO `surveys`(`id`, `author`, `title`, `description`) VALUES (null, + '" +
-				input.getAuthor().getLogin() + "','" + input.getTitle() + "','" + input.getDescription() + "')";
-		try {
-			this.connection = DataBaseUtil.connect();
-			this.statement = connection.createStatement();
-			this.statement.executeUpdate(query);
 
-			query = "SELECT id FROM `surveys` ORDER BY id DESC LIMIT 1";
-			ResultSet result = this.statement.executeQuery(query);
-			result.next();
-			
-			int id = result.getInt("id");
-			
-			QuestionDao qDao = new QuestionDao();
-			
-			for(int i = 0; i < input.getQuestions().size(); i++)
-			{
-				input.getQuestions().elementAt(i).setSurveyID(id);
-				qDao.insert(input.getQuestions().elementAt(i));
+		String query = "INSERT INTO `surveys`(`author`, `title`, `description`) VALUES (?, ?, ?)";
+		try (Connection connection = DataBaseUtil.connect()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(1, input.getAuthor().getLogin());
+			preparedStatement.setString(2, input.getTitle());
+			preparedStatement.setString(3, input.getDescription());
+			preparedStatement.executeUpdate();
+
+			ResultSet resultSet = preparedStatement.getGeneratedKeys();
+
+			if (resultSet.next()) {
+				int id = resultSet.getInt(1);
+				QuestionDao questionDao = new QuestionDao();
+				for (int i = 0; i < input.getQuestions().size(); i++) {
+					input.getQuestions().elementAt(i).setSurveyID(id);
+					questionDao.insert(input.getQuestions().elementAt(i));
+				}
 			}
-			
-			this.statement.close();
-			this.connection.close();
-			
 		} catch (SQLException e) {
 			//TO_DO
 			e.printStackTrace();
 		}
-		
 	}
-
 }

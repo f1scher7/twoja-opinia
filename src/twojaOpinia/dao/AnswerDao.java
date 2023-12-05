@@ -1,6 +1,7 @@
 package twojaOpinia.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -8,11 +9,6 @@ import twojaOpinia.model.Answer;
 import twojaOpinia.util.DataBaseUtil;
 
 public class AnswerDao implements InterfaceDAO<Answer, Integer>{
-	
-	private Connection connection;
-	private Statement statement;
-	private String query;
-
 	@Override
 	public Answer getByID(Integer id) {
 		// TODO Auto-generated method stub
@@ -21,19 +17,16 @@ public class AnswerDao implements InterfaceDAO<Answer, Integer>{
 
 	@Override
 	public void insert(Answer input) {
-		query = "INSERT INTO `answers` (`id`, `question_id`, `answer_text`, `answer_order`) VALUES (NULL, '" 
-		+ input.getQuestionID() + "','" + input.getAnswerText() +  "','" + input.getOrder() + "') ";
-		try {
-			this.connection = DataBaseUtil.connect();
-			this.statement = connection.createStatement();
-			this.statement.executeUpdate(query);
-			this.statement.close();
-			this.connection.close();
-			
+		String query = "INSERT INTO `answers` (`question_id`, `answer_text`, `answer_order`) VALUES (?, ?, ?)";
+		try (Connection connection = DataBaseUtil.connect()){
+			PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setInt(1, input.getQuestionID());
+			preparedStatement.setString(2, input.getAnswerText());
+			preparedStatement.setInt(3, input.getOrder());
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			//TO_DO
 			e.printStackTrace();
 		}
 	}
-
 }

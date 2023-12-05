@@ -10,30 +10,23 @@ public class Survey {
 	private User author;
 	private String title;
 	private String description;
-	
 	private Vector <Question> questions;
 	private Vector <Response> responses;
 
-	
-	
-	Survey()
-	{
+	Survey() {
 		this.author = null;
 		this.title = "";
 		this.description = "";
 		this.questions = new Vector<Question>();
 		this.responses = new Vector<Response>();
-
 	}
 	
-	public Survey(User author, String title, String description)
-	{
+	public Survey(User author, String title, String description) {
 		this.author = author;
 		this.title = title;
 		this.description = description;
 		this.questions = new Vector<Question>();
 		this.responses = new Vector<Response>();
-
 	}
 
 	public User getAuthor() {
@@ -75,5 +68,4 @@ public class Survey {
 	public void setResponses(Vector<Response> responses) {
 		this.responses = responses;
 	}
-	
 }

@@ -5,22 +5,18 @@ public class Answer {
 	private int questionID;
 	private int order;
 	private String answerText;
-	
-	Answer()
-	{
+
+	Answer() {
 		this.setQuestionID(-1);
 		this.order = -1;
 		this.answerText = "";
 	}
 	
-	public Answer(int order, String answerText)
-	{
+	public Answer(int order, String answerText) {
 		this.setQuestionID(-1);
 		this.order = order;
 		this.answerText = answerText;
 	}
-
-
 
 	public int getOrder() {
 		return order;
@@ -45,5 +41,4 @@ public class Answer {
 	public void setQuestionID(int questionID) {
 		this.questionID = questionID;
 	}
-
 }
