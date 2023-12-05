@@ -27,37 +27,37 @@ public class Main extends Application{
     }
 
     public static void main(String[] args) {
-        //launch(args);
+        launch(args);
 
 
         //Testy 04.12
     	
-        String testLogin = "KazioF1scher";
-        String testPassword = "Kazio";
-        String salt = generateSalt();
-        boolean testIsAdmin = true;
-        
-    	User user = new User(testLogin, testPassword, salt, testIsAdmin);
-    	
-        Survey ankieta = new Survey(user, "Test nr 2", "Wielki test dzialania DAO");
-        
-        ankieta.getQuestions().add(new Question(0, "Pytanie 1"));
-        ankieta.getQuestions().elementAt(0).getAnswers().add(new Answer(0, "Odpowiedz 1"));
-        ankieta.getQuestions().elementAt(0).getAnswers().add(new Answer(1, "Odpowiedz 2"));
-        ankieta.getQuestions().add(new Question(1, "Pytanie 2"));
-        ankieta.getQuestions().elementAt(1).getAnswers().add(new Answer(0, "Odpowiedz 1"));
-        ankieta.getQuestions().elementAt(1).getAnswers().add(new Answer(1, "Odpowiedz 2"));
-        
-        
-        SurveyDao surveyDao = new SurveyDao();
-        
-        surveyDao.insert(ankieta);
-
-        System.out.println("Test aplikacji Twoja Opinia");
-
-        UserDao userDao = new UserDao();
-        userDao.insert(user);
-        System.out.println("Użytkownik dodany pomyślnie");
+//        String testLogin = "KazioF1scher";
+//        String testPassword = "Kazio";
+//        String salt = generateSalt();
+//        boolean testIsAdmin = true;
+//        
+//    	User user = new User(testLogin, testPassword, salt, testIsAdmin);
+//    	
+//        Survey ankieta = new Survey(user, "Test nr 2", "Wielki test dzialania DAO");
+//        
+//        ankieta.getQuestions().add(new Question(0, "Pytanie 1"));
+//        ankieta.getQuestions().elementAt(0).getAnswers().add(new Answer(0, "Odpowiedz 1"));
+//        ankieta.getQuestions().elementAt(0).getAnswers().add(new Answer(1, "Odpowiedz 2"));
+//        ankieta.getQuestions().add(new Question(1, "Pytanie 2"));
+//        ankieta.getQuestions().elementAt(1).getAnswers().add(new Answer(0, "Odpowiedz 1"));
+//        ankieta.getQuestions().elementAt(1).getAnswers().add(new Answer(1, "Odpowiedz 2"));
+//        
+//        
+//        SurveyDao surveyDao = new SurveyDao();
+//        
+//        surveyDao.insert(ankieta);
+//
+//        System.out.println("Test aplikacji Twoja Opinia");
+//
+//        UserDao userDao = new UserDao();
+//        userDao.insert(user);
+//        System.out.println("Użytkownik dodany pomyślnie");
 
     }
 }
