@@ -5,10 +5,7 @@
 package twojaOpinia.service;
 
 public class UserService {
-
-	public static void login(String login, String password)
-	{
-		
+	public boolean correctPassword(String password) {
+		return true;
 	}
-	
 }
