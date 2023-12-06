@@ -27,22 +27,24 @@ public class Main extends Application{
     }
 
     public static void main(String[] args) {
-        //launch(args);
+        launch(args);
 
+        SurveyDao surveyDao = new SurveyDao();
+        UserDao userDao = new UserDao();
 
         //Testy 04.12
-    	/*
-        String testLogin = "KazioF1scher";
+        /*
+        String testLogin = "Kazio00000000000000F1scher";
         String testPassword = "Kazio";
         String salt = generateSalt();
         boolean testIsAdmin = true;
         
     	User user = new User(testLogin, testPassword, salt, testIsAdmin);
-    	UserDao userDao = new UserDao();
         userDao.insert(user);
         System.out.println("Użytkownik dodany pomyślnie");
-    	*/
+        */
 
+        /*
         System.out.println("Test aplikacji Twoja Opinia");
 
         String testLogin = "KazioF1scher";
@@ -52,18 +54,23 @@ public class Main extends Application{
 
         User user = new User(testLogin, testPassword, salt, testIsAdmin);
 
-        Survey ankieta = new Survey(user, "Test nr 2", "Wielki test dzialania DAO");
+        Survey ankieta = new Survey(user.getLogin(), "Test nr 3", "Wielki test dzialania DAO");
         
         ankieta.getQuestions().add(new Question(0, "Pytanie 1"));
-        ankieta.getQuestions().elementAt(0).getAnswers().add(new Answer(0, "Odpowiedz 1"));
-        ankieta.getQuestions().elementAt(0).getAnswers().add(new Answer(1, "Odpowiedz 2"));
+        ankieta.getQuestions().get(0).getAnswers().add(new Answer(0, "Odpowiedz 1"));
+        ankieta.getQuestions().get(0).getAnswers().add(new Answer(1, "Odpowiedz 2"));
         ankieta.getQuestions().add(new Question(1, "Pytanie 2"));
-        ankieta.getQuestions().elementAt(1).getAnswers().add(new Answer(0, "Odpowiedz 1"));
-        ankieta.getQuestions().elementAt(1).getAnswers().add(new Answer(1, "Odpowiedz 2"));
-        
-        
-        SurveyDao surveyDao = new SurveyDao();
-        
+        ankieta.getQuestions().get(1).getAnswers().add(new Answer(0, "Odpowiedz 1"));
+        ankieta.getQuestions().get(1).getAnswers().add(new Answer(1, "Odpowiedz 2"));
+
         surveyDao.insert(ankieta);
+        */
+
+        //Test 06.12.2023
+        /*
+        System.out.println(surveyDao.getByID(24));
+        System.out.println();
+        System.out.println(userDao.getByLogin("testUser1"));
+        */
     }
 }
