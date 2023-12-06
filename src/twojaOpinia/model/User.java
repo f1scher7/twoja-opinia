@@ -26,31 +26,28 @@ public class User {
 		this.admin = admin;
 	}
 
-	public String getLogin() {
-		return login;
-	}
+	public String getLogin() { return login; }
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+	public void setLogin(String login) { this.login = login; }
 
-	public String getPassword() {
-		return this.password;
-	}
+	public String getPassword() { return this.password; }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	public void setPassword(String password) { this.password = password; }
 
 	public String getSalt() { return this.salt; }
 
 	public void setSalt(String salt) { this.salt = salt; }
 
-	public boolean isAdmin() {
-		return admin;
-	}
+	public boolean isAdmin() { return admin; }
 
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
+	public void setAdmin(boolean admin) { this.admin = admin; }
+
+	@Override
+	public String toString() {
+		return "===========================================\n" +
+				"DANE UŻYTKOWNIKA\n" +
+				"Login: " + this.login +
+				"\nPassword: " + this.password +
+				"\n===========================================";
 	}
 }

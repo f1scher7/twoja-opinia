@@ -3,69 +3,59 @@
 
 package twojaOpinia.model;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Survey {
 	
-	private User author;
+	private String authorLogin;
 	private String title;
 	private String description;
-	private Vector <Question> questions;
-	private Vector <Response> responses;
+	private ArrayList <Question> questions;
+	private ArrayList <Response> responses;
 
 	Survey() {
-		this.author = null;
+		this.authorLogin = null;
 		this.title = "";
 		this.description = "";
-		this.questions = new Vector<Question>();
-		this.responses = new Vector<Response>();
+		this.questions = new ArrayList<>();
+		this.responses = new ArrayList<>();
 	}
 	
-	public Survey(User author, String title, String description) {
-		this.author = author;
+	public Survey(String authorLogin, String title, String description) {
+		this.authorLogin = authorLogin;
 		this.title = title;
 		this.description = description;
-		this.questions = new Vector<Question>();
-		this.responses = new Vector<Response>();
+		this.questions = new ArrayList<>();
+		this.responses = new ArrayList<>();
 	}
 
-	public User getAuthor() {
-		return author;
-	}
+	public String getAuthorLogin() { return this.authorLogin; }
 
-	public void setAuthor(User author) {
-		this.author = author;
-	}
+	public void setAuthor(String authorLogin) { this.authorLogin = authorLogin; }
 
-	public String getTitle() {
-		return title;
-	}
+	public String getTitle() { return title; }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+	public void setTitle(String title) { this.title = title; }
 
-	public String getDescription() {
-		return description;
-	}
+	public String getDescription() { return description; }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	public void setDescription(String description) { this.description = description; }
 
-	public Vector<Question> getQuestions() {
-		return questions;
-	}
+	public ArrayList<Question> getQuestions() { return questions; }
 
-	public void setQuestions(Vector<Question> questions) {
-		this.questions = questions;
-	}
+	public void setQuestions(ArrayList<Question> questions) { this.questions = questions; }
 
-	public Vector<Response> getResponses() {
-		return responses;
-	}
+	public ArrayList<Response> getResponses() { return responses; }
 
-	public void setResponses(Vector<Response> responses) {
-		this.responses = responses;
+	public void setResponses(ArrayList<Response> responses) { this.responses = responses; }
+
+	@Override
+	public String toString() {
+		return "===========================================\n" +
+				"DANE ANKIETY\n" +
+				"Autor: " + this.authorLogin +
+				"\nNazwa: " + this.title +
+				"\nOpis: " + this.description +
+				"\n===========================================";
 	}
 }
