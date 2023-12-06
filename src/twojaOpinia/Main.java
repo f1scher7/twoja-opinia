@@ -33,6 +33,7 @@ public class Main extends Application{
         UserDao userDao = new UserDao();
 
         //Testy 04.12
+<<<<<<< HEAD
         /*
         String testLogin = "Kazio00000000000000F1scher";
         String testPassword = "Kazio";
@@ -43,6 +44,8 @@ public class Main extends Application{
         userDao.insert(user);
         System.out.println("Użytkownik dodany pomyślnie");
         */
+=======
+>>>>>>> 493d50656834e391dfedf927a55046387d3a58b1
 
         /*
         System.out.println("Test aplikacji Twoja Opinia");
