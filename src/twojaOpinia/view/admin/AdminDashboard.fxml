@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="360.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twojaOpinia.controller.AdminController">
-    <padding>
-        <Insets bottom="20" left="20" right="20" top="20" />
-    </padding>
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twojaOpinia.controller.AdminController">
+    <left>
+        <VBox alignment="TOP_LEFT" spacing="10" style="-fx-background-color: #3c3c3c;" BorderPane.alignment="CENTER">
+            <StackPane />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 27px;" text="TwojaOpinia" textAlignment="JUSTIFY">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="85.0" prefWidth="203.0" spacing="10">
+                <Circle fx:id="userImage" fill="WHITE" radius="37.0" />
+                <Label fx:id="userName" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="59.0" style="-fx-text-fill: #ffffff;" text="Admin" />
+            </HBox>
+            <VBox alignment="CENTER" spacing="10">
+                <Button fx:id="zarzadzajAnkietamiButton" minWidth="150" prefHeight="37.0" prefWidth="176.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-margin: 10 25 10 0;" text="Zarządzaj Ankietami" />
+                <Button fx:id="analizujWynikiButton" minWidth="150" prefHeight="37.0" prefWidth="176.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 16px; -fx-margin: 10 25 10 0;" text="Analizuj Wyniki" />
+                <Button fx:id="zarzadzajUzytkownikamiButton" minWidth="150" prefHeight="37.0" prefWidth="176.0" style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-size: 16px; -fx-margin: 10 25 10 0;" text="Zarządzaj Użytkownikami" />
+                <Button fx:id="logout" minWidth="150" prefHeight="37.0" prefWidth="176.0" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 16px; -fx-margin: 10 25 10 0;" text="Wyloguj" onAction="#logout"/>
+            </VBox>
+        </VBox>
+    </left>
 
     <center>
-        <VBox alignment="CENTER" spacing="20">
-            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Admin Dashboard" />
-
-            <HBox alignment="CENTER" spacing="10">
-                <Label text="Username:" />
-                <TextField fx:id="userNameField" promptText="Enter username" />
-            </HBox>
-
-            <HBox alignment="CENTER" spacing="10">
-                <Label text="Password:" />
-                <TextField fx:id="userPasswordField" promptText="Enter password" />
-            </HBox>
-            
-            <HBox alignment="CENTER" spacing="10">
-            	<Button fx:id="createSurveyButton" onAction="#handleCreateUser" text="Create User" />
-            </HBox>
+        <VBox fx:id="contentPane" alignment="CENTER" spacing="20" BorderPane.alignment="CENTER">
+            <Text style="-fx-font-size: 20px; -fx-fill: #333333;" text="      BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN!" wrappingWidth="746.9921875" />
         </VBox>
     </center>
-
 </BorderPane>
