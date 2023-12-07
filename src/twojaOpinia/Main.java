@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 
 import java.util.Objects;
 
@@ -22,7 +23,10 @@ public class Main extends Application{
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view/login/LoginView.fxml")));
         primaryStage.setTitle("TwojaOpinia");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 400, 350));
+
+        Image image = new Image("file:src/twojaOpinia/img/iconTwojaOpinia.png");
+        primaryStage.getIcons().add(image);
         primaryStage.show();
     }
 
