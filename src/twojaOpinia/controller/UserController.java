@@ -7,11 +7,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import twojaOpinia.dao.UserDao;
-import twojaOpinia.model.User;
 
 import java.io.IOException;
 import java.util.Objects;
+
+import twojaOpinia.dao.UserDao;
+import twojaOpinia.model.User;
+
+import static twojaOpinia.util.JavaFXMethods.centerStage;
 
 public class UserController {
     @FXML
@@ -20,9 +23,10 @@ public class UserController {
     private void logout() {
         try {
             Parent login = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/login/LoginView.fxml")));
-            Scene scene = new Scene(login);
+            Scene scene = new Scene(login, 400, 350);
             Stage stage = (Stage) logout.getScene().getWindow();
             stage.setScene(scene);
+            centerStage(stage);
         } catch (IOException e) {
             e.printStackTrace();
         }
