@@ -5,6 +5,7 @@ import twojaOpinia.util.DataBaseUtil;
 import static twojaOpinia.util.SaltUtil.generateSalt;
 import twojaOpinia.util.SHA256;
 
+import java.io.IOException;
 import java.sql.*;
 
 public class UserDao implements InterfaceDAO<User, String>{
@@ -44,5 +45,21 @@ public class UserDao implements InterfaceDAO<User, String>{
 			System.out.println("Nie ma takiego użytkownika");
 		}
 		return user;
+	}
+
+	public int getUserCount() {
+		int res = 0;
+		String query = "SELECT COUNT(*) AS usercount FROM `users` WHERE users.admin = 0";
+		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					res = resultSet.getInt("usercount");
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("Błąd podczas pobierania liczby użytkowników: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return res;
 	}
 }
