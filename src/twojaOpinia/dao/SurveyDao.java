@@ -54,4 +54,19 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 			e.printStackTrace();
 		}
 	}
+	public int getSurveyCount() {
+		int res = 0;
+		String query = "SELECT COUNT(*) AS surveycount FROM `surveys`";
+		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					res = resultSet.getInt("surveycount");
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("Błąd podczas pobierania liczby ankiet: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return res;
+	}
 }
