@@ -1,0 +1,27 @@
+.buttonLogin {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-margin: 10 25 10 0;
+}
+
+.buttonRegistration {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-margin: 10 25 10 0;
+}
+
+.buttonLogin:hover {
+    -fx-background-color: #66BB6A;
+}
+
+.buttonRegistration:hover {
+    -fx-background-color: #42A5F5;
+}
+
+#loginBorderPane {
+    -fx-background-image: url('img/logowanie.jpg');
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
