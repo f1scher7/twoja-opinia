@@ -5,9 +5,10 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twojaOpinia.controller.AdminController">
+
+<BorderPane fx:id="borderPaneAdmin" prefHeight="600.0" prefWidth="800.0" stylesheets="@adminStyles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twojaOpinia.controller.AdminController">
     <left>
-        <VBox alignment="TOP_LEFT" spacing="10" style="-fx-background-color: #3c3c3c;" BorderPane.alignment="CENTER">
+        <VBox alignment="TOP_LEFT" spacing="10" style="-fx-background-color: rgba(81, 99, 187, 0.5);" BorderPane.alignment="CENTER">
             <StackPane />
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 27px;" text="TwojaOpinia" textAlignment="JUSTIFY">
                 <font>
@@ -16,20 +17,35 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="85.0" prefWidth="203.0" spacing="10">
                 <Circle fx:id="userImage" fill="WHITE" radius="37.0" />
-                <Label fx:id="userName" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="59.0" style="-fx-text-fill: #ffffff;" text="Admin" />
+                <Label fx:id="userName" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="59.0" style="-fx-text-fill: #ffffff;" text="Admin">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
             </HBox>
             <VBox alignment="CENTER" spacing="10">
-                <Button fx:id="zarzadzajAnkietamiButton" minWidth="150" prefHeight="37.0" prefWidth="176.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-margin: 10 25 10 0;" text="Zarządzaj Ankietami" />
-                <Button fx:id="analizujWynikiButton" minWidth="150" prefHeight="37.0" prefWidth="176.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 16px; -fx-margin: 10 25 10 0;" text="Analizuj Wyniki" />
-                <Button fx:id="zarzadzajUzytkownikamiButton" minWidth="150" prefHeight="37.0" prefWidth="176.0" style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-size: 16px; -fx-margin: 10 25 10 0;" text="Zarządzaj Użytkownikami" />
-                <Button fx:id="logout" minWidth="150" prefHeight="37.0" prefWidth="176.0" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 16px; -fx-margin: 10 25 10 0;" text="Wyloguj" onAction="#logout"/>
+                <Button fx:id="manageSurveyButtonMenu" minWidth="150" onAction="#handleManageSurvey" prefHeight="37.0" prefWidth="176.0" styleClass="button1" text="Zarządzaj Ankietami" />
+                <Button fx:id="analizujWynikiButton" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button2" text="Analizuj Wyniki" />
+                <Button fx:id="zarzadzajUzytkownikamiButton" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button3" text="Zarządzaj Użytkownikami" />
+                <Button fx:id="logoutButtonMenu" minWidth="150" onAction="#logout" prefHeight="37.0" prefWidth="176.0" styleClass="button4" text="Wyloguj" />
             </VBox>
         </VBox>
     </left>
 
     <center>
-        <VBox fx:id="contentPane" alignment="CENTER" spacing="20" BorderPane.alignment="CENTER">
-            <Text style="-fx-font-size: 20px; -fx-fill: #333333;" text="      BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN!" wrappingWidth="746.9921875" />
+        <VBox alignment="CENTER" spacing="20" BorderPane.alignment="CENTER">
+
+            <Label fx:id="userCountLabel" style="-fx-text-fill: #ffffff;" text="Liczba użytkowników: ">
+            <font>
+               <Font size="24.0" />
+            </font></Label>
+            <Label fx:id="onlineUsers" style="-fx-text-fill: #fcfcfc;" text="Użytkownicy online: #TODO">
+            <font>
+               <Font size="24.0" />
+            </font></Label>
+            <Label fx:id="surveyCountLabel" style="-fx-text-fill: #ffffff;" text="Liczba ankiet: ">
+            <font>
+               <Font size="24.0" />
+            </font></Label>
         </VBox>
     </center>
 </BorderPane>
