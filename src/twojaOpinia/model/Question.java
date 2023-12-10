@@ -9,7 +9,7 @@ public class Question {
 	private String questionText;
 	private ArrayList <Answer> answers;
 	
-	Question() {
+	public Question() {
 		this.setSurveyID(-1);
 		this.order = -1;
 		this.questionText = "";

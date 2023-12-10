@@ -6,7 +6,7 @@ public class Answer {
 	private int order;
 	private String answerText;
 
-	Answer() {
+	public Answer() {
 		this.setQuestionID(-1);
 		this.order = -1;
 		this.answerText = "";
@@ -27,7 +27,7 @@ public class Answer {
 	}
 
 	public String getAnswerText() {
-		return answerText;
+		return this.answerText;
 	}
 
 	public void setAnswerText(String answerText) {

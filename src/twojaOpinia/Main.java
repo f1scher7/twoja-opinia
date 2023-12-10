@@ -6,6 +6,8 @@ import twojaOpinia.model.Answer;
 import twojaOpinia.model.Question;
 import twojaOpinia.model.Survey;
 import twojaOpinia.model.User;
+
+import static twojaOpinia.util.JavaFXMethods.centerStage;
 import static twojaOpinia.util.SaltUtil.generateSalt;
 
 import javafx.application.Application;
@@ -24,21 +26,23 @@ public class Main extends Application{
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view/login/LoginView.fxml")));
         primaryStage.setTitle("TwojaOpinia");
         primaryStage.setScene(new Scene(root, 400, 350));
-
-        Image image = new Image("file:src/twojaOpinia/img/iconTwojaOpinia.png");
+        Image image = new Image("file:src/twojaOpinia/iconTwojaOpinia.png");
         primaryStage.getIcons().add(image);
         primaryStage.show();
+        centerStage(primaryStage);
+
     }
 
     public static void main(String[] args) {
         launch(args);
 
-        SurveyDao surveyDao = new SurveyDao();
-        UserDao userDao = new UserDao();
 
         //Testy 04.12
         /*
-        String testLogin = "Kazio00000000000000F1scher";
+        SurveyDao surveyDao = new SurveyDao();
+        UserDao userDao = new UserDao();
+
+        String testLogin = "KazioF1scher";
         String testPassword = "Kazio";
         String salt = generateSalt();
         boolean testIsAdmin = true;

@@ -13,8 +13,8 @@ public class Survey {
 	private ArrayList <Question> questions;
 	private ArrayList <Response> responses;
 
-	Survey() {
-		this.authorLogin = null;
+	public Survey() {
+		this.authorLogin = "";
 		this.title = "";
 		this.description = "";
 		this.questions = new ArrayList<>();
@@ -30,19 +30,15 @@ public class Survey {
 	}
 
 	public String getAuthorLogin() { return this.authorLogin; }
-
-	public void setAuthor(String authorLogin) { this.authorLogin = authorLogin; }
+	public void setAuthorLogin(String authorLogin) { this.authorLogin = authorLogin; }
 
 	public String getTitle() { return title; }
-
 	public void setTitle(String title) { this.title = title; }
 
 	public String getDescription() { return description; }
-
 	public void setDescription(String description) { this.description = description; }
 
 	public ArrayList<Question> getQuestions() { return questions; }
-
 	public void setQuestions(ArrayList<Question> questions) { this.questions = questions; }
 
 	public ArrayList<Response> getResponses() { return responses; }
