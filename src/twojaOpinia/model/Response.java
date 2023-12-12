@@ -6,7 +6,7 @@ public class Response {
 	private int answerID;
 	private User user;
 	
-	Response() {
+	public Response() {
 		this.setSurveyID(-1);
 		this.answerID = -1;
 		this.user = null;

@@ -6,4 +6,5 @@ module TwojaOpinia {
 
     opens twojaOpinia.controller to javafx.fxml;
     exports twojaOpinia;
+    opens twojaOpinia.controller.admin to javafx.fxml;
 }

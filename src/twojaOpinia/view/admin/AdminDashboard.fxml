@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 
 
-<BorderPane fx:id="borderPaneAdmin" prefHeight="600.0" prefWidth="800.0" stylesheets="@adminStyles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twojaOpinia.controller.AdminController">
+<BorderPane fx:id="borderPaneAdmin" prefHeight="600.0" prefWidth="800.0" stylesheets="@adminStyles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twojaOpinia.controller.admin.AdminPulpitController">
     <left>
         <VBox alignment="TOP_LEFT" spacing="10" style="-fx-background-color: rgba(81, 99, 187, 0.5);" BorderPane.alignment="CENTER">
             <StackPane />
@@ -38,7 +38,7 @@
             <font>
                <Font size="24.0" />
             </font></Label>
-            <Label fx:id="onlineUsers" style="-fx-text-fill: #fcfcfc;" text="Użytkownicy online: #TODO">
+            <Label fx:id="userOnlineCount" style="-fx-text-fill: #fcfcfc;" text="Użytkownicy online: #TODO">
             <font>
                <Font size="24.0" />
             </font></Label>

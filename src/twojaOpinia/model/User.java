@@ -12,7 +12,7 @@ public class User {
 	private String salt;
 	private boolean admin;
 	
-	User() {
+	public User() {
 		this.login = "";
 		this.password = "";
 		this.salt = "";
