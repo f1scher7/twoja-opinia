@@ -3,37 +3,23 @@ package twojaOpinia.controller.admin;
 import javafx.animation.KeyFrame;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.animation.Timeline;
-import javafx.scene.shape.Circle;
 
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Objects;
 import javafx.util.Duration;
 
 import twojaOpinia.dao.UserDao;
-import twojaOpinia.dao.AnswerDao;
-import twojaOpinia.dao.QuestionDao;
 import twojaOpinia.dao.SurveyDao;
-import twojaOpinia.model.Answer;
-import twojaOpinia.model.Question;
-import twojaOpinia.model.Survey;
 
 import static twojaOpinia.util.JavaFXMethods.centerStage;
 
-public class AdminController {
+public class AdminPulpitController {
     private UserDao userDao = new UserDao();
     private SurveyDao surveyDao = new SurveyDao();
     private Timeline timeline;
