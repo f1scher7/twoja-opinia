@@ -1,6 +1,7 @@
-package twojaOpinia.controller;
+package twojaOpinia.controller.admin;
 
-import javafx.animation.KeyFrame;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -9,70 +10,33 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.animation.Timeline;
-import javafx.scene.shape.Circle;
-
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Objects;
-import javafx.util.Duration;
 
-import twojaOpinia.dao.UserDao;
-import twojaOpinia.dao.AnswerDao;
-import twojaOpinia.dao.QuestionDao;
 import twojaOpinia.dao.SurveyDao;
+import twojaOpinia.dao.UserDao;
 import twojaOpinia.model.Answer;
 import twojaOpinia.model.Question;
 import twojaOpinia.model.Survey;
 
 import static twojaOpinia.util.JavaFXMethods.centerStage;
 
-public class AdminController {
+public class ManageSurveyController {
     private Survey survey = new Survey();
     private Question question;
     private Answer answer;
     private UserDao userDao = new UserDao();
     private SurveyDao surveyDao = new SurveyDao();
-    private QuestionDao questionDao = new QuestionDao();
-    private AnswerDao answerDao = new AnswerDao();
 
-    private ArrayList<Answer> answersList;
+    private ArrayList<Answer> answersList = new ArrayList<>();
     private ArrayList<Question> questionsList = new ArrayList<>();
     private int incAnswers = 0;
     private int incQuestions = 0;
 
-    private Timeline timeline;
-
-
-    @FXML
-    private Circle userImage;
-    @FXML
-    private ImageView userImageView;
-
-    @FXML
-    private Button manageUserButtonMenu;
-    @FXML
-    private Button manageSurveyButtonMenu;
-    @FXML
-    private Button logoutButtonMenu;
-
-    @FXML
-    private Label userCountLabel;
-    @FXML
-    private Label surveyCountLabel;
-
-    @FXML
-    private TextField userNameField;
-    @FXML
-    private TextField userPasswordField;
-
-    //SURVEY
     @FXML
     private TextField surveyTitleField;
     @FXML
@@ -86,55 +50,43 @@ public class AdminController {
     @FXML
     private Button saveSurveyButton;
 
+    @FXML
+    private Button manageUserButtonMenu;
+    @FXML
+    private Button manageSurveyButtonMenu;
+    @FXML
+    private Button logoutButtonMenu;
 
+
+    @FXML
     public void initialize() {
-        timeline = new Timeline(
-                new KeyFrame(Duration.seconds(3), event -> updateUserCount()),
-                new KeyFrame(Duration.seconds(3), event -> updateSurveyCount())
+        addAnswerButton.setOnAction(e -> addQuestion());
+        addAnswerButton.setOnAction(e -> addAnswer());
+
+        BooleanBinding isDescFieldEmpty = Bindings.createBooleanBinding(
+                () -> surveyDescriptionArea.getText().trim().isEmpty(),
+                surveyDescriptionArea.textProperty()
         );
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        if(userCountLabel != null && surveyCountLabel != null) {
-            timeline.play();
-        }
-        /*
-        String imagePath = "avatar.jpg";
-        Image image = new Image("file:" + imagePath);
-        userImageView.setImage(image);
-        userImage.setClip(userImageView);
-        */
+
+        BooleanBinding isTitleFieldEmpty = Bindings.createBooleanBinding(
+                () -> surveyTitleField.getText().trim().isEmpty(),
+                surveyTitleField.textProperty()
+        );
+
+        saveSurveyButton.disableProperty().bind(isDescFieldEmpty.or(isTitleFieldEmpty));
     }
-
-    //START WINDOW
-    @FXML
-    private void updateUserCount() {
-        if (userCountLabel != null) {
-            int userCount = userDao.getUserCount();
-            userCountLabel.setText("Liczba użytkownikow: " + userCount);
-        }
-    }
-
-    @FXML
-    private void updateSurveyCount() {
-        if (surveyCountLabel != null) {
-            int surveyCount = surveyDao.getSurveyCount();
-            surveyCountLabel.setText("Liczba stworzonych ankiet: " + surveyCount);
-        }
-    }
-
-
-    //SURVEY
-    //===================================================================================================================
 
     @FXML
     private void addAnswer() {
-        addAnswerButton.setOnAction(e -> {
-            incAnswers++;
-            addTextFieldAnswer();
-            if (incAnswers >= 2) {
-                addQuestionButton.setDisable(false);
-                addQuestionButton.setOnAction(i -> addQuestion());
-            }
-        });
+        incAnswers++;
+        addTextFieldAnswer();
+        if (incAnswers >= 2) {
+            addQuestionButton.setDisable(false);
+            addQuestionButton.setOnAction(i -> addQuestion());
+        }
+        if (incAnswers >= 2) {
+            saveSurveyButton.setDisable(false);
+        }
     }
 
     private void addTextFieldAnswer() {
@@ -145,6 +97,13 @@ public class AdminController {
         Button submitAnswerButton = new Button("Zatwierdź");
         submitAnswerButton.setStyle("-fx-min-width: 65; -fx-pref-height: 28.0; -fx-pref-width: 65.0");
         submitAnswerButton.getStyleClass().add("button5");
+
+        BooleanBinding isTextFieldEmpty = Bindings.createBooleanBinding(
+                () -> newAnswer.getText().trim().isEmpty(),
+                newAnswer.textProperty()
+        );
+
+        submitAnswerButton.disableProperty().bind(isTextFieldEmpty);
 
         submitAnswerButton.setOnAction(e -> {
             scannerAnswer(newAnswer);
@@ -163,28 +122,25 @@ public class AdminController {
 
     private void scannerAnswer(TextField answerField) {
         answer = new Answer(incAnswers, answerField.getText());
+        System.out.println(answer.getAnswerText());
         answersList.add(answer);
+        question.getAnswers().add(answer);
     }
+
 
     @FXML
     private void addQuestion() {
-        addQuestionButton.setOnAction(e -> {
-            incAnswers = 0;
-            addTextFieldQuestion();
+        incAnswers = 0;
+        addTextFieldQuestion();
 
-            addAnswerButton.setOnAction(a -> addAnswer());
-            addAnswerButton.getStyleClass().remove("lockButton");
-            addAnswerButton.getStyleClass().add("button1");
-            addAnswerButton.setDisable(false);
+        addAnswerButton.setOnAction(a -> addAnswer());
+        addAnswerButton.getStyleClass().remove("lockButton");
+        addAnswerButton.getStyleClass().add("button1");
 
-            addQuestionButton.setDisable(true);
-        });
-        if (incQuestions >= 1) {
-            survey.getQuestions().add(question);
-            for (Answer answer: answersList) {
-                survey.getQuestions().get(incQuestions - 1).getAnswers().add(answer);
-            }
-        }
+        addAnswerButton.setDisable(false);
+        saveSurveyButton.setDisable(true);
+        addQuestionButton.setDisable(true);
+
         answersList = new ArrayList<>();
     }
 
@@ -198,6 +154,12 @@ public class AdminController {
         Button submitQuestionButton = new Button("Zatwierdź");
         submitQuestionButton.setStyle("-fx-min-width: 65; -fx-pref-height: 28.0; -fx-pref-width: 65.0");
         submitQuestionButton.getStyleClass().add("button5");
+
+        BooleanBinding isTextFieldEmpty = Bindings.createBooleanBinding(
+                () -> newQuestion.getText().trim().isEmpty(),
+                newQuestion.textProperty()
+        );
+        submitQuestionButton.disableProperty().bind(isTextFieldEmpty);
 
         submitQuestionButton.setOnAction(e -> {
             scannerQuestion(newQuestion);
@@ -216,7 +178,9 @@ public class AdminController {
 
     private void scannerQuestion(TextField questionField) {
         question = new Question(incQuestions, questionField.getText());
+        System.out.println(question.getQuestionText());
         questionsList.add(question);
+        survey.getQuestions().add(question);
     }
 
     @FXML
@@ -226,6 +190,7 @@ public class AdminController {
         survey.setAuthorLogin("Maks Fischer (admin)");
         survey.setTitle(surveyTitle);
         survey.setDescription(surveyDescription);
+
         try {
             surveyDao.insert(survey);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -262,25 +227,8 @@ public class AdminController {
             e.printStackTrace();
         }
     }
-    //===================================================================================================================
-
-
     //ADMIN_MENU
-    //===================================================================================================================
-    @FXML
-    private void handleManageSurvey() {
-        try {
-            Parent manageSurvey = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/ManageSurvey.fxml")));
-            Scene scene = new Scene(manageSurvey, 1000, 600);
-            Stage stage = (Stage) manageSurveyButtonMenu.getScene().getWindow();
-            stage.setScene(scene);
-            centerStage(stage);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
-        }
-    }
-
+    // ===================================================================================================================
     @FXML
     private void logout() {
         try {
@@ -291,6 +239,8 @@ public class AdminController {
             centerStage(stage);
         } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+
         }
     }
     //===================================================================================================================
