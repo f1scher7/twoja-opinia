@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.animation.Timeline;
 
-
 import java.io.IOException;
 import java.util.Objects;
 import javafx.util.Duration;

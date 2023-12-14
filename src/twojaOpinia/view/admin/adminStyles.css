@@ -84,3 +84,15 @@
     -fx-background-image: url('img/blue-background-free-design-free-vector.jpg');
     -fx-background-size: cover;
 }
+
+#delSurveyVBox {
+    -fx-background-image: url('img/blue-background-free-design-free-vector.jpg');
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
+
+#delSurveyVBox {
+    -fx-background-image: url('img/blue-background-free-design-free-vector.jpg');
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}

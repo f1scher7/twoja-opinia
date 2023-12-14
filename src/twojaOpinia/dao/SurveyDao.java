@@ -69,4 +69,21 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 		}
 		return res;
 	}
+
+	@Override
+	public void delete(int id) {
+		String query = "DELETE FROM surveys WHERE id = ?";
+		try (Connection connection  = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			AnswerDao answerDao = new AnswerDao();
+			QuestionDao questionDao = new QuestionDao();
+			answerDao.delete(id);
+			questionDao.delete(id);
+
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Błąd podczas usuwania ankiety");
+			e.printStackTrace();
+		}
+	}
 }

@@ -62,4 +62,9 @@ public class UserDao implements InterfaceDAO<User, String>{
 		}
 		return res;
 	}
+
+	@Override
+	public void delete(int id) {
+
+	}
 }

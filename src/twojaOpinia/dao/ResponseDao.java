@@ -28,4 +28,9 @@ public class ResponseDao implements InterfaceDAO<Response, Integer>{
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void delete(int id) {
+
+	}
 }

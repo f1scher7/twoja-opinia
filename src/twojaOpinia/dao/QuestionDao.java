@@ -35,4 +35,17 @@ public class QuestionDao implements InterfaceDAO<Question, Integer>{
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void delete(int id) {
+		String query = "DELETE FROM questions WHERE survey_id = ?";
+
+		try(Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Błąd podczas usuwania pytania");
+			e.printStackTrace();
+		}
+	}
 }
