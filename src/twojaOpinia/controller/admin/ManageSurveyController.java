@@ -1,5 +1,6 @@
 package twojaOpinia.controller.admin;
 
+import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
@@ -15,10 +16,10 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
+import javafx.util.Duration;
 import twojaOpinia.dao.SurveyDao;
 import twojaOpinia.dao.UserDao;
 import twojaOpinia.model.Answer;
@@ -39,6 +40,8 @@ public class ManageSurveyController {
     private int incAnswers = 0;
     private int incQuestions = 0;
 
+    private String adminLogin;
+
     @FXML
     private TextField surveyTitleField;
     @FXML
@@ -57,9 +60,13 @@ public class ManageSurveyController {
     private Button deleteSurveyButton;
 
     @FXML
+    private Label adminLoginLabel;
+    @FXML
     private Button manageUserButtonMenu;
     @FXML
     private Button manageSurveyButtonMenu;
+    @FXML
+    private Button backToDashboardButtonMenu;
     @FXML
     private Button logoutButtonMenu;
 
@@ -69,6 +76,11 @@ public class ManageSurveyController {
         addAnswerButton.setOnAction(e -> addAnswer());
         addQuestionButton.setOnAction(e -> addQuestion());
         saveSurveyButton.setDisable(true);
+    }
+
+    public void setAdminLogin(String login) {
+        this.adminLogin = login;
+        adminLoginLabel.setText(login);
     }
 
     @FXML
@@ -94,7 +106,6 @@ public class ManageSurveyController {
                 newAnswer.textProperty()
         );
 
-        // Przyciski addAnswerButton i addQuestionButton są domyślnie dezaktywowane
         addAnswerButton.setDisable(true);
         addQuestionButton.setDisable(true);
         saveSurveyButton.setDisable(true);
@@ -105,7 +116,6 @@ public class ManageSurveyController {
             scannerAnswer(newAnswer);
             ((HBox) submitAnswerButton.getParent()).getChildren().remove(submitAnswerButton);
 
-            // Aktywuj przyciski addAnswerButton i addQuestionButton po naciśnięciu submitAnswerButton
             addAnswerButton.setDisable(false);
             if (incAnswers >= 2) {
                 addQuestionButton.setDisable(false);
@@ -160,7 +170,6 @@ public class ManageSurveyController {
         );
         submitQuestionButton.disableProperty().bind(isTextFieldEmpty);
 
-        // Przyciski addAnswerButton i addQuestionButton są domyślnie dezaktywowane
         addAnswerButton.setDisable(true);
         addQuestionButton.setDisable(true);
         saveSurveyButton .setDisable(true);
@@ -168,8 +177,6 @@ public class ManageSurveyController {
         submitQuestionButton.setOnAction(e -> {
             scannerQuestion(newQuestion);
             ((HBox) submitQuestionButton.getParent()).getChildren().remove(submitQuestionButton);
-
-            // Aktywuj przyciski addAnswerButton i addQuestionButton po naciśnięciu submitQuestionButton
 
             addAnswerButton.setDisable(false);
             if (incAnswers >= 2) {
@@ -232,7 +239,7 @@ public class ManageSurveyController {
             try {
                 Scene scene;
                 Parent adminDashboard = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/AdminDashboard.fxml")));
-                scene = new Scene(adminDashboard, 1000, 600);
+                scene = new Scene(adminDashboard, 1100, 700);
                 Stage stage = (Stage) saveSurveyButton.getScene().getWindow();
                 stage.setScene(scene);
                 centerStage(stage);
@@ -254,48 +261,63 @@ public class ManageSurveyController {
     }
 
     @FXML
-    public void deleteSurvey() {
+    private void deleteSurvey() {
         String id = deleteSurveyIdField.getText().replace(" ", "");
         if (!id.isEmpty()) {
-            try {
-                surveyDao.delete(Integer.parseInt(id));
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("TwojaOpinia");
-                alert.setHeaderText(null);
-                alert.setContentText("Ankieta została pomyślnie usunięta!");
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("TwojaOpinia");
+            confirmationAlert.setHeaderText(null);
+            confirmationAlert.setContentText("Czy na pewno chcesz usunąć ankietę o ID: " + "'" + id + "' " + "?");
 
-                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                stage.getIcons().add(new Image("file:src/twojaOpinia/iconTwojaOpinia.png"));
-                stage.centerOnScreen();
+            Stage confirmationStage = (Stage) confirmationAlert.getDialogPane().getScene().getWindow();
+            confirmationStage.getIcons().add(new Image("file:src/twojaOpinia/iconTwojaOpinia.png"));
+            confirmationStage.centerOnScreen();
 
-                alert.showAndWait();
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("TwojaOpinia");
-                alert.setHeaderText(null);
-                alert.setContentText("Nieprawidłowy ID ankiety!");
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
+            if(result.get() == ButtonType.OK) {
+                try {
+                    int affectedRows = surveyDao.deleteSurveyByID(Integer.parseInt(id));
+                    if (affectedRows == 0) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("TwojaOpinia");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Ankieta o ID: " + "'" + id + "' " + "nie istnieje!");
 
-                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                stage.getIcons().add(new Image("file:src/twojaOpinia/iconTwojaOpinia.png"));
-                stage.centerOnScreen();
+                        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                        stage.getIcons().add(new Image("file:src/twojaOpinia/iconTwojaOpinia.png"));
+                        stage.centerOnScreen();
 
-                alert.showAndWait();
-            }
-            try {
-                Scene scene;
-                Parent adminDashboard = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/AdminDashboard.fxml")));
-                scene = new Scene(adminDashboard, 1000, 600);
-                Stage stage = (Stage) saveSurveyButton.getScene().getWindow();
-                stage.setScene(scene);
-                centerStage(stage);
-            } catch (IOException e) {
-                e.printStackTrace();
+                        alert.showAndWait();
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("TwojaOpinia");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Ankieta o ID: " + "'" + id + "' " + "została pomyślnie usunięta!");
+
+                        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                        stage.getIcons().add(new Image("file:src/twojaOpinia/iconTwojaOpinia.png"));
+                        stage.centerOnScreen();
+
+                        alert.showAndWait();
+                    }
+                } catch (Exception e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("TwojaOpinia");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Ankieta o ID: " + "'" + id + "' " + "nie istnieje!");
+
+                    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image("file:src/twojaOpinia/iconTwojaOpinia.png"));
+                    stage.centerOnScreen();
+
+                    alert.showAndWait();
+                }
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("TwojaOpinia");
             alert.setHeaderText(null);
-            alert.setContentText("ID ankiety nie może być pusty!");
+            alert.setContentText("Pole 'ID ankiety' nie może być puste!");
 
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
             stage.getIcons().add(new Image("file:src/twojaOpinia/iconTwojaOpinia.png"));
@@ -303,16 +325,66 @@ public class ManageSurveyController {
 
             alert.showAndWait();
         }
+        deleteSurveyIdField.setText("");
     }
+
     //ADMIN_MENU
     // ===================================================================================================================
+    @FXML
+    private void manageUser() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/ManageUser.fxml")));
+            Parent manageUser = fxmlLoader.load();
+
+            ManageUserController manageUserController = fxmlLoader.getController();
+            manageUserController.setAdminLogin(adminLogin);
+
+            Scene scene = new Scene(manageUser, 1100, 700);
+            Stage stage = (Stage) backToDashboardButtonMenu.getScene().getWindow();
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(550), scene.getRoot());
+            tt.setFromX(-200f);
+            tt.setToX(0f);
+            tt.play();
+
+            stage.setScene(scene);
+
+            centerStage(stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void backToDashboard() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/AdminDashboard.fxml")));
+            Parent manageUser = fxmlLoader.load();
+
+            AdminPulpitController adminPulpitController = fxmlLoader.getController();
+            adminPulpitController.setAdminLogin(adminLogin);
+
+            Scene scene = new Scene(manageUser, 1100, 700);
+            Stage stage = (Stage) manageUserButtonMenu.getScene().getWindow();
+            stage.setScene(scene);
+
+            centerStage(stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+        }
+    }
+
     @FXML
     private void logout() {
         try {
             Parent logout = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/login/LoginView.fxml")));
+
             Scene scene = new Scene(logout, 400, 350);
             Stage stage = (Stage) logoutButtonMenu.getScene().getWindow();
             stage.setScene(scene);
+
             centerStage(stage);
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,5 +1,9 @@
 package twojaOpinia.controller;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
+import javafx.util.Duration;
+import twojaOpinia.controller.admin.AdminPulpitController;
 import twojaOpinia.dao.UserDao;
 import twojaOpinia.model.User;
 import twojaOpinia.util.SHA256;
@@ -45,23 +49,26 @@ public class LoginController {
             return;
         }
 
-        User user = userDao.getByLogin(login);
+        User user = userDao.getUserDataByLogin(login);
         
         if (user == null || !user.getPassword().equals(SHA256.toSHA256(password + user.getSalt()))) {
             errorMess.setText("Nieprawidłowe dane logowania");
             return;
-            
         } else {
             try {
                 Scene scene;
                 if (user.isAdmin()) {
-                    Parent adminDashboard = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/AdminDashboard.fxml")));
-                    scene = new Scene(adminDashboard, 1000, 600);
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/twojaOpinia/view/admin/AdminDashboard.fxml"));
+                    Parent adminDashboard = fxmlLoader.load();
+                    scene = new Scene(adminDashboard, 1100, 700);
+                    AdminPulpitController adminPulpitController = fxmlLoader.getController();
+                    adminPulpitController.setAdminLogin(login);
                 } else {
                     Parent userDashboard = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/user/UserDashboard.fxml")));
-                    scene = new Scene(userDashboard, 1050, 700);
+                    scene = new Scene(userDashboard, 1100, 700);
                 }
                 Stage stage = (Stage) loginButton.getScene().getWindow();
+
                 stage.setScene(scene);
                 centerStage(stage);
             } catch (IOException e) {
