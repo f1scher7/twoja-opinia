@@ -53,6 +53,16 @@
     -fx-background-color: #66BB6A;
 }
 
+.button6 {
+    -fx-background-color: #673AB7;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-margin: 10 25 10 0;
+}
+
+.button6:hover {
+    -fx-background-color: #5E35B1;
+}
 
 .lockButton {
     -fx-background-color: #2f332f;
