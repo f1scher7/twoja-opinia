@@ -30,7 +30,7 @@ public class AnswerDao implements InterfaceDAO<Answer, Integer>{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void deleteByID(int id) {
 		String query = "DELETE FROM answers WHERE question_id IN (SELECT id FROM questions WHERE survey_id = ?)";
 
 		try (Connection connectiomn = DataBaseUtil.connect(); PreparedStatement preparedStatement = connectiomn.prepareStatement(query)) {

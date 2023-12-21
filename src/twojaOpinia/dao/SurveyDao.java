@@ -8,7 +8,6 @@ import java.sql.*;
 
 import twojaOpinia.model.Survey;
 import twojaOpinia.util.DataBaseUtil;
-import twojaOpinia.util.SHA256;
 
 public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 	@Override
@@ -54,6 +53,7 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 			e.printStackTrace();
 		}
 	}
+
 	public int getSurveyCount() {
 		int res = 0;
 		String query = "SELECT COUNT(*) AS surveycount FROM `surveys`";
@@ -70,20 +70,25 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 		return res;
 	}
 
-	@Override
-	public void delete(int id) {
+
+	public int deleteSurveyByID(int id) {
 		String query = "DELETE FROM surveys WHERE id = ?";
+		int affectedRows = 0;
 		try (Connection connection  = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 			AnswerDao answerDao = new AnswerDao();
 			QuestionDao questionDao = new QuestionDao();
-			answerDao.delete(id);
-			questionDao.delete(id);
+			answerDao.deleteByID(id);
+			questionDao.deleteByID(id);
 
 			preparedStatement.setInt(1, id);
-			preparedStatement.executeUpdate();
+			affectedRows = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Błąd podczas usuwania ankiety");
 			e.printStackTrace();
 		}
+		return affectedRows;
 	}
+
+	@Override
+	public void deleteByID(int id) {}
 }

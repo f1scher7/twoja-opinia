@@ -37,9 +37,8 @@ public class QuestionDao implements InterfaceDAO<Question, Integer>{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void deleteByID(int id) {
 		String query = "DELETE FROM questions WHERE survey_id = ?";
-
 		try(Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();

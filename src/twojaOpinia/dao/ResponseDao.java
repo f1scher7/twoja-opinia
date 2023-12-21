@@ -30,7 +30,7 @@ public class ResponseDao implements InterfaceDAO<Response, Integer>{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void deleteByID(int id) {
 
 	}
 }
