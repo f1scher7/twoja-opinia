@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="borderPaneAdmin" prefHeight="600.0" prefWidth="1000.0" stylesheets="@adminStyles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twojaOpinia.controller.admin.ManageUserController">
+    <left>
+        <VBox fx:id="menu" alignment="TOP_LEFT" spacing="10" style="-fx-background-color: rgba(81, 99, 187, 0.5);" BorderPane.alignment="CENTER">
+            <StackPane />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 27px;" textAlignment="JUSTIFY">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 27px;" text="TwojaOpinia" textAlignment="JUSTIFY">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="85.0" prefWidth="203.0" spacing="7">
+                <Circle fx:id="adminImage" fill="WHITE" radius="38.0" />
+                <Label fx:id="adminLoginLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="97.0" style="-fx-text-fill: #ffffff;" text="">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+            </HBox>
+            <VBox alignment="CENTER" spacing="10">
+                <Button fx:id="manageSurveyButtonMenu" onAction="#manageSurvey" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button1" text="Zarządzaj Ankietami" />
+                <Button fx:id="analizujWynikiButton" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button2" text="Analizuj Wyniki" />
+                <Button fx:id="manageUserButtonMenu" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button3" text="Zarządzaj Użytkownikami" />
+                <Button fx:id="backToDashboardButtonMenu" onAction="#backToDashboard" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button6" text="Wróć do pulpitu" />
+                <Button fx:id="logoutButtonMenu" onAction="#logout" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button4" text="Wyloguj" />
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox alignment="CENTER" spacing="10" style="-fx-alignment: center; -fx-padding: 10;">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 10px;" textAlignment="JUSTIFY">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <Label style="-fx-text-fill: #ffffff; -fx-font-size: 27px;" text="Tworzenie nowego użytkownika" textAlignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 5px;" textAlignment="JUSTIFY">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <HBox alignment="CENTER" spacing="10">
+                <VBox>
+                    <Label style="-fx-text-fill: #ffffff;" text="Imię" />
+                    <TextField fx:id="newUserNameField" maxWidth="200.0" prefHeight="30.0" prefWidth="165.0" promptText="Imię" />
+                </VBox>
+                <VBox>
+                    <Label style="-fx-text-fill: #ffffff;" text="Nazwisko" />
+                    <TextField fx:id="newUserSurnameField" maxWidth="200.0" prefHeight="30.0" prefWidth="165.0" promptText="Nazwisko" />
+                </VBox>
+            </HBox>
+            <VBox alignment="CENTER">
+                <Label prefHeight="18.0" prefWidth="344.0" style="-fx-text-fill: #ffffff;" text="Data urodzenia" />
+                <DatePicker fx:id="newUserBirthdayDate" maxWidth="344.0" prefHeight="30.0" prefWidth="345.0" promptText="Data urodzenia" />
+            </VBox>
+            <HBox alignment="CENTER" spacing="10">
+                <VBox>
+                    <Label style="-fx-text-fill: #ffffff;" text="Kraj" />
+                    <TextField fx:id="newUserCountryField" maxWidth="200.0" prefHeight="30.0" prefWidth="165.0" promptText="Kraj" />
+                </VBox>
+                <VBox>
+                    <Label style="-fx-text-fill: #ffffff;" text="Miasto" />
+                    <TextField fx:id="newUserCityField" maxWidth="200.0" prefHeight="30.0" prefWidth="165.0" promptText="Miasto" />
+                </VBox>
+            </HBox>
+            <VBox alignment="CENTER">
+                <Label prefHeight="18.0" prefWidth="343.0" style="-fx-text-fill: #ffffff;" text="Mail" />
+                <TextField fx:id="newUserEmailField" maxWidth="344.0" prefHeight="30.0" prefWidth="340.0" promptText="Mail" />
+            </VBox>
+            <VBox alignment="CENTER">
+                <Label prefHeight="18.0" prefWidth="343.0" style="-fx-text-fill: #ffffff;" text="Login" />
+                <TextField fx:id="newUserLoginField" maxWidth="344.0" prefHeight="30.0" prefWidth="340.0" promptText="Login" />
+            </VBox>
+            <VBox alignment="CENTER">
+                <Label prefHeight="18.0" prefWidth="343.0" style="-fx-text-fill: #ffffff;" text="Hasło" />
+                <PasswordField fx:id="newUserPasswordField" maxWidth="344.0" prefHeight="30.0" prefWidth="340.0" promptText="Hasło" />
+            </VBox>
+            <VBox alignment="CENTER">
+                <Label prefHeight="18.0" prefWidth="343.0" style="-fx-text-fill: #ffffff;" text="Powtórz hasło" />
+                <PasswordField fx:id="newUserFinalPasswordField" maxWidth="344.0" prefHeight="30.0" prefWidth="340.0" promptText="Powtórz hasło" />
+            </VBox>
+            <Label fx:id="passwordFieldErrorLabel" style="-fx-text-fill: red;" text="" />
+            <CheckBox fx:id="newUserIsAdminCheck" style="-fx-alignment: center; -fx-text-fill: #ffffff;" text="Admin" />
+            <Button fx:id="createNewUserButton" onAction="#addNewUser" prefHeight="38.0" prefWidth="146.0" style="-fx-alignment: center;" styleClass="button1" text="Zatwierdź" />
+        </VBox>
+    </center>
+
+
+    <right>
+        <StackPane fx:id="delSurveyVBox">
+            <VBox alignment="TOP_RIGHT" spacing="10" style="-fx-background-color: rgba(81, 99, 187, 0.5); -fx-padding: 140 0 0 0;" BorderPane.alignment="CENTER">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 17px;" text="Spawdź dane użytkownika" textAlignment="JUSTIFY">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Label>
+                <VBox alignment="CENTER" spacing="10">
+                    <HBox alignment="CENTER" spacing="5">
+                        <TextField fx:id="findUserByLoginField" minWidth="100" prefHeight="30.0" prefWidth="150.0" promptText="Wpisz login użytkownika" />
+                    </HBox>
+                </VBox>
+                <VBox alignment="CENTER">
+                    <Button fx:id="findUserDataButton" onAction="#findUserDataByLogin"  minWidth="140" prefHeight="35.0" prefWidth="140.0" styleClass="button1" text="Sprawdź" />
+                </VBox>
+
+
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 10px;" textAlignment="JUSTIFY">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Label>
+
+
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 19px;" text="Usuwanie użytkownika" textAlignment="JUSTIFY">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Label>
+                <VBox alignment="CENTER" spacing="10">
+                    <HBox alignment="CENTER" spacing="5">
+                        <TextField fx:id="deleteUserByLoginField" minWidth="100" prefHeight="30.0" prefWidth="150.0" promptText="Wpisz login użytkownika" />
+                    </HBox>
+                </VBox>
+                <VBox alignment="CENTER">
+                    <Button fx:id="deleteUserButton" onAction="#deleteUser" minWidth="140" prefHeight="35.0" prefWidth="140.0" styleClass="button4" text="Usuń" />
+                </VBox>
+
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 10px;" textAlignment="JUSTIFY">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Label>
+
+            </VBox>
+        </StackPane>
+    </right>
+</BorderPane>
