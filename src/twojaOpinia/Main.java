@@ -37,17 +37,23 @@ public class Main extends Application{
         launch(args);
 
 
-        //Testy 04.12
+        //Testy 21.12.2023
         /*
         SurveyDao surveyDao = new SurveyDao();
         UserDao userDao = new UserDao();
 
-        String testLogin = "KazioF1scher";
-        String testPassword = "Kazio";
+        String testName = "TestName3";
+        String testSurname = "TestSurname3";
+        String testEmail = "testemail3@gmail.com";
+        String testBirthday = "13.09.2007";
+        String testCountry = "Polska";
+        String testCity = "Gliwice";
+        String testLogin = "testUser3";
+        String testPassword = "test";
         String salt = generateSalt();
-        boolean testIsAdmin = true;
+        boolean testIsAdmin = false;
         
-    	User user = new User(testLogin, testPassword, salt, testIsAdmin);
+    	User user = new User(testName, testSurname, testEmail, testBirthday, testCountry, testCity, testLogin, testPassword, salt, testIsAdmin);
         userDao.insert(user);
         System.out.println("Użytkownik dodany pomyślnie");
         */
