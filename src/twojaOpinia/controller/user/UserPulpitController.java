@@ -1,4 +1,4 @@
-package twojaOpinia.controller;
+package twojaOpinia.controller.user;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
