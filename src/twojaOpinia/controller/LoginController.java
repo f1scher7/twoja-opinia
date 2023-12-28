@@ -4,6 +4,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
 import twojaOpinia.controller.admin.AdminPulpitController;
+import twojaOpinia.controller.user.UserPulpitController;
 import twojaOpinia.dao.UserDao;
 import twojaOpinia.model.User;
 import twojaOpinia.util.SHA256;
@@ -64,8 +65,11 @@ public class LoginController {
                     AdminPulpitController adminPulpitController = fxmlLoader.getController();
                     adminPulpitController.setAdminLogin(login);
                 } else {
-                    Parent userDashboard = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/user/UserDashboard.fxml")));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/twojaOpinia/view/user/UserDashboard.fxml"));
+                    Parent userDashboard = fxmlLoader.load();
                     scene = new Scene(userDashboard, 1100, 700);
+                    UserPulpitController userPulpitController = fxmlLoader.getController();
+                    userPulpitController.setUserLogin(login);
                 }
                 Stage stage = (Stage) loginButton.getScene().getWindow();
 

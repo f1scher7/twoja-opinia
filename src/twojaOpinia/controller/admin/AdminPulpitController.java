@@ -54,7 +54,7 @@ public class AdminPulpitController {
         this.userCount = updateUserCount();
         this.surveyCount = updateSurveyCount();
 
-        String userCountStr = "Liczba użytkownikow: " + this.userCount;
+        String userCountStr = "Liczba użytkowników: " + this.userCount;
         String surveyCountStr = "Liczba stworzonych ankiet: " + this.surveyCount;
         String greetingText = "Witamy w TwojaOpinia!";
 
@@ -66,9 +66,8 @@ public class AdminPulpitController {
         analyzeResultsButtonMenu.setOpacity(0);
         logoutButtonMenu.setOpacity(0);
 
-        FadeTransition ftMenu = animationForMenu(logoutButtonMenu, 1800); // Ostatnia animacja dla menu
+        FadeTransition ftMenu = animationForMenu(logoutButtonMenu, 1800);
 
-        // Dodajemy akcję po zakończeniu ostatniej animacji dla menu
         ftMenu.setOnFinished(event -> {
             animateLabel(greetingLabel, greetingText, 50);
             animateLabel(userCountLabel, userCountStr, 70);
