@@ -2,19 +2,72 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="360.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twojaOpinia.controller.UserController">
+<BorderPane fx:id="borderPaneUser" prefHeight="600.0" prefWidth="1000.0" stylesheets="@userStyles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twojaOpinia.controller.user.UserPulpitController">
+    <left>
+        <VBox alignment="TOP_LEFT" spacing="10" style="-fx-background-color: rgba(105,255,88,0.5);" BorderPane.alignment="CENTER">
+            <StackPane />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 27px;" textAlignment="JUSTIFY">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <Label fx:id="twojaOpiniaLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 27px;" text="TwojaOpinia" textAlignment="JUSTIFY">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="85.0" prefWidth="203.0" spacing="7">
+                <Circle fx:id="userAvatar" fill="WHITE" radius="38.0" />
+                <Label fx:id="userLoginLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="87.0" style="-fx-text-fill: #ffffff;">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+            </HBox>
+            <VBox alignment="CENTER" spacing="10">
+                <Button fx:id="availableSurveysButtonMenu" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button1" text="Dostępne Ankiety" />
+                <Button fx:id="surveysHistoryButtonMenu" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button2" text="Historia Ankiet" />
+                <Button fx:id="accountSettingsButtonMenu" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button3" text="Ustawienia Konta" />
+                <Button fx:id="logoutButtonMenu" minWidth="150" onAction="#logout" prefHeight="37.0" prefWidth="176.0" styleClass="button4" text="Wyloguj" />
+            </VBox>
+        </VBox>
+    </left>
+
     <center>
-        <VBox alignment="CENTER" spacing="20.0">
-           <Label text="Dzień dobry, Polsko!">
-               <font>
-                   <Font size="24.0" />
-               </font>
-           </Label>
-            <Button mnemonicParsing="false" prefWidth="200.0" text="Wyszukiwanie ankiet" />
-            <Button mnemonicParsing="false" prefWidth="200.0" text="Historia udziału w ankietach" />
-            <Button fx:id="logout" mnemonicParsing="false" onAction="#logout" prefWidth="200.0" text="Wyloguj" />
+        <VBox alignment="CENTER" spacing="20" BorderPane.alignment="CENTER">
+            <Label fx:id="greetingLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="650.0" style="-fx-text-fill: #ffffff; -fx-font-size: 30px;" textAlignment="JUSTIFY">
+                <font>
+                    <Font size="30.0" />
+                </font>
+            </Label>
+            <Label fx:id="surveyCountLabel" style="-fx-text-fill: #ffffff;">
+                <font>
+                    <Font size="24.0" />
+                </font>
+            </Label>
+            <Label fx:id="responseCountLabel" style="-fx-text-fill: #ffffff;">
+                <font>
+                    <Font size="24.0" />
+                </font>
+            </Label>
+            <Label style="-fx-text-fill: #fcfcfc;">
+                <font>
+                    <Font size="24.0" />
+                </font>
+            </Label>
+            <Label style="-fx-text-fill: #fcfcfc;">
+                <font>
+                    <Font size="24.0" />
+                </font>
+            </Label>
+            <Label style="-fx-text-fill: #fcfcfc;">
+                <font>
+                    <Font size="24.0" />
+                </font>
+            </Label>
         </VBox>
     </center>
 </BorderPane>
