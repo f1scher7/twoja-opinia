@@ -15,6 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
@@ -207,9 +209,11 @@ public class ManageSurveyController {
         String surveyTitle = surveyTitleField.getText();
         String surveyDescription = surveyDescriptionArea.getText();
         if (!surveyTitle.isEmpty() && !surveyDescription.isEmpty()) {
-            survey.setAuthorLogin("Admin");
+            survey.setAuthorLogin(adminLogin);
             survey.setTitle(surveyTitle);
             survey.setDescription(surveyDescription);
+            LocalDateTime addedDate = LocalDateTime.now();
+            survey.setSurveyAddedDate(addedDate);
 
             try {
                 surveyDao.insert(survey);
@@ -238,8 +242,8 @@ public class ManageSurveyController {
             }
             try {
                 Scene scene;
-                Parent adminDashboard = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/AdminDashboard.fxml")));
-                scene = new Scene(adminDashboard, 1100, 700);
+                Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/ManageSurvey.fxml")));
+                scene = new Scene(parent, 1100, 700);
                 Stage stage = (Stage) saveSurveyButton.getScene().getWindow();
                 stage.setScene(scene);
                 centerStage(stage);

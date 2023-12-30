@@ -30,12 +30,13 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 	@Override
 	public void insert(Survey input) {
 
-		String query = "INSERT INTO `surveys`(`author`, `title`, `description`) VALUES (?, ?, ?)";
+		String query = "INSERT INTO `surveys`(`author`, `title`, `description`, `dateAdded`) VALUES (?, ?, ?, ?)";
 		try (Connection connection = DataBaseUtil.connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, input.getAuthorLogin());
 			preparedStatement.setString(2, input.getTitle());
 			preparedStatement.setString(3, input.getDescription());
+			preparedStatement.setObject(4, input.getSurveyAddedDate());
 			preparedStatement.executeUpdate();
 
 			ResultSet resultSet = preparedStatement.getGeneratedKeys();

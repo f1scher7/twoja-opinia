@@ -3,6 +3,8 @@
 
 package twojaOpinia.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Survey {
@@ -10,6 +12,7 @@ public class Survey {
 	private String authorLogin;
 	private String title;
 	private String description;
+	private LocalDateTime surveyAddedDate;
 	private ArrayList <Question> questions;
 	private ArrayList <Response> responses;
 
@@ -17,14 +20,17 @@ public class Survey {
 		this.authorLogin = "";
 		this.title = "";
 		this.description = "";
+		this.surveyAddedDate = null;
 		this.questions = new ArrayList<>();
 		this.responses = new ArrayList<>();
+
 	}
 	
 	public Survey(String authorLogin, String title, String description) {
 		this.authorLogin = authorLogin;
 		this.title = title;
 		this.description = description;
+		this.surveyAddedDate = null;
 		this.questions = new ArrayList<>();
 		this.responses = new ArrayList<>();
 	}
@@ -35,14 +41,16 @@ public class Survey {
 	public String getTitle() { return title; }
 	public void setTitle(String title) { this.title = title; }
 
-	public String getDescription() { return description; }
+	public String getDescription() { return this.description; }
 	public void setDescription(String description) { this.description = description; }
 
-	public ArrayList<Question> getQuestions() { return questions; }
+	public LocalDateTime getSurveyAddedDate() { return this.surveyAddedDate; }
+	public void setSurveyAddedDate(LocalDateTime date) { this.surveyAddedDate = date; }
+
+	public ArrayList<Question> getQuestions() { return this.questions; }
 	public void setQuestions(ArrayList<Question> questions) { this.questions = questions; }
 
-	public ArrayList<Response> getResponses() { return responses; }
-
+	public ArrayList<Response> getResponses() { return this.responses; }
 	public void setResponses(ArrayList<Response> responses) { this.responses = responses; }
 
 	@Override
