@@ -38,7 +38,7 @@
 
     <center>
         <VBox alignment="CENTER" spacing="20" BorderPane.alignment="CENTER">
-            <Label fx:id="greetingLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="400.0" style="-fx-text-fill: #ffffff; -fx-font-size: 35px;" textAlignment="JUSTIFY">
+            <Label fx:id="greetingLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="500.0" style="-fx-text-fill: #ffffff; -fx-font-size: 30px;" textAlignment="JUSTIFY">
                 <font>
                     <Font size="30.0" />
                 </font>

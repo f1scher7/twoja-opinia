@@ -56,7 +56,7 @@ public class AdminPulpitController {
 
         String userCountStr = "Liczba użytkowników: " + this.userCount;
         String surveyCountStr = "Liczba stworzonych ankiet: " + this.surveyCount;
-        String greetingText = "Witamy w TwojaOpinia!";
+        String greetingText = "Witamy w panelu administracyjnym!";
 
         twojaOpiniaLabel.setOpacity(0);
         adminAvatar.setOpacity(0);
