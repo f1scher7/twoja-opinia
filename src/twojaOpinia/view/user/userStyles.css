@@ -90,19 +90,38 @@
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
 }
-#scrollPaneStyle {
-    -fx-background-image: url('img/blue-background-free-design-free-vector.jpg');
-    -fx-background-size: cover;
-}
 
-#delSurveyVBox {
-    -fx-background-image: url('img/blue-background-free-design-free-vector.jpg');
+.surveysShortInfo {
+    -fx-background-image: url('img/b5d2f0194126b9479680384e52bcd294.jpg');
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
 }
 
-#delSurveyVBox {
-    -fx-background-image: url('img/blue-background-free-design-free-vector.jpg');
-    -fx-background-size: cover;
-    -fx-background-repeat: no-repeat;
+.surveyTitle {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+.list-view {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 0 0 12 12;
+}
+
+.list-view .list-cell:even {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12 12 12 12;
+
+}
+
+.list-view .list-cell:odd {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12 12 12 12;
+}
+
+.list-view .list-cell:filled:selected {
+    -fx-background-color: #4141ff;
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #d0d0d0;
 }
