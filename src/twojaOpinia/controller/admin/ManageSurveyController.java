@@ -34,7 +34,6 @@ public class ManageSurveyController {
     private Survey survey = new Survey();
     private Question question;
     private Answer answer;
-    private UserDao userDao = new UserDao();
     private SurveyDao surveyDao = new SurveyDao();
 
     private ArrayList<Answer> answersList = new ArrayList<>();
@@ -214,9 +213,13 @@ public class ManageSurveyController {
             survey.setDescription(surveyDescription);
             LocalDateTime addedDate = LocalDateTime.now();
             survey.setSurveyAddedDate(addedDate);
+            survey.setNQuestions(incQuestions);
 
             try {
                 surveyDao.insert(survey);
+                survey = new Survey();
+                answersList = new ArrayList<>();
+                questionsList = new ArrayList<>();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("TwojaOpinia");
                 alert.setHeaderText(null);
@@ -241,9 +244,13 @@ public class ManageSurveyController {
                 alert.showAndWait();
             }
             try {
-                Scene scene;
-                Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/ManageSurvey.fxml")));
-                scene = new Scene(parent, 1100, 700);
+                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/ManageSurvey.fxml")));
+                Parent parent = fxmlLoader.load();
+
+                ManageSurveyController manageSurveyController = fxmlLoader.getController();
+                manageSurveyController.setAdminLogin(adminLogin);
+
+                Scene scene = new Scene(parent, 1100, 700);
                 Stage stage = (Stage) saveSurveyButton.getScene().getWindow();
                 stage.setScene(scene);
                 centerStage(stage);
@@ -344,7 +351,7 @@ public class ManageSurveyController {
             manageUserController.setAdminLogin(adminLogin);
 
             Scene scene = new Scene(manageUser, 1100, 700);
-            Stage stage = (Stage) backToDashboardButtonMenu.getScene().getWindow();
+            Stage stage = (Stage) manageUserButtonMenu.getScene().getWindow();
 
             TranslateTransition tt = new TranslateTransition(Duration.millis(550), scene.getRoot());
             tt.setFromX(-200f);
@@ -364,13 +371,13 @@ public class ManageSurveyController {
     private void backToDashboard() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/AdminDashboard.fxml")));
-            Parent manageUser = fxmlLoader.load();
+            Parent adminDashboard = fxmlLoader.load();
 
             AdminPulpitController adminPulpitController = fxmlLoader.getController();
             adminPulpitController.setAdminLogin(adminLogin);
 
-            Scene scene = new Scene(manageUser, 1100, 700);
-            Stage stage = (Stage) manageUserButtonMenu.getScene().getWindow();
+            Scene scene = new Scene(adminDashboard, 1100, 700);
+            Stage stage = (Stage) backToDashboardButtonMenu.getScene().getWindow();
             stage.setScene(scene);
 
             centerStage(stage);

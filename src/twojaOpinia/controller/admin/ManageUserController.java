@@ -330,13 +330,13 @@ public class ManageUserController {
     private void backToDashboard() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/AdminDashboard.fxml")));
-            Parent manageUser = fxmlLoader.load();
+            Parent adminDashboard = fxmlLoader.load();
 
             AdminPulpitController adminPulpitController = fxmlLoader.getController();
             adminPulpitController.setAdminLogin(adminLogin);
 
-            Scene scene = new Scene(manageUser, 1100, 700);
-            Stage stage = (Stage) manageUserButtonMenu.getScene().getWindow();
+            Scene scene = new Scene(adminDashboard, 1100, 700);
+            Stage stage = (Stage) backToDashboardButtonMenu.getScene().getWindow();
             stage.setScene(scene);
 
             centerStage(stage);

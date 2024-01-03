@@ -135,10 +135,29 @@ public class UserPulpitController {
     //USER_MENU
     //===================================================================================================================
     @FXML
+    private void availableSurveys() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/user/AvailableSurveys.fxml")));
+            Parent availableSurveys = fxmlLoader.load();
+
+            AvailableSurveysController availableSurveysController = fxmlLoader.getController();
+            availableSurveysController.setUserLogin(userLogin);
+
+            Scene scene = new Scene(availableSurveys, 1100, 700);
+            Stage stage = (Stage) availableSurveysButtonMenu.getScene().getWindow();
+            stage.setScene(scene);
+
+            centerStage(stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+        }
+    }
+    @FXML
     private void logout() {
         try {
-            Parent login = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/login/LoginView.fxml")));
-            Scene scene = new Scene(login, 400, 350);
+            Parent logout = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/login/LoginView.fxml")));
+            Scene scene = new Scene(logout, 400, 350);
             Stage stage = (Stage) logoutButtonMenu.getScene().getWindow();
             stage.setScene(scene);
             centerStage(stage);
