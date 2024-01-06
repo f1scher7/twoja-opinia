@@ -6,11 +6,13 @@ package twojaOpinia.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Survey {
 	private String authorLogin;
 	private String title;
 	private String description;
+	private String tags;
 	private int nQuestions;
 	private LocalDateTime surveyAddedDate;
 	private ArrayList <Question> questions;
@@ -20,6 +22,7 @@ public class Survey {
 		this.authorLogin = "";
 		this.title = "";
 		this.description = "";
+		this.tags = "";
 		this.surveyAddedDate = null;
 		this.nQuestions = 0;
 		this.questions = new ArrayList<>();
@@ -27,10 +30,11 @@ public class Survey {
 
 	}
 	
-	public Survey(String authorLogin, String title, String description, int nQuestions) {
+	public Survey(String authorLogin, String title, String description, String tags, int nQuestions) {
 		this.authorLogin = authorLogin;
 		this.title = title;
 		this.description = description;
+		this.tags = tags;
 		this.surveyAddedDate = null;
 		this.nQuestions = nQuestions;
 		this.questions = new ArrayList<>();
@@ -46,10 +50,13 @@ public class Survey {
 	public String getDescription() { return this.description; }
 	public void setDescription(String description) { this.description = description; }
 
+	public String getTags() { return this.tags; }
+	public void setTags(String tags) { this.tags = tags; }
+
 	public LocalDateTime getSurveyAddedDate() { return this.surveyAddedDate; }
 	public void setSurveyAddedDate(LocalDateTime date) { this.surveyAddedDate = date; }
 
-	public int getNQuestions() { return nQuestions; }
+	public int getNQuestions() { return this.nQuestions; }
 
 	public void setNQuestions(int nQuestions) { this.nQuestions = nQuestions; }
 
