@@ -17,9 +17,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import javafx.util.Duration;
 import twojaOpinia.dao.SurveyDao;
@@ -28,6 +26,7 @@ import twojaOpinia.model.Answer;
 import twojaOpinia.model.Question;
 import twojaOpinia.model.Survey;
 
+import static com.sun.javafx.scene.control.skin.Utils.computeTextWidth;
 import static twojaOpinia.util.JavaFXMethods.centerStage;
 
 public class ManageSurveyController {
@@ -47,6 +46,8 @@ public class ManageSurveyController {
     private TextField surveyTitleField;
     @FXML
     private TextArea surveyDescriptionArea;
+    @FXML
+    private TextArea surveyTagsArea;
     @FXML
     private VBox answersAndQuestionVBox;
     @FXML
@@ -94,12 +95,15 @@ public class ManageSurveyController {
     }
 
     private void addTextFieldAnswer() {
-        TextField newAnswer = new TextField();
+        Label answerLabel = new Label("Odpowiedź nr. " + incAnswers);
+        answerLabel.setStyle("-fx-text-fill: #ffff;");
+
+        TextArea newAnswer = new TextArea();
         newAnswer.setPromptText("Odpowiedź nr. " + incAnswers);
-        newAnswer.setStyle("-fx-max-width: 305.0; -fx-min-width: 100; -fx-pref-height: 30.0; -fx-pref-width: 280.0");
+        newAnswer.setStyle("-fx-max-width: 350.0; -fx-min-width: 120;  -fx-pref-height: 42; -fx-pref-width: 350.0");
 
         Button submitAnswerButton = new Button("Zatwierdź");
-        submitAnswerButton.setStyle("-fx-min-width: 65; -fx-pref-height: 28.0; -fx-pref-width: 65.0");
+        submitAnswerButton.setStyle("-fx-min-width: 65; -fx-pref-height: 30.0; -fx-pref-width: 65.0");
         submitAnswerButton.getStyleClass().add("button5");
 
         BooleanBinding isTextFieldEmpty = Bindings.createBooleanBinding(
@@ -123,18 +127,24 @@ public class ManageSurveyController {
                 saveSurveyButton.setDisable(false);
             }
         });
-
+        HBox mainHBox = new HBox();
+        VBox vBox = new VBox();
         HBox hBox = new HBox();
+
+        mainHBox.setAlignment(Pos.CENTER);
         hBox.setAlignment(Pos.CENTER);
         hBox.setSpacing(5);
+
         hBox.getChildren().addAll(newAnswer, submitAnswerButton);
+        vBox.getChildren().addAll(answerLabel, hBox);
+        mainHBox.getChildren().addAll(vBox);
 
         answersAndQuestionVBox.setSpacing(10);
         int index = answersAndQuestionVBox.getChildren().indexOf(addAnswerButton.getParent());
-        answersAndQuestionVBox.getChildren().add(index, hBox);
+        answersAndQuestionVBox.getChildren().add(index, mainHBox);
     }
 
-    private void scannerAnswer(TextField answerField) {
+    private void scannerAnswer(TextArea answerField) {
         answer = new Answer(incAnswers, answerField.getText());
         System.out.println(answer.getAnswerText());
         answersList.add(answer);
@@ -157,12 +167,17 @@ public class ManageSurveyController {
     private void addTextFieldQuestion() {
         incQuestions++;
 
-        TextField newQuestion = new TextField();
+        Label questionLabel = new Label("Pytanie nr. " + incQuestions);
+        questionLabel.setStyle("-fx-text-fill: #ffff;");
+
+        TextArea newQuestion = new TextArea();
+        newQuestion.setWrapText(true);
         newQuestion.setPromptText("Pytanie nr. " + incQuestions);
-        newQuestion.setStyle("-fx-max-width: 350.0; -fx-min-width: 100; -fx-pref-height: 30.0; -fx-pref-width: 350.0");
+        newQuestion.setStyle("-fx-max-width: 400.0; -fx-min-width: 120;  -fx-pref-height: 42; -fx-pref-width: 400.0");
+
 
         Button submitQuestionButton = new Button("Zatwierdź");
-        submitQuestionButton.setStyle("-fx-min-width: 65; -fx-pref-height: 28.0; -fx-pref-width: 65.0");
+        submitQuestionButton.setStyle("-fx-min-width: 65; -fx-pref-height: 30.0; -fx-pref-width: 65.0");
         submitQuestionButton.getStyleClass().add("button5");
 
         BooleanBinding isTextFieldEmpty = Bindings.createBooleanBinding(
@@ -186,17 +201,25 @@ public class ManageSurveyController {
             }
         });
 
+        HBox mainHBox = new HBox();
+        VBox vBox = new VBox();
         HBox hBox = new HBox();
+
+        mainHBox.setAlignment(Pos.CENTER);
+
         hBox.setAlignment(Pos.CENTER);
         hBox.setSpacing(5);
+
         hBox.getChildren().addAll(newQuestion, submitQuestionButton);
+        vBox.getChildren().addAll(questionLabel, hBox);
+        mainHBox.getChildren().addAll(vBox);
 
         answersAndQuestionVBox.setSpacing(10);
         int index = answersAndQuestionVBox.getChildren().indexOf(addQuestionButton.getParent());
-        answersAndQuestionVBox.getChildren().add(index, hBox);
+        answersAndQuestionVBox.getChildren().add(index, mainHBox);
     }
 
-    private void scannerQuestion(TextField questionField) {
+    private void scannerQuestion(TextArea questionField) {
         question = new Question(incQuestions, questionField.getText());
         System.out.println(question.getQuestionText());
         questionsList.add(question);
@@ -207,14 +230,15 @@ public class ManageSurveyController {
     private void saveSurvey() {
         String surveyTitle = surveyTitleField.getText();
         String surveyDescription = surveyDescriptionArea.getText();
+        String surveyTags = surveyTagsArea.getText();
         if (!surveyTitle.isEmpty() && !surveyDescription.isEmpty()) {
             survey.setAuthorLogin(adminLogin);
             survey.setTitle(surveyTitle);
             survey.setDescription(surveyDescription);
+            survey.setTags(surveyTags);
             LocalDateTime addedDate = LocalDateTime.now();
             survey.setSurveyAddedDate(addedDate);
             survey.setNQuestions(incQuestions);
-
             try {
                 surveyDao.insert(survey);
                 survey = new Survey();
