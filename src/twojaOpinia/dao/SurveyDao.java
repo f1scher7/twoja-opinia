@@ -23,7 +23,7 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 			preparedStatement.setInt(1, id);
 			try (ResultSet resultSet = preparedStatement.executeQuery()) {
 				if (resultSet.next()) {
-					survey = new Survey(resultSet.getString("author"), resultSet.getString("title"), resultSet.getString("description"), resultSet.getInt("nquestions"));
+					survey = new Survey(resultSet.getString("author"), resultSet.getString("title"), resultSet.getString("description"), resultSet.getString("tags"), resultSet.getInt("nquestions"));
 				}
 			}
 		} catch (SQLException e) {
@@ -34,14 +34,15 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 
 	@Override
 	public void insert(Survey input) {
-		String query = "INSERT INTO `surveys`(`author`, `title`, `description`, `dateAdded`, `nquestions`) VALUES (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO `surveys`(`author`, `title`, `description`, `dateAdded`, `tags`, `nquestions`) VALUES (?, ?, ?, ?, ?, ?)";
 		try (Connection connection = DataBaseUtil.connect()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, input.getAuthorLogin());
 			preparedStatement.setString(2, input.getTitle());
 			preparedStatement.setString(3, input.getDescription());
 			preparedStatement.setObject(4, input.getSurveyAddedDate());
-			preparedStatement.setInt(5, input.getNQuestions());
+			preparedStatement.setString(5, input.getTags());
+			preparedStatement.setInt(6, input.getNQuestions());
 			preparedStatement.executeUpdate();
 
 			ResultSet resultSet = preparedStatement.getGeneratedKeys();
@@ -75,7 +76,6 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 		}
 		return res;
 	}
-
 
 	public int deleteSurveyByID(int id) {
 		String query = "DELETE FROM surveys WHERE id = ?";
@@ -119,10 +119,11 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 
 	public List<Survey> searchSurveys(String input) {
 		List<Survey> matchingSurveys = new ArrayList<>();
-		String query = "SELECT * FROM surveys WHERE title LIKE ? OR description LIKE ?";
+		String query = "SELECT * FROM surveys WHERE title LIKE ? OR description LIKE ? or tags LIKE ?";
 		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 			preparedStatement.setString(1, "%" + input + "%");
 			preparedStatement.setString(2, "%" + input + "%");
+			preparedStatement.setString(3, "%" + input + "%");
 
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
@@ -130,6 +131,7 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 				survey.setAuthorLogin(resultSet.getString("author"));
 				survey.setTitle(resultSet.getString("title"));
 				survey.setDescription(resultSet.getString("description"));
+				survey.setTags(resultSet.getString("tags"));
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 				LocalDateTime dateAdded = LocalDateTime.parse(resultSet.getString("dateAdded"), formatter);
 				survey.setSurveyAddedDate(dateAdded);
