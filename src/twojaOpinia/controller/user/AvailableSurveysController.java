@@ -79,7 +79,7 @@ public class AvailableSurveysController {
         List<Survey> lastAddedSurveys = surveyDao.getSixLastAddedSurveys();
         for (int i = 1; i <= 6; i++) {
             VBox vBox = (VBox) blocksWithSurveysInfo.lookup("#surveyShortInfo" + i);
-
+            vBox.setStyle("-fx-background-radius: 12 12 12 12;");
             Label surveyTitleLabel = (Label) vBox.lookup("#surveyTitleLabel" + i);
             Label surveyNQuestionsLabel = (Label) vBox.lookup("#surveyNQuestionsLabel" + i);
             Label surveyAuthorLabel = (Label) vBox.lookup("#surveyAuthorLabel" + i);
@@ -145,8 +145,8 @@ public class AvailableSurveysController {
                         Label surveyTitleLabel = new Label(matchingSurveys.get(i).getTitle());
                         surveyTitleLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
 
-                        Label surveyAuthorLabel = new Label(getAuthorNameAndSurname(matchingSurveys.get(i).getAuthorLogin()));
-                        surveyAuthorLabel.setStyle("-fx-font-size: 11px;");
+                        Label surveyTagsLabel = new Label(matchingSurveys.get(i).getTags());
+                        surveyTagsLabel.setStyle("-fx-font-size: 11px;");
 
                         Label surveyNQuestionsLabel = new Label();
                         if (matchingSurveys.get(i).getNQuestions() == 1) {
@@ -158,7 +158,7 @@ public class AvailableSurveysController {
                         }
                         surveyNQuestionsLabel.setStyle("-fx-font-size: 11px;");
 
-                        VBox surveyItem = new VBox(surveyTitleLabel, surveyAuthorLabel, surveyNQuestionsLabel);
+                        VBox surveyItem = new VBox(surveyTitleLabel, surveyTagsLabel, surveyNQuestionsLabel);
                         surveyItems.add(surveyItem);
                     }
                     searchResultsList.setManaged(true);

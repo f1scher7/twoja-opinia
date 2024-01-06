@@ -2,7 +2,7 @@
 <project version="4">
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="TwojaOpinia" options="--add-exports javafx.graphics/com.sun.javafx.application=TwojaOpinia" />
+      <module name="TwojaOpinia" options="--add-exports javafx.graphics/com.sun.javafx.application=TwojaOpinia --add-exports javafx.controls/com.sun.javafx.scene.control.skin=TwojaOpinia" />
     </option>
   </component>
 </project>

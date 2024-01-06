@@ -111,6 +111,7 @@ public class AdminPulpitController {
 
         transition.playFromStart();
     }
+
     //ADMIN_PULPIT
     public void setAdminLogin(String login) {
         this.adminLogin = login;

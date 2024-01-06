@@ -43,16 +43,34 @@
                 <Label style="-fx-text-fill: #ffffff; -fx-font-size: 27px;" text="Tworzenie ankiety" textAlignment="CENTER" />
                 <VBox spacing="10">
                     <HBox alignment="CENTER">
-                        <TextField fx:id="surveyTitleField" maxWidth="415.0" minWidth="100" prefHeight="30.0" prefWidth="415.0" promptText="Tytuł ankiety">
-                            <font>
-                                <Font size="14.0" />
-                            </font></TextField>
+                        <VBox>
+                            <Label style="-fx-text-fill: #ffffff; -fx-font-size: 13px;" text="Tytuł ankiety"/>
+                            <TextField fx:id="surveyTitleField" maxWidth="415.0" minWidth="100" prefHeight="30.0" prefWidth="415.0" promptText="Wpisz tytuł ankiety">
+                                <font>
+                                    <Font size="13.0" />
+                                </font>
+                            </TextField>
+                        </VBox>
                     </HBox>
                     <HBox alignment="CENTER">
-                        <TextArea fx:id="surveyDescriptionArea" maxWidth="415.0" prefHeight="70.0" prefWidth="415.0" promptText="Opis ankiety">
-                            <font>
-                                <Font size="14.0" />
-                            </font></TextArea>
+                        <VBox>
+                            <Label style="-fx-text-fill: #ffffff; -fx-font-size: 13px;" text="Opis ankiety"/>
+                            <TextArea fx:id="surveyDescriptionArea" maxWidth="415.0" prefHeight="70.0" prefWidth="415.0" promptText="Wpisz opis ankiety" wrapText="true">
+                                <font>
+                                    <Font size="13.0" />
+                                </font>
+                            </TextArea>
+                        </VBox>
+                    </HBox>
+                    <HBox alignment="CENTER">
+                        <VBox>
+                        <Label style="-fx-text-fill: #ffffff; -fx-font-size: 13px;" text="Tagi dla ankiety(opcojonalnie)"/>
+                            <TextArea fx:id="surveyTagsArea" maxWidth="415.0" prefHeight="30.0" prefWidth="415.0" promptText="Wpisz tagi dla ankiety" wrapText="true">
+                                <font>
+                                    <Font size="13.0" />
+                                </font>
+                            </TextArea>
+                        </VBox>
                     </HBox>
                 </VBox>
                 <VBox fx:id="answersAndQuestionVBox" spacing="10">
@@ -98,7 +116,7 @@
                     </HBox>
                 </VBox>
                 <VBox alignment="CENTER">
-                    <Button fx:id="deleteSurveyButton" onAction="#deleteSurvey" minWidth="140" prefHeight="35.0" prefWidth="140.0" styleClass="button4" text="Usuń ankietę" />
+                    <Button fx:id="deleteSurveyButton" minWidth="140" onAction="#deleteSurvey" prefHeight="35.0" prefWidth="140.0" styleClass="button4" text="Usuń ankietę" />
                 </VBox>
             </VBox>
         </StackPane>

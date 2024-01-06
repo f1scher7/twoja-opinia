@@ -80,8 +80,8 @@
                         <Label fx:id="surveyAuthorLabel5"/>
                         <Label fx:id="surveyNQuestionsLabel5"/>
                     </VBox>
-                        <VBox fx:id="surveyShortInfo6" alignment="CENTER" prefHeight="150.0" prefWidth="210.0" style="-fx-padding: 10;" GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="surveysShortInfo"><Label styleClass="surveyTitle" fx:id="surveyTitleLabel6" />
-                            <Label fx:id="surveyNQuestions6"/>
+                        <VBox fx:id="surveyShortInfo6" alignment="CENTER" prefHeight="150.0" prefWidth="210.0" style="-fx-padding: 10;" GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="surveysShortInfo">
+                            <Label styleClass="surveyTitle" fx:id="surveyTitleLabel6" />
                             <Label fx:id="surveyAuthorLabel6"/>
                             <Label fx:id="surveyNQuestionsLabel6"/>
 
