@@ -1,7 +1,11 @@
 package twojaOpinia.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import twojaOpinia.model.Answer;
 import twojaOpinia.model.Question;
 import twojaOpinia.util.DataBaseUtil;
 
@@ -36,6 +40,28 @@ public class QuestionDao implements InterfaceDAO<Question, Integer>{
 		}
 	}
 
+	public HashMap<Integer, Question> getQuestionsBySurveyID(int surveyID) {
+		HashMap<Integer, Question> questions = new HashMap<>();
+		String query = "SELECT * FROM questions WHERE questions.survey_id = ?";
+
+		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setInt(1, surveyID);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Question question = new Question();
+				question.setQuestionText(resultSet.getString("question_text"));
+				question.setSurveyID(surveyID);
+				question.setOrder(resultSet.getInt("question_order"));
+
+				questions.put(resultSet.getInt("id"), question);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return questions;
+	}
 	@Override
 	public void deleteByID(int id) {
 		String query = "DELETE FROM questions WHERE survey_id = ?";

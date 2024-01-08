@@ -21,7 +21,7 @@ public class ResponseDao implements InterfaceDAO<Response, Integer>{
 		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
 			preparedStatement.setInt(1, input.getAnswerID());
 			preparedStatement.setInt(2, input.getSurveyID());
-			preparedStatement.setString(3, input.getUser().getLogin());
+			preparedStatement.setString(3, input.getUserLogin());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			//TO_DO

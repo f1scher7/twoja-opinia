@@ -4,18 +4,18 @@ public class Response {
 	
 	private int surveyID;
 	private int answerID;
-	private User user;
+	private String userLogin;
 	
 	public Response() {
 		this.setSurveyID(-1);
 		this.answerID = -1;
-		this.user = null;
+		this.userLogin = "";
 	}
 	
-	public Response(int answerID, User user) {
+	public Response(int answerID, String userLogin) {
 		this.setSurveyID(-1);
 		this.answerID = answerID;
-		this.user = user;
+		this.userLogin = userLogin;
 	}
 
 
@@ -27,12 +27,12 @@ public class Response {
 		this.answerID = answerID;
 	}
 
-	public User getUser() {
-		return user;
+	public String getUserLogin() {
+		return this.userLogin;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserLogin(String userLogin) {
+		this.userLogin = userLogin;
 	}
 
 	public int getSurveyID() {
@@ -43,4 +43,12 @@ public class Response {
 		this.surveyID = surveyID;
 	}
 
+	@Override
+	public String toString() {
+		return "Response{" +
+				"surveyID=" + surveyID +
+				", answerID=" + answerID +
+				", userLogin='" + userLogin + '\'' +
+				'}';
+	}
 }
