@@ -25,3 +25,20 @@
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
 }
+
+.root {
+    -fx-background-image: url('img/jim-carrey-liar-liar.gif');
+    -fx-background-repeat: stretch;
+    -fx-background-size: cover;
+}
+.alert .content-panel {
+    -fx-background-color: transparent;
+}
+
+.alert .header-panel {
+    -fx-background-color: transparent;
+}
+
+.dialog-pane {
+    -fx-background-color: transparent;
+}
