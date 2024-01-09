@@ -3,6 +3,7 @@ package twojaOpinia.controller.admin;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -48,8 +49,8 @@ public class ManageUserController {
     private Label passwordFieldErrorLabel;
     @FXML
     private CheckBox newUserIsAdminCheck;
-    @FXML
-    private Button createNewUserButton;
+        @FXML
+        private Button createNewUserButton;
 
     @FXML
     private TextField findUserByLoginField;
@@ -74,6 +75,28 @@ public class ManageUserController {
 
     @FXML
     public void initialize() {
+
+        manageUserButtonMenu.setOnMouseEntered(e -> manageUserButtonMenu.setCursor(Cursor.HAND));
+        manageUserButtonMenu.setOnMouseExited(e -> manageUserButtonMenu.setCursor(Cursor.DEFAULT));
+
+        manageSurveyButtonMenu.setOnMouseEntered(e -> manageSurveyButtonMenu.setCursor(Cursor.HAND));
+        manageSurveyButtonMenu.setOnMouseExited(e -> manageSurveyButtonMenu.setCursor(Cursor.DEFAULT));
+
+        backToDashboardButtonMenu.setOnMouseEntered(e -> backToDashboardButtonMenu.setCursor(Cursor.HAND));
+        backToDashboardButtonMenu.setOnMouseExited(e -> backToDashboardButtonMenu.setCursor(Cursor.DEFAULT));
+
+        logoutButtonMenu.setOnMouseEntered(e -> logoutButtonMenu.setCursor(Cursor.HAND));
+        logoutButtonMenu.setOnMouseExited(e -> logoutButtonMenu.setCursor(Cursor.DEFAULT));
+
+        deleteUserButton.setOnMouseEntered(e -> deleteUserButton.setCursor(Cursor.HAND));
+        deleteUserButton.setOnMouseExited(e -> deleteUserButton.setCursor(Cursor.DEFAULT));
+
+        findUserDataButton.setOnMouseEntered(e -> findUserDataButton.setCursor(Cursor.HAND));
+        findUserDataButton.setOnMouseExited(e -> findUserDataButton.setCursor(Cursor.DEFAULT));
+
+        createNewUserButton.setOnMouseEntered(e -> createNewUserButton.setCursor(Cursor.HAND));
+        createNewUserButton.setOnMouseExited(e -> createNewUserButton.setCursor(Cursor.DEFAULT));
+
         createNewUserButton.setDisable(true);
         passwordFieldErrorLabel.setManaged(false);
         passwordFieldErrorLabel.setVisible(false);

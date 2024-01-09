@@ -6,6 +6,7 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,17 +17,14 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import javafx.util.Duration;
 import twojaOpinia.dao.SurveyDao;
-import twojaOpinia.dao.UserDao;
 import twojaOpinia.model.Answer;
 import twojaOpinia.model.Question;
 import twojaOpinia.model.Survey;
 
-import static com.sun.javafx.scene.control.skin.Utils.computeTextWidth;
 import static twojaOpinia.util.JavaFXMethods.centerStage;
 
 public class ManageSurveyController {
@@ -75,6 +73,30 @@ public class ManageSurveyController {
 
     @FXML
     public void initialize() {
+        manageUserButtonMenu.setOnMouseEntered(e -> manageUserButtonMenu.setCursor(Cursor.HAND));
+        manageUserButtonMenu.setOnMouseExited(e -> manageUserButtonMenu.setCursor(Cursor.DEFAULT));
+
+        manageSurveyButtonMenu.setOnMouseEntered(e -> manageSurveyButtonMenu.setCursor(Cursor.HAND));
+        manageSurveyButtonMenu.setOnMouseExited(e -> manageSurveyButtonMenu.setCursor(Cursor.DEFAULT));
+
+        backToDashboardButtonMenu.setOnMouseEntered(e -> backToDashboardButtonMenu.setCursor(Cursor.HAND));
+        backToDashboardButtonMenu.setOnMouseExited(e -> backToDashboardButtonMenu.setCursor(Cursor.DEFAULT));
+
+        logoutButtonMenu.setOnMouseEntered(e -> logoutButtonMenu.setCursor(Cursor.HAND));
+        logoutButtonMenu.setOnMouseExited(e -> logoutButtonMenu.setCursor(Cursor.DEFAULT));
+
+        deleteSurveyButton.setOnMouseEntered(e -> deleteSurveyButton.setCursor(Cursor.HAND));
+        deleteSurveyButton.setOnMouseExited(e -> deleteSurveyButton.setCursor(Cursor.DEFAULT));
+
+        addQuestionButton.setOnMouseEntered(e -> addQuestionButton.setCursor(Cursor.HAND));
+        addQuestionButton.setOnMouseExited(e -> addQuestionButton.setCursor(Cursor.DEFAULT));
+
+        addAnswerButton.setOnMouseEntered(e -> addAnswerButton.setCursor(Cursor.HAND));
+        addAnswerButton.setOnMouseExited(e -> addAnswerButton.setCursor(Cursor.DEFAULT));
+
+        saveSurveyButton.setOnMouseEntered(e -> saveSurveyButton.setCursor(Cursor.HAND));
+        saveSurveyButton.setOnMouseExited(e -> saveSurveyButton.setCursor(Cursor.DEFAULT));
+
         addAnswerButton.setOnAction(e -> addAnswer());
         addQuestionButton.setOnAction(e -> addQuestion());
         saveSurveyButton.setDisable(true);
@@ -105,6 +127,9 @@ public class ManageSurveyController {
         Button submitAnswerButton = new Button("Zatwierdź");
         submitAnswerButton.setStyle("-fx-min-width: 65; -fx-pref-height: 30.0; -fx-pref-width: 65.0");
         submitAnswerButton.getStyleClass().add("button5");
+
+        submitAnswerButton.setOnMouseEntered(e -> submitAnswerButton.setCursor(Cursor.HAND));
+        submitAnswerButton.setOnMouseExited(e -> submitAnswerButton.setCursor(Cursor.DEFAULT));
 
         BooleanBinding isTextFieldEmpty = Bindings.createBooleanBinding(
                 () -> newAnswer.getText().trim().isEmpty(),
@@ -179,6 +204,9 @@ public class ManageSurveyController {
         Button submitQuestionButton = new Button("Zatwierdź");
         submitQuestionButton.setStyle("-fx-min-width: 65; -fx-pref-height: 30.0; -fx-pref-width: 65.0");
         submitQuestionButton.getStyleClass().add("button5");
+
+        submitQuestionButton.setOnMouseEntered(e -> submitQuestionButton.setCursor(Cursor.HAND));
+        submitQuestionButton.setOnMouseExited(e -> submitQuestionButton.setCursor(Cursor.DEFAULT));
 
         BooleanBinding isTextFieldEmpty = Bindings.createBooleanBinding(
                 () -> newQuestion.getText().trim().isEmpty(),

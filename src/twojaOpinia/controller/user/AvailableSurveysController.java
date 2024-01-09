@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -71,6 +72,21 @@ public class AvailableSurveysController {
 
     @FXML
     public void initialize() {
+        availableSurveysButtonMenu.setOnMouseEntered(e -> availableSurveysButtonMenu.setCursor(Cursor.HAND));
+        availableSurveysButtonMenu.setOnMouseExited(e -> availableSurveysButtonMenu.setCursor(Cursor.DEFAULT));
+
+        surveysHistoryButtonMenu.setOnMouseEntered(e -> surveysHistoryButtonMenu.setCursor(Cursor.HAND));
+        surveysHistoryButtonMenu.setOnMouseExited(e -> surveysHistoryButtonMenu.setCursor(Cursor.DEFAULT));
+
+        accountSettingsButtonMenu.setOnMouseEntered(e -> accountSettingsButtonMenu.setCursor(Cursor.HAND));
+        accountSettingsButtonMenu.setOnMouseExited(e -> accountSettingsButtonMenu.setCursor(Cursor.DEFAULT));
+
+        backToDashboardButtonMenu.setOnMouseEntered(e -> backToDashboardButtonMenu.setCursor(Cursor.HAND));
+        backToDashboardButtonMenu.setOnMouseExited(e -> backToDashboardButtonMenu.setCursor(Cursor.DEFAULT));
+
+        logoutButtonMenu.setOnMouseEntered(e -> logoutButtonMenu.setCursor(Cursor.HAND));
+        logoutButtonMenu.setOnMouseExited(e -> logoutButtonMenu.setCursor(Cursor.DEFAULT));
+
         TreeMap<Integer, Survey> lastAddedSurveysTreeMap = surveyDao.getSixLastAddedSurveys();
         List<Survey> lastAddedSurveys = new ArrayList<>(lastAddedSurveysTreeMap.values());
         List<Integer> lastAddedSurveysID = new ArrayList<>(lastAddedSurveysTreeMap.keySet());
@@ -104,17 +120,18 @@ public class AvailableSurveysController {
                 st.setToX(1.07);
                 st.setToY(1.07);
                 st.playFromStart();
+                vBox.setCursor(Cursor.HAND);
             });
             vBox.setOnMouseExited(e -> {
                 st.setToX(1.0);
                 st.setToY(1.0);
                 st.playFromStart();
+                vBox.setCursor(Cursor.DEFAULT);
             });
 
             for (Node node : blocksWithSurveysInfo.getChildren()) {
                 if (node instanceof VBox) {
                     VBox vBoxSurvey = (VBox) node;
-
                     vBoxSurvey.setOnMouseClicked(event -> {
                         for (int j = 0; j < lastAddedSurveys.size(); j++) {
                             if(((Label) vBoxSurvey.getChildren().get(0)).getText().equals(lastAddedSurveys.get(j).getTitle())) {
@@ -199,6 +216,8 @@ public class AvailableSurveysController {
                         surveyNQuestionsLabel.setStyle("-fx-font-size: 11px;");
 
                         VBox surveyItem = new VBox(surveyTitleLabel, surveyTagsLabel, surveyNQuestionsLabel);
+                        surveyItem.setOnMouseEntered(e -> surveyItem.setCursor(Cursor.HAND));
+                        surveyItem.setOnMouseExited(e -> surveyItem.setCursor(Cursor.DEFAULT));
                         surveyItems.add(surveyItem);
 
                         inc++;

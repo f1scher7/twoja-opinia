@@ -4,6 +4,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.Transition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import twojaOpinia.dao.ResponseDao;
 import twojaOpinia.dao.SurveyDao;
 
 import java.io.IOException;
@@ -22,6 +24,7 @@ import static twojaOpinia.util.JavaFXMethods.centerStage;
 public class UserPulpitController {
 
     private SurveyDao surveyDao = new SurveyDao();
+    private ResponseDao responseDao = new ResponseDao();
 
     private String userLogin;
     private int surveyCount;
@@ -52,6 +55,18 @@ public class UserPulpitController {
 
     @FXML
     public void initialize() {
+        availableSurveysButtonMenu.setOnMouseEntered(e -> availableSurveysButtonMenu.setCursor(Cursor.HAND));
+        availableSurveysButtonMenu.setOnMouseExited(e -> availableSurveysButtonMenu.setCursor(Cursor.DEFAULT));
+
+        surveysHistoryButtonMenu.setOnMouseEntered(e -> surveysHistoryButtonMenu.setCursor(Cursor.HAND));
+        surveysHistoryButtonMenu.setOnMouseExited(e -> surveysHistoryButtonMenu.setCursor(Cursor.DEFAULT));
+
+        accountSettingsButtonMenu.setOnMouseEntered(e -> accountSettingsButtonMenu.setCursor(Cursor.HAND));
+        accountSettingsButtonMenu.setOnMouseExited(e -> accountSettingsButtonMenu.setCursor(Cursor.DEFAULT));
+
+        logoutButtonMenu.setOnMouseEntered(e -> logoutButtonMenu.setCursor(Cursor.HAND));
+        logoutButtonMenu.setOnMouseExited(e -> logoutButtonMenu.setCursor(Cursor.DEFAULT));
+
         this.surveyCount = updateSurveyCount();
         this.responseCount = updateResponseCount();
 
@@ -126,10 +141,11 @@ public class UserPulpitController {
     }
 
     private int updateResponseCount() {
+        int res = -1;
         if (responseCountLabel != null) {
-            return 0;
+            res = responseDao.getResponseCount();
         }
-        return -1;
+        return res;
     }
 
     //USER_MENU

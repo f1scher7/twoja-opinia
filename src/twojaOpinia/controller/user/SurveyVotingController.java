@@ -5,6 +5,7 @@ import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -67,14 +68,17 @@ public class SurveyVotingController {
 
     @FXML
     public void initialize() {
+        cancelSurveyButton.setOnMouseEntered(e -> cancelSurveyButton.setCursor(Cursor.HAND));
+        cancelSurveyButton.setOnMouseExited(e -> cancelSurveyButton.setCursor(Cursor.DEFAULT));
+
         if (nCurrentQuestions + 1 == nQuestions) {
             nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #62ee51; -fx-text-fill: #ffffff;");
             nextQuestionButton.setText("Zakończ ankietę");
         } else {
             nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;");
         }
-        nextQuestionButton.setOnMouseEntered(e -> nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);"));
-        nextQuestionButton.setOnMouseExited(e -> nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;"));
+        nextQuestionButton.setOnMouseEntered(e -> {nextQuestionButton.setCursor(Cursor.HAND); nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);");});
+        nextQuestionButton.setOnMouseExited(e -> {nextQuestionButton.setCursor(Cursor.DEFAULT); nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;");});
 
         previousQuestionButton.setVisible(false);
         previousQuestionButton.setDisable(true);
@@ -155,6 +159,7 @@ public class SurveyVotingController {
 
                 lastClickedLabel[0] = answerLabel;
             });
+
             answersVBox.getChildren().add(answerLabel);
         }
     }
@@ -208,11 +213,13 @@ public class SurveyVotingController {
             st.setToX(1.07);
             st.setToY(1.07);
             st.playFromStart();
+            label.setCursor(Cursor.HAND);
         });
         label.setOnMouseExited(e -> {
             st.setToX(1.0);
             st.setToY(1.0);
             st.playFromStart();
+            label.setCursor(Cursor.DEFAULT);
         });
     }
 
@@ -237,13 +244,12 @@ public class SurveyVotingController {
         nCurrentQuestions++;
 
         if (nCurrentQuestions == nQuestions - 1) {
-            nextQuestionButton.setOnMouseEntered(e -> nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #5afa67; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);"));
-            nextQuestionButton.setOnMouseExited(e -> nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #5afa67; -fx-text-fill: #FFFFFF;"));
+            nextQuestionButton.setOnMouseEntered(e -> {nextQuestionButton.setCursor(Cursor.HAND); nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #5afa67; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);");});
+            nextQuestionButton.setOnMouseExited(e -> {nextQuestionButton.setCursor(Cursor.DEFAULT); nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #5afa67; -fx-text-fill: #FFFFFF;");});
             nextQuestionButton.setText("Zakończ ankietę");
         } else {
-
-            previousQuestionButton.setOnMouseEntered(e -> previousQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);"));
-            previousQuestionButton.setOnMouseExited(e -> previousQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;"));
+            previousQuestionButton.setOnMouseEntered(e -> {previousQuestionButton.setCursor(Cursor.HAND); previousQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);");});
+            previousQuestionButton.setOnMouseExited(e -> {previousQuestionButton.setCursor(Cursor.DEFAULT); previousQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;");});
         }
         if(nCurrentQuestions == nQuestions) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
