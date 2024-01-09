@@ -1,9 +1,6 @@
 package twojaOpinia.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import twojaOpinia.model.Response;
 import twojaOpinia.util.DataBaseUtil;
@@ -27,6 +24,22 @@ public class ResponseDao implements InterfaceDAO<Response, Integer>{
 			//TO_DO
 			e.printStackTrace();
 		}
+	}
+
+	public int getResponseCount() {
+		int res = 0;
+		String query = "SELECT COUNT(*) AS responsescount FROM `responses`";
+		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				if (resultSet.next()) {
+					res = resultSet.getInt("responsescount");
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("Błąd podczas pobierania liczby odpowiedzi: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	@Override
