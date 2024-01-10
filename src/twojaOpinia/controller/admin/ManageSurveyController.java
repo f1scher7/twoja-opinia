@@ -26,7 +26,6 @@ import twojaOpinia.model.Answer;
 import twojaOpinia.model.Question;
 import twojaOpinia.model.Survey;
 
-import static com.sun.javafx.scene.control.skin.Utils.computeTextWidth;
 import static twojaOpinia.util.JavaFXMethods.centerStage;
 
 public class ManageSurveyController {
