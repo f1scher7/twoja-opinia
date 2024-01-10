@@ -66,6 +66,8 @@ public class ManageSurveyController {
     @FXML
     private Button manageSurveyButtonMenu;
     @FXML
+    private Button analyzeResultsButtonMenu;
+    @FXML
     private Button backToDashboardButtonMenu;
     @FXML
     private Button logoutButtonMenu;
@@ -76,8 +78,8 @@ public class ManageSurveyController {
         manageUserButtonMenu.setOnMouseEntered(e -> manageUserButtonMenu.setCursor(Cursor.HAND));
         manageUserButtonMenu.setOnMouseExited(e -> manageUserButtonMenu.setCursor(Cursor.DEFAULT));
 
-        manageSurveyButtonMenu.setOnMouseEntered(e -> manageSurveyButtonMenu.setCursor(Cursor.HAND));
-        manageSurveyButtonMenu.setOnMouseExited(e -> manageSurveyButtonMenu.setCursor(Cursor.DEFAULT));
+        analyzeResultsButtonMenu.setOnMouseEntered(e -> analyzeResultsButtonMenu.setCursor(Cursor.HAND));
+        analyzeResultsButtonMenu.setOnMouseExited(e -> analyzeResultsButtonMenu.setCursor(Cursor.DEFAULT));
 
         backToDashboardButtonMenu.setOnMouseEntered(e -> backToDashboardButtonMenu.setCursor(Cursor.HAND));
         backToDashboardButtonMenu.setOnMouseExited(e -> backToDashboardButtonMenu.setCursor(Cursor.DEFAULT));
@@ -436,6 +438,32 @@ public class ManageSurveyController {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void analyzeSurveys() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/SurveysAnalysis.fxml")));
+            Parent analyzeSurveys = fxmlLoader.load();
+
+            SurveysAnalysisController analysisController = fxmlLoader.getController();
+            analysisController.setAdminLogin(adminLogin);
+
+            Scene scene = new Scene(analyzeSurveys, 1100, 700);
+            Stage stage = (Stage) analyzeResultsButtonMenu.getScene().getWindow();
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(550), scene.getRoot());
+            tt.setFromX(-200f);
+            tt.setToX(0f);
+            tt.play();
+
+            stage.setScene(scene);
+
+            centerStage(stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
         }
     }
 

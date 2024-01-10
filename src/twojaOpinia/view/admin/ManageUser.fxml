@@ -29,7 +29,7 @@
             </HBox>
             <VBox alignment="CENTER" spacing="10">
                 <Button fx:id="manageSurveyButtonMenu" onAction="#manageSurvey" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button1" text="Zarządzaj Ankietami" />
-                <Button fx:id="analizujWynikiButton" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button2" text="Analizuj Wyniki" />
+                <Button fx:id="analyzeResultsButtonMenu" onAction="#analyzeSurveys" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button2" text="Analizuj Wyniki" />
                 <Button fx:id="manageUserButtonMenu" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button3" text="Zarządzaj Użytkownikami" />
                 <Button fx:id="backToDashboardButtonMenu" onAction="#backToDashboard" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button6" text="Wróć do pulpitu" />
                 <Button fx:id="logoutButtonMenu" onAction="#logout" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button4" text="Wyloguj" />
