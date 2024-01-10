@@ -20,12 +20,9 @@ import twojaOpinia.dao.SurveyDao;
 
 import static twojaOpinia.util.JavaFXMethods.centerStage;
 
-public class AdminPulpitController {
-    private UserDao userDao = new UserDao();
-    private SurveyDao surveyDao = new SurveyDao();
+public class SurveysAnalysisController {
+
     private String adminLogin;
-    private int userCount;
-    private int surveyCount;
 
     @FXML
     private Label twojaOpiniaLabel;
@@ -40,110 +37,29 @@ public class AdminPulpitController {
     @FXML
     private Button manageSurveyButtonMenu;
     @FXML
+    private Button backToDashboardButtonMenu;
+    @FXML
     private Button logoutButtonMenu;
-
-    @FXML
-    private Label greetingLabel;
-    @FXML
-    private Label userCountLabel;
-    @FXML
-    private Label surveyCountLabel;
 
     @FXML
     public void initialize() {
         manageUserButtonMenu.setOnMouseEntered(e -> manageUserButtonMenu.setCursor(Cursor.HAND));
         manageUserButtonMenu.setOnMouseExited(e -> manageUserButtonMenu.setCursor(Cursor.DEFAULT));
 
-        analyzeResultsButtonMenu.setOnMouseEntered(e -> analyzeResultsButtonMenu.setCursor(Cursor.HAND));
-        analyzeResultsButtonMenu.setOnMouseExited(e -> analyzeResultsButtonMenu.setCursor(Cursor.DEFAULT));
-
         manageSurveyButtonMenu.setOnMouseEntered(e -> manageSurveyButtonMenu.setCursor(Cursor.HAND));
         manageSurveyButtonMenu.setOnMouseExited(e -> manageSurveyButtonMenu.setCursor(Cursor.DEFAULT));
 
+        backToDashboardButtonMenu.setOnMouseEntered(e -> backToDashboardButtonMenu.setCursor(Cursor.HAND));
+        backToDashboardButtonMenu.setOnMouseExited(e -> backToDashboardButtonMenu.setCursor(Cursor.DEFAULT));
+
         logoutButtonMenu.setOnMouseEntered(e -> logoutButtonMenu.setCursor(Cursor.HAND));
         logoutButtonMenu.setOnMouseExited(e -> logoutButtonMenu.setCursor(Cursor.DEFAULT));
-
-        this.userCount = updateUserCount();
-        this.surveyCount = updateSurveyCount();
-
-        String userCountStr = "Liczba użytkowników: " + this.userCount;
-        String surveyCountStr = "Liczba stworzonych ankiet: " + this.surveyCount;
-        String greetingText = "Witamy w panelu administracyjnym!";
-
-        twojaOpiniaLabel.setOpacity(0);
-        adminAvatar.setOpacity(0);
-        adminLoginLabel.setOpacity(0);
-        manageUserButtonMenu.setOpacity(0);
-        manageSurveyButtonMenu.setOpacity(0);
-        analyzeResultsButtonMenu.setOpacity(0);
-        logoutButtonMenu.setOpacity(0);
-
-        FadeTransition ftMenu = animationForMenu(logoutButtonMenu, 1800);
-
-        ftMenu.setOnFinished(event -> {
-            animateLabel(greetingLabel, greetingText, 50);
-            animateLabel(userCountLabel, userCountStr, 70);
-            animateLabel(surveyCountLabel, surveyCountStr, 70);
-        });
-
-        animationForMenu(twojaOpiniaLabel, 0);
-        animationForMenu(adminAvatar, 300);
-        animationForMenu(adminLoginLabel, 600);
-        animationForMenu(manageUserButtonMenu, 900);
-        animationForMenu(manageSurveyButtonMenu, 1200);
-        animationForMenu(analyzeResultsButtonMenu, 1500);
-        animationForMenu(logoutButtonMenu, 1800);
     }
 
-    private FadeTransition animationForMenu(Node node, int delay) {
-        FadeTransition ft = new FadeTransition(Duration.millis(1000), node);
-        ft.setFromValue(0.0);
-        ft.setToValue(1.0);
-        ft.setDelay(Duration.millis(delay));
-        ft.playFromStart();
-        return ft;
-    }
-
-    private void animateLabel(Label label, String fullText, int delay) {
-        final StringBuilder sb = new StringBuilder();
-        final int textLength = fullText.length();
-        Duration duration = Duration.millis(delay * textLength);
-
-        Transition transition = new Transition() {
-            {
-                setCycleDuration(duration);
-            }
-
-            @Override
-            protected void interpolate(double frac) {
-                final int length = (int) Math.round(frac * textLength);
-                label.setText(fullText.substring(0, length));
-            }
-        };
-
-        transition.playFromStart();
-    }
-
-    //ADMIN_PULPIT
     public void setAdminLogin(String login) {
         this.adminLogin = login;
         adminLoginLabel.setText(login);
     }
-
-    private int updateUserCount() {
-        if (userCountLabel != null) {
-            return userDao.getUserCount();
-        }
-        return 0;
-    }
-
-    private int updateSurveyCount() {
-        if (surveyCountLabel != null) {
-            return surveyDao.getSurveyCount();
-        }
-        return 0;
-    }
-
 
     //ADMIN_MENU
     //===================================================================================================================
@@ -200,28 +116,22 @@ public class AdminPulpitController {
     }
 
     @FXML
-    private void analyzeSurveys() {
+    private void backToDashboard() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/SurveysAnalysis.fxml")));
-            Parent analyzeSurveys = fxmlLoader.load();
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/AdminDashboard.fxml")));
+            Parent adminDashboard = fxmlLoader.load();
 
-            SurveysAnalysisController analysisController = fxmlLoader.getController();
-            analysisController.setAdminLogin(adminLogin);
+            AdminPulpitController adminPulpitController = fxmlLoader.getController();
+            adminPulpitController.setAdminLogin(adminLogin);
 
-            Scene scene = new Scene(analyzeSurveys, 1100, 700);
-            Stage stage = (Stage) analyzeResultsButtonMenu.getScene().getWindow();
-
-            TranslateTransition tt = new TranslateTransition(Duration.millis(550), scene.getRoot());
-            tt.setFromX(-200f);
-            tt.setToX(0f);
-            tt.play();
-
+            Scene scene = new Scene(adminDashboard, 1100, 700);
+            Stage stage = (Stage) backToDashboardButtonMenu.getScene().getWindow();
             stage.setScene(scene);
 
             centerStage(stage);
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+            System.out.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
         }
     }
 

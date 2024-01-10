@@ -1,11 +1,13 @@
 package twojaOpinia.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.TreeMap;
 
 import twojaOpinia.model.Answer;
+import twojaOpinia.model.Question;
 import twojaOpinia.util.DataBaseUtil;
 
 public class AnswerDao implements InterfaceDAO<Answer, Integer>{
@@ -29,6 +31,28 @@ public class AnswerDao implements InterfaceDAO<Answer, Integer>{
 		}
 	}
 
+	public TreeMap<Integer, Answer> getAnswerByQuestionID(int questionID) {
+		TreeMap<Integer, Answer> answers = new TreeMap<>();
+		String query = "SELECT * FROM answers WHERE answers.question_id = ?";
+
+		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setInt(1, questionID);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Answer answer = new Answer();
+				answer.setAnswerText(resultSet.getString("answer_text"));
+				answer.setQuestionID(questionID);
+				answer.setOrder(resultSet.getInt("answer_order"));
+
+				answers.put(resultSet.getInt("id"), answer);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return answers;
+	}
 	@Override
 	public void deleteByID(int id) {
 		String query = "DELETE FROM answers WHERE question_id IN (SELECT id FROM questions WHERE survey_id = ?)";

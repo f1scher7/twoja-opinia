@@ -125,3 +125,39 @@
 .list-view .list-cell:hover {
     -fx-background-color: #d0d0d0;
 }
+
+
+
+/*SURVEY_VOTING*/
+#borderPaneVoting {
+    -fx-background-image: url('img/yellow-green-background-1.jpg');
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
+
+.cancelSurvey {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.cancelSurvey:hover {
+    -fx-background-color: #f44336;
+}
+
+.root {
+    -fx-background-image: url('img/giphy.gif');
+    -fx-background-repeat: stretch;
+    -fx-background-size: cover;
+}
+.alert .content-panel {
+    -fx-background-color: transparent;
+}
+
+.alert .header-panel {
+    -fx-background-color: transparent;
+}
+
+.dialog-pane {
+    -fx-background-color: transparent;
+}

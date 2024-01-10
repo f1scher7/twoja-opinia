@@ -6,6 +6,7 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,12 +17,10 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import javafx.util.Duration;
 import twojaOpinia.dao.SurveyDao;
-import twojaOpinia.dao.UserDao;
 import twojaOpinia.model.Answer;
 import twojaOpinia.model.Question;
 import twojaOpinia.model.Survey;
@@ -67,6 +66,8 @@ public class ManageSurveyController {
     @FXML
     private Button manageSurveyButtonMenu;
     @FXML
+    private Button analyzeResultsButtonMenu;
+    @FXML
     private Button backToDashboardButtonMenu;
     @FXML
     private Button logoutButtonMenu;
@@ -74,6 +75,30 @@ public class ManageSurveyController {
 
     @FXML
     public void initialize() {
+        manageUserButtonMenu.setOnMouseEntered(e -> manageUserButtonMenu.setCursor(Cursor.HAND));
+        manageUserButtonMenu.setOnMouseExited(e -> manageUserButtonMenu.setCursor(Cursor.DEFAULT));
+
+        analyzeResultsButtonMenu.setOnMouseEntered(e -> analyzeResultsButtonMenu.setCursor(Cursor.HAND));
+        analyzeResultsButtonMenu.setOnMouseExited(e -> analyzeResultsButtonMenu.setCursor(Cursor.DEFAULT));
+
+        backToDashboardButtonMenu.setOnMouseEntered(e -> backToDashboardButtonMenu.setCursor(Cursor.HAND));
+        backToDashboardButtonMenu.setOnMouseExited(e -> backToDashboardButtonMenu.setCursor(Cursor.DEFAULT));
+
+        logoutButtonMenu.setOnMouseEntered(e -> logoutButtonMenu.setCursor(Cursor.HAND));
+        logoutButtonMenu.setOnMouseExited(e -> logoutButtonMenu.setCursor(Cursor.DEFAULT));
+
+        deleteSurveyButton.setOnMouseEntered(e -> deleteSurveyButton.setCursor(Cursor.HAND));
+        deleteSurveyButton.setOnMouseExited(e -> deleteSurveyButton.setCursor(Cursor.DEFAULT));
+
+        addQuestionButton.setOnMouseEntered(e -> addQuestionButton.setCursor(Cursor.HAND));
+        addQuestionButton.setOnMouseExited(e -> addQuestionButton.setCursor(Cursor.DEFAULT));
+
+        addAnswerButton.setOnMouseEntered(e -> addAnswerButton.setCursor(Cursor.HAND));
+        addAnswerButton.setOnMouseExited(e -> addAnswerButton.setCursor(Cursor.DEFAULT));
+
+        saveSurveyButton.setOnMouseEntered(e -> saveSurveyButton.setCursor(Cursor.HAND));
+        saveSurveyButton.setOnMouseExited(e -> saveSurveyButton.setCursor(Cursor.DEFAULT));
+
         addAnswerButton.setOnAction(e -> addAnswer());
         addQuestionButton.setOnAction(e -> addQuestion());
         saveSurveyButton.setDisable(true);
@@ -104,6 +129,9 @@ public class ManageSurveyController {
         Button submitAnswerButton = new Button("Zatwierdź");
         submitAnswerButton.setStyle("-fx-min-width: 65; -fx-pref-height: 30.0; -fx-pref-width: 65.0");
         submitAnswerButton.getStyleClass().add("button5");
+
+        submitAnswerButton.setOnMouseEntered(e -> submitAnswerButton.setCursor(Cursor.HAND));
+        submitAnswerButton.setOnMouseExited(e -> submitAnswerButton.setCursor(Cursor.DEFAULT));
 
         BooleanBinding isTextFieldEmpty = Bindings.createBooleanBinding(
                 () -> newAnswer.getText().trim().isEmpty(),
@@ -178,6 +206,9 @@ public class ManageSurveyController {
         Button submitQuestionButton = new Button("Zatwierdź");
         submitQuestionButton.setStyle("-fx-min-width: 65; -fx-pref-height: 30.0; -fx-pref-width: 65.0");
         submitQuestionButton.getStyleClass().add("button5");
+
+        submitQuestionButton.setOnMouseEntered(e -> submitQuestionButton.setCursor(Cursor.HAND));
+        submitQuestionButton.setOnMouseExited(e -> submitQuestionButton.setCursor(Cursor.DEFAULT));
 
         BooleanBinding isTextFieldEmpty = Bindings.createBooleanBinding(
                 () -> newQuestion.getText().trim().isEmpty(),
@@ -407,6 +438,32 @@ public class ManageSurveyController {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void analyzeSurveys() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/SurveysAnalysis.fxml")));
+            Parent analyzeSurveys = fxmlLoader.load();
+
+            SurveysAnalysisController analysisController = fxmlLoader.getController();
+            analysisController.setAdminLogin(adminLogin);
+
+            Scene scene = new Scene(analyzeSurveys, 1100, 700);
+            Stage stage = (Stage) analyzeResultsButtonMenu.getScene().getWindow();
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(550), scene.getRoot());
+            tt.setFromX(-200f);
+            tt.setToX(0f);
+            tt.play();
+
+            stage.setScene(scene);
+
+            centerStage(stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
         }
     }
 

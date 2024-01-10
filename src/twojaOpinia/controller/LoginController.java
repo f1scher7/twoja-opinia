@@ -2,6 +2,7 @@ package twojaOpinia.controller;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
+import javafx.scene.Cursor;
 import javafx.util.Duration;
 import twojaOpinia.controller.admin.AdminPulpitController;
 import twojaOpinia.controller.user.UserPulpitController;
@@ -40,6 +41,12 @@ public class LoginController {
     private Label errorMess;
     private UserDao userDao = new UserDao();
 
+    @FXML
+    public void initialize() {
+        loginButton.setOnMouseEntered(e -> loginButton.setCursor(Cursor.HAND));
+        loginButton.setOnMouseExited(e -> loginButton.setCursor(Cursor.DEFAULT));
+
+    }
     @FXML
     private void login() {
         String login = userNameField.getText();

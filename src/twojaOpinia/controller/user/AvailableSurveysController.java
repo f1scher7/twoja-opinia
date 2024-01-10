@@ -1,14 +1,12 @@
 package twojaOpinia.controller.user;
 
 import javafx.animation.ScaleTransition;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,9 +14,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import twojaOpinia.dao.SurveyDao;
@@ -27,9 +25,7 @@ import twojaOpinia.model.Survey;
 import twojaOpinia.model.User;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static twojaOpinia.util.JavaFXMethods.centerStage;
 
@@ -37,7 +33,7 @@ public class AvailableSurveysController {
 
     private SurveyDao surveyDao = new SurveyDao();
     private UserDao userDao = new UserDao();
-    private List<Survey> matchingSurveys = new ArrayList<>();
+    private HashMap<Integer, Survey> matchingSurveys = new HashMap<>();
     private String userLogin;
     private String userLoginForReq;
 
@@ -76,7 +72,25 @@ public class AvailableSurveysController {
 
     @FXML
     public void initialize() {
-        List<Survey> lastAddedSurveys = surveyDao.getSixLastAddedSurveys();
+        availableSurveysButtonMenu.setOnMouseEntered(e -> availableSurveysButtonMenu.setCursor(Cursor.HAND));
+        availableSurveysButtonMenu.setOnMouseExited(e -> availableSurveysButtonMenu.setCursor(Cursor.DEFAULT));
+
+        surveysHistoryButtonMenu.setOnMouseEntered(e -> surveysHistoryButtonMenu.setCursor(Cursor.HAND));
+        surveysHistoryButtonMenu.setOnMouseExited(e -> surveysHistoryButtonMenu.setCursor(Cursor.DEFAULT));
+
+        accountSettingsButtonMenu.setOnMouseEntered(e -> accountSettingsButtonMenu.setCursor(Cursor.HAND));
+        accountSettingsButtonMenu.setOnMouseExited(e -> accountSettingsButtonMenu.setCursor(Cursor.DEFAULT));
+
+        backToDashboardButtonMenu.setOnMouseEntered(e -> backToDashboardButtonMenu.setCursor(Cursor.HAND));
+        backToDashboardButtonMenu.setOnMouseExited(e -> backToDashboardButtonMenu.setCursor(Cursor.DEFAULT));
+
+        logoutButtonMenu.setOnMouseEntered(e -> logoutButtonMenu.setCursor(Cursor.HAND));
+        logoutButtonMenu.setOnMouseExited(e -> logoutButtonMenu.setCursor(Cursor.DEFAULT));
+
+        TreeMap<Integer, Survey> lastAddedSurveysTreeMap = surveyDao.getSixLastAddedSurveys();
+        List<Survey> lastAddedSurveys = new ArrayList<>(lastAddedSurveysTreeMap.values());
+        List<Integer> lastAddedSurveysID = new ArrayList<>(lastAddedSurveysTreeMap.keySet());
+
         for (int i = 1; i <= 6; i++) {
             VBox vBox = (VBox) blocksWithSurveysInfo.lookup("#surveyShortInfo" + i);
             vBox.setStyle("-fx-background-radius: 12 12 12 12;");
@@ -85,6 +99,13 @@ public class AvailableSurveysController {
             Label surveyAuthorLabel = (Label) vBox.lookup("#surveyAuthorLabel" + i);
 
             surveyTitleLabel.setText(lastAddedSurveys.get(i - 1).getTitle());
+            if (surveyTitleLabel.getText().length() > 20) {
+                surveyTitleLabel.setStyle("-fx-font-size: 11px;\n" +
+                        "    -fx-font-weight: bold;\n" +
+                        "    -fx-text-fill: #333333; -fx-min-height: 25px");
+                surveyTitleLabel.setWrapText(true);
+                surveyTitleLabel.setTextAlignment(TextAlignment.CENTER);
+            }
             surveyAuthorLabel.setText(getAuthorNameAndSurname(lastAddedSurveys.get(i - 1).getAuthorLogin()));
 
             if (lastAddedSurveys.get(i - 1).getNQuestions() == 1) {
@@ -99,12 +120,40 @@ public class AvailableSurveysController {
                 st.setToX(1.07);
                 st.setToY(1.07);
                 st.playFromStart();
+                vBox.setCursor(Cursor.HAND);
             });
             vBox.setOnMouseExited(e -> {
                 st.setToX(1.0);
                 st.setToY(1.0);
                 st.playFromStart();
+                vBox.setCursor(Cursor.DEFAULT);
             });
+
+            for (Node node : blocksWithSurveysInfo.getChildren()) {
+                if (node instanceof VBox) {
+                    VBox vBoxSurvey = (VBox) node;
+                    vBoxSurvey.setOnMouseClicked(event -> {
+                        for (int j = 0; j < lastAddedSurveys.size(); j++) {
+                            if(((Label) vBoxSurvey.getChildren().get(0)).getText().equals(lastAddedSurveys.get(j).getTitle())) {
+                                try {
+                                    FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/user/SurveyVoting.fxml")));
+                                    int finalJ = j;
+                                    fxmlLoader.setControllerFactory(param -> new SurveyVotingController(this.userLogin, lastAddedSurveysID.get(finalJ)));
+
+                                    Parent surveyVoting = fxmlLoader.load();
+
+                                    Scene scene = new Scene(surveyVoting, 1100, 700);
+                                    Stage stage = (Stage) vBoxSurvey.getScene().getWindow();
+                                    stage.setScene(scene);
+                                    centerStage(stage);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }
+                    });
+                }
+            }
         }
 
         int itemHeight = 60;
@@ -141,25 +190,37 @@ public class AvailableSurveysController {
                     searchResultsList.setMaxHeight(25);
 
                 } else {
-                    for (int i = 0; i < matchingSurveys.size() && i < 5; i++) {
-                        Label surveyTitleLabel = new Label(matchingSurveys.get(i).getTitle());
+                    int limitSearchedSurveys = 5;
+                    int inc = 0;
+
+                    for (Map.Entry<Integer, Survey> entry: matchingSurveys.entrySet()) {
+                        if (inc >= limitSearchedSurveys) {
+                            break;
+                        }
+
+                        Survey matchingSurvey = entry.getValue();
+                        Label surveyTitleLabel = new Label(matchingSurvey.getTitle());
                         surveyTitleLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
 
-                        Label surveyTagsLabel = new Label(matchingSurveys.get(i).getTags());
+                        Label surveyTagsLabel = new Label(matchingSurvey.getTags());
                         surveyTagsLabel.setStyle("-fx-font-size: 11px;");
 
                         Label surveyNQuestionsLabel = new Label();
-                        if (matchingSurveys.get(i).getNQuestions() == 1) {
-                            surveyNQuestionsLabel.setText(matchingSurveys.get(i).getNQuestions() + " pytanie");
-                        } else if (matchingSurveys.get(i).getNQuestions() == 2 || matchingSurveys.get(i).getNQuestions() == 3 || matchingSurveys.get(i).getNQuestions() == 4) {
-                            surveyNQuestionsLabel.setText(matchingSurveys.get(i).getNQuestions() + " pytania");
+                        if (matchingSurvey.getNQuestions() == 1) {
+                            surveyNQuestionsLabel.setText(matchingSurvey.getNQuestions() + " pytanie");
+                        } else if (matchingSurvey.getNQuestions() == 2 || matchingSurvey.getNQuestions() == 3 || matchingSurvey.getNQuestions() == 4) {
+                            surveyNQuestionsLabel.setText(matchingSurvey.getNQuestions() + " pytania");
                         } else {
-                            surveyNQuestionsLabel.setText(matchingSurveys.get(i).getNQuestions() + " pytań");
+                            surveyNQuestionsLabel.setText(matchingSurvey.getNQuestions() + " pytań");
                         }
                         surveyNQuestionsLabel.setStyle("-fx-font-size: 11px;");
 
                         VBox surveyItem = new VBox(surveyTitleLabel, surveyTagsLabel, surveyNQuestionsLabel);
+                        surveyItem.setOnMouseEntered(e -> surveyItem.setCursor(Cursor.HAND));
+                        surveyItem.setOnMouseExited(e -> surveyItem.setCursor(Cursor.DEFAULT));
                         surveyItems.add(surveyItem);
+
+                        inc++;
                     }
                     searchResultsList.setManaged(true);
                     searchResultsList.setItems(surveyItems);
@@ -167,6 +228,29 @@ public class AvailableSurveysController {
 
                     int itemCount = Math.min(surveyItems.size(), 5);
                     searchResultsList.setMaxHeight(itemCount * (itemHeight - 3));
+
+                    searchResultsList.setOnMouseClicked(event -> {
+                        VBox selectedSurveyItem = (VBox) searchResultsList.getSelectionModel().getSelectedItem();
+                        if (selectedSurveyItem != null) {
+                            for (Map.Entry<Integer, Survey> entry : matchingSurveys.entrySet()) {
+                                if (entry.getValue().getTitle().equals(((Label) selectedSurveyItem.getChildren().get(0)).getText())) {
+                                    try {
+                                        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/user/SurveyVoting.fxml")));
+                                        fxmlLoader.setControllerFactory(param -> new SurveyVotingController(this.userLogin, entry.getKey()));
+
+                                        Parent surveyVoting = fxmlLoader.load();
+
+                                        Scene scene = new Scene(surveyVoting, 1100, 700);
+                                        Stage stage = (Stage) selectedSurveyItem.getScene().getWindow();
+                                        stage.setScene(scene);
+                                        centerStage(stage);
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+                            }
+                        }
+                    });
                 }
             }
         });

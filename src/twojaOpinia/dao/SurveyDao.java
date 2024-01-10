@@ -8,7 +8,9 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 import javafx.scene.chart.PieChart;
 import twojaOpinia.model.Survey;
@@ -95,8 +97,8 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 		return affectedRows;
 	}
 
-	public List<Survey> getSixLastAddedSurveys() {
-		List<Survey> sixLastAddedSurveys = new ArrayList<>();
+	public TreeMap<Integer, Survey> getSixLastAddedSurveys() {
+		TreeMap<Integer, Survey> sixLastAddedSurveys = new TreeMap<>();
 		String query = "SELECT * FROM SURVEYS ORDER BY id DESC LIMIT 6";
 		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -109,7 +111,7 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 				LocalDateTime dateAdded = LocalDateTime.parse(resultSet.getString("dateAdded"), formatter);
 				survey.setSurveyAddedDate(dateAdded);
 				survey.setNQuestions(resultSet.getInt("nquestions"));
-				sixLastAddedSurveys.add(survey);
+				sixLastAddedSurveys.put(resultSet.getInt("id"), survey);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -117,8 +119,8 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 		return sixLastAddedSurveys;
 	}
 
-	public List<Survey> searchSurveys(String input) {
-		List<Survey> matchingSurveys = new ArrayList<>();
+	public HashMap<Integer, Survey> searchSurveys(String input) {
+		HashMap<Integer, Survey> matchingSurveys = new HashMap<>();
 		String query = "SELECT * FROM surveys WHERE title LIKE ? OR description LIKE ? or tags LIKE ?";
 		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 			preparedStatement.setString(1, "%" + input + "%");
@@ -136,12 +138,12 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 				LocalDateTime dateAdded = LocalDateTime.parse(resultSet.getString("dateAdded"), formatter);
 				survey.setSurveyAddedDate(dateAdded);
 				survey.setNQuestions(resultSet.getInt("nquestions"));
-				matchingSurveys.add(survey);
+				matchingSurveys.put(resultSet.getInt("id"), survey);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return  matchingSurveys;
+		return matchingSurveys;
 	}
 
 	@Override

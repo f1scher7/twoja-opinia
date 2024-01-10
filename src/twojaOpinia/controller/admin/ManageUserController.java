@@ -3,6 +3,7 @@ package twojaOpinia.controller.admin;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -48,8 +49,8 @@ public class ManageUserController {
     private Label passwordFieldErrorLabel;
     @FXML
     private CheckBox newUserIsAdminCheck;
-    @FXML
-    private Button createNewUserButton;
+        @FXML
+        private Button createNewUserButton;
 
     @FXML
     private TextField findUserByLoginField;
@@ -67,6 +68,8 @@ public class ManageUserController {
     @FXML
     private Button manageSurveyButtonMenu;
     @FXML
+    private Button analyzeResultsButtonMenu;
+    @FXML
     private Button backToDashboardButtonMenu;
     @FXML
     private Button logoutButtonMenu;
@@ -74,6 +77,28 @@ public class ManageUserController {
 
     @FXML
     public void initialize() {
+
+        manageSurveyButtonMenu.setOnMouseEntered(e -> manageSurveyButtonMenu.setCursor(Cursor.HAND));
+        manageSurveyButtonMenu.setOnMouseExited(e -> manageSurveyButtonMenu.setCursor(Cursor.DEFAULT));
+
+        analyzeResultsButtonMenu.setOnMouseEntered(e -> analyzeResultsButtonMenu.setCursor(Cursor.HAND));
+        analyzeResultsButtonMenu.setOnMouseExited(e -> analyzeResultsButtonMenu.setCursor(Cursor.DEFAULT));
+
+        backToDashboardButtonMenu.setOnMouseEntered(e -> backToDashboardButtonMenu.setCursor(Cursor.HAND));
+        backToDashboardButtonMenu.setOnMouseExited(e -> backToDashboardButtonMenu.setCursor(Cursor.DEFAULT));
+
+        logoutButtonMenu.setOnMouseEntered(e -> logoutButtonMenu.setCursor(Cursor.HAND));
+        logoutButtonMenu.setOnMouseExited(e -> logoutButtonMenu.setCursor(Cursor.DEFAULT));
+
+        deleteUserButton.setOnMouseEntered(e -> deleteUserButton.setCursor(Cursor.HAND));
+        deleteUserButton.setOnMouseExited(e -> deleteUserButton.setCursor(Cursor.DEFAULT));
+
+        findUserDataButton.setOnMouseEntered(e -> findUserDataButton.setCursor(Cursor.HAND));
+        findUserDataButton.setOnMouseExited(e -> findUserDataButton.setCursor(Cursor.DEFAULT));
+
+        createNewUserButton.setOnMouseEntered(e -> createNewUserButton.setCursor(Cursor.HAND));
+        createNewUserButton.setOnMouseExited(e -> createNewUserButton.setCursor(Cursor.DEFAULT));
+
         createNewUserButton.setDisable(true);
         passwordFieldErrorLabel.setManaged(false);
         passwordFieldErrorLabel.setVisible(false);
@@ -311,6 +336,32 @@ public class ManageUserController {
 
             Scene scene = new Scene(manageSurvey, 1100, 700);
             Stage stage = (Stage) manageSurveyButtonMenu.getScene().getWindow();
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(550), scene.getRoot());
+            tt.setFromX(-200f);
+            tt.setToX(0f);
+            tt.play();
+
+            stage.setScene(scene);
+
+            centerStage(stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void analyzeSurveys() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/SurveysAnalysis.fxml")));
+            Parent analyzeSurveys = fxmlLoader.load();
+
+            SurveysAnalysisController analysisController = fxmlLoader.getController();
+            analysisController.setAdminLogin(adminLogin);
+
+            Scene scene = new Scene(analyzeSurveys, 1100, 700);
+            Stage stage = (Stage) analyzeResultsButtonMenu.getScene().getWindow();
 
             TranslateTransition tt = new TranslateTransition(Duration.millis(550), scene.getRoot());
             tt.setFromX(-200f);
