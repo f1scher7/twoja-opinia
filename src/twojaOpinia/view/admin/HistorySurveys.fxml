@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="borderPaneAdmin" prefHeight="600.0" prefWidth="1000.0" stylesheets="@adminStyles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twojaOpinia.controller.admin.HistorySurveysController">
+    <left>
+        <VBox alignment="TOP_LEFT" spacing="10" style="-fx-background-color: rgba(81, 99, 187, 0.5);" BorderPane.alignment="CENTER">
+            <StackPane />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 27px;" textAlignment="JUSTIFY">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <Label fx:id="twojaOpiniaLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 27px;" text="TwojaOpinia" textAlignment="JUSTIFY">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="85.0" prefWidth="203.0" spacing="7">
+                <Circle fx:id="adminAvatar" fill="WHITE" radius="38.0" />
+                <Label fx:id="adminLoginLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="97.0" style="-fx-text-fill: #ffffff;" text="">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+            </HBox>
+            <VBox alignment="CENTER" spacing="10">
+                <Button fx:id="manageSurveyButtonMenu" onAction="#manageSurvey" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button1" text="Zarządzaj Ankietami" />
+                <Button fx:id="analyzeResultsButtonMenu" onAction="#analyzeSurveys" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button2" text="Analizuj Wyniki" />
+                <Button fx:id="manageUserButtonMenu" onAction="#manageUser" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button3" text="Zarządzaj Użytkownikami" />
+                <Button fx:id="historyOfAddedSurveysButtonMenu" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button7" text="Historia Ankiet" />
+                <Button fx:id="backToDashboardButtonMenu" onAction="#backToDashboard" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button6" text="Wróć do pulpitu" />
+                <Button fx:id="logoutButtonMenu" onAction="#logout" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button4" text="Wyloguj" />
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <Label text="asdasda"/>
+    </center>
+</BorderPane>
