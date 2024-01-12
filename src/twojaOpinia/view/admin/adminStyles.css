@@ -64,6 +64,17 @@
     -fx-background-color: #5E35B1;
 }
 
+.button7 {
+    -fx-background-color: #fdfa35;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-margin: 10 25 10 0;
+}
+
+.button7:hover {
+    -fx-background-color: #fdfb67;
+}
+
 .lockButton {
     -fx-background-color: #2f332f;
     -fx-text-fill: white;

@@ -37,6 +37,8 @@ public class SurveysAnalysisController {
     @FXML
     private Button manageSurveyButtonMenu;
     @FXML
+    private Button historyOfAddedSurveysButtonMenu;
+    @FXML
     private Button backToDashboardButtonMenu;
     @FXML
     private Button logoutButtonMenu;
@@ -48,6 +50,9 @@ public class SurveysAnalysisController {
 
         manageSurveyButtonMenu.setOnMouseEntered(e -> manageSurveyButtonMenu.setCursor(Cursor.HAND));
         manageSurveyButtonMenu.setOnMouseExited(e -> manageSurveyButtonMenu.setCursor(Cursor.DEFAULT));
+
+        historyOfAddedSurveysButtonMenu.setOnMouseEntered(e -> historyOfAddedSurveysButtonMenu.setCursor(Cursor.HAND));
+        historyOfAddedSurveysButtonMenu.setOnMouseExited(e -> historyOfAddedSurveysButtonMenu.setCursor(Cursor.DEFAULT));
 
         backToDashboardButtonMenu.setOnMouseEntered(e -> backToDashboardButtonMenu.setCursor(Cursor.HAND));
         backToDashboardButtonMenu.setOnMouseExited(e -> backToDashboardButtonMenu.setCursor(Cursor.DEFAULT));
@@ -100,6 +105,32 @@ public class SurveysAnalysisController {
 
             Scene scene = new Scene(manageSurvey, 1100, 700);
             Stage stage = (Stage) manageSurveyButtonMenu.getScene().getWindow();
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(550), scene.getRoot());
+            tt.setFromX(-200f);
+            tt.setToX(0f);
+            tt.play();
+
+            stage.setScene(scene);
+
+            centerStage(stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void historyOfAddedSurveys() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/HistorySurveys.fxml")));
+            Parent historySurveys = fxmlLoader.load();
+
+            HistorySurveysController historySurveysController = fxmlLoader.getController();
+            historySurveysController.setAdminLogin(adminLogin);
+
+            Scene scene = new Scene(historySurveys, 1100, 700);
+            Stage stage = (Stage) historyOfAddedSurveysButtonMenu.getScene().getWindow();
 
             TranslateTransition tt = new TranslateTransition(Duration.millis(550), scene.getRoot());
             tt.setFromX(-200f);
