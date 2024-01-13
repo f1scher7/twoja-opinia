@@ -117,3 +117,13 @@
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
 }
+
+.column-header {
+    -fx-background-color: #cbdaff;
+    -fx-text-fill: white;
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: #65c9ff;
+
+}
