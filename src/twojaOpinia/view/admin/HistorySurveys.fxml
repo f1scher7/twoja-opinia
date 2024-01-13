@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="borderPaneAdmin" prefHeight="600.0" prefWidth="1000.0" stylesheets="@adminStyles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twojaOpinia.controller.admin.AdminPulpitController">
+<BorderPane fx:id="borderPaneAdmin" prefHeight="600.0" prefWidth="1000.0" stylesheets="@adminStyles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twojaOpinia.controller.admin.HistorySurveysController">
     <left>
         <VBox alignment="TOP_LEFT" spacing="10" style="-fx-background-color: rgba(81, 99, 187, 0.5);" BorderPane.alignment="CENTER">
             <StackPane />
@@ -31,44 +31,14 @@
                 <Button fx:id="manageSurveyButtonMenu" onAction="#manageSurvey" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button1" text="Zarządzaj Ankietami" />
                 <Button fx:id="analyzeResultsButtonMenu" onAction="#analyzeSurveys" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button2" text="Analizuj Wyniki" />
                 <Button fx:id="manageUserButtonMenu" onAction="#manageUser" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button3" text="Zarządzaj Użytkownikami" />
-                <Button fx:id="historyOfAddedSurveysButtonMenu" onAction="#historyOfAddedSurveys" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button7" text="Historia Ankiet" />
+                <Button fx:id="historyOfAddedSurveysButtonMenu" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button7" text="Historia Ankiet" />
+                <Button fx:id="backToDashboardButtonMenu" onAction="#backToDashboard" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button6" text="Wróć do pulpitu" />
                 <Button fx:id="logoutButtonMenu" onAction="#logout" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button4" text="Wyloguj" />
             </VBox>
         </VBox>
     </left>
 
     <center>
-        <VBox alignment="CENTER" spacing="20" BorderPane.alignment="CENTER">
-            <Label fx:id="greetingLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="500.0" style="-fx-text-fill: #ffffff; -fx-font-size: 30px;" textAlignment="JUSTIFY">
-                <font>
-                    <Font size="30.0" />
-                </font>
-            </Label>
-            <Label fx:id="userCountLabel" style="-fx-text-fill: #ffffff;">
-                <font>
-                    <Font size="24.0" />
-                </font>
-            </Label>
-            <Label fx:id="surveyCountLabel" style="-fx-text-fill: #ffffff;">
-                <font>
-                    <Font size="24.0" />
-                </font>
-            </Label>
-            <Label style="-fx-text-fill: #fcfcfc;">
-                <font>
-                    <Font size="24.0" />
-                </font>
-            </Label>
-            <Label style="-fx-text-fill: #fcfcfc;">
-                <font>
-                    <Font size="24.0" />
-                </font>
-            </Label>
-            <Label style="-fx-text-fill: #fcfcfc;">
-                <font>
-                    <Font size="24.0" />
-                </font>
-            </Label>
-        </VBox>
+        <Label text="asdasda"/>
     </center>
 </BorderPane>

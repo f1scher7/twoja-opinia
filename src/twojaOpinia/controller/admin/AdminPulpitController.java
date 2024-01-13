@@ -40,6 +40,8 @@ public class AdminPulpitController {
     @FXML
     private Button manageSurveyButtonMenu;
     @FXML
+    private Button historyOfAddedSurveysButtonMenu;
+    @FXML
     private Button logoutButtonMenu;
 
     @FXML
@@ -60,8 +62,13 @@ public class AdminPulpitController {
         manageSurveyButtonMenu.setOnMouseEntered(e -> manageSurveyButtonMenu.setCursor(Cursor.HAND));
         manageSurveyButtonMenu.setOnMouseExited(e -> manageSurveyButtonMenu.setCursor(Cursor.DEFAULT));
 
+        historyOfAddedSurveysButtonMenu.setOnMouseEntered(e -> historyOfAddedSurveysButtonMenu.setCursor(Cursor.HAND));
+        historyOfAddedSurveysButtonMenu.setOnMouseExited(e -> historyOfAddedSurveysButtonMenu.setCursor(Cursor.DEFAULT));
+
         logoutButtonMenu.setOnMouseEntered(e -> logoutButtonMenu.setCursor(Cursor.HAND));
         logoutButtonMenu.setOnMouseExited(e -> logoutButtonMenu.setCursor(Cursor.DEFAULT));
+
+
 
         this.userCount = updateUserCount();
         this.surveyCount = updateSurveyCount();
@@ -76,6 +83,7 @@ public class AdminPulpitController {
         manageUserButtonMenu.setOpacity(0);
         manageSurveyButtonMenu.setOpacity(0);
         analyzeResultsButtonMenu.setOpacity(0);
+        historyOfAddedSurveysButtonMenu.setOpacity(0);
         logoutButtonMenu.setOpacity(0);
 
         FadeTransition ftMenu = animationForMenu(logoutButtonMenu, 1800);
@@ -91,7 +99,8 @@ public class AdminPulpitController {
         animationForMenu(adminLoginLabel, 600);
         animationForMenu(manageUserButtonMenu, 900);
         animationForMenu(manageSurveyButtonMenu, 1200);
-        animationForMenu(analyzeResultsButtonMenu, 1500);
+        animationForMenu(analyzeResultsButtonMenu, 1400);
+        animationForMenu(historyOfAddedSurveysButtonMenu, 1600);
         animationForMenu(logoutButtonMenu, 1800);
     }
 
@@ -210,6 +219,32 @@ public class AdminPulpitController {
 
             Scene scene = new Scene(analyzeSurveys, 1100, 700);
             Stage stage = (Stage) analyzeResultsButtonMenu.getScene().getWindow();
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(550), scene.getRoot());
+            tt.setFromX(-200f);
+            tt.setToX(0f);
+            tt.play();
+
+            stage.setScene(scene);
+
+            centerStage(stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void historyOfAddedSurveys() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/admin/HistorySurveys.fxml")));
+            Parent historySurveys = fxmlLoader.load();
+
+            HistorySurveysController historySurveysController = fxmlLoader.getController();
+            historySurveysController.setAdminLogin(adminLogin);
+
+            Scene scene = new Scene(historySurveys, 1100, 700);
+            Stage stage = (Stage) historyOfAddedSurveysButtonMenu.getScene().getWindow();
 
             TranslateTransition tt = new TranslateTransition(Duration.millis(550), scene.getRoot());
             tt.setFromX(-200f);
