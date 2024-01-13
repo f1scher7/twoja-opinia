@@ -28,17 +28,29 @@
                 </Label>
             </HBox>
             <VBox alignment="CENTER" spacing="10">
-                <Button fx:id="manageSurveyButtonMenu" onAction="#manageSurvey" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button1" text="Zarządzaj Ankietami" />
-                <Button fx:id="analyzeResultsButtonMenu" onAction="#analyzeSurveys" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button2" text="Analizuj Wyniki" />
-                <Button fx:id="manageUserButtonMenu" onAction="#manageUser" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button3" text="Zarządzaj Użytkownikami" />
+                <Button fx:id="manageSurveyButtonMenu" minWidth="150" onAction="#manageSurvey" prefHeight="37.0" prefWidth="176.0" styleClass="button1" text="Zarządzaj Ankietami" />
+                <Button fx:id="analyzeResultsButtonMenu" minWidth="150" onAction="#analyzeSurveys" prefHeight="37.0" prefWidth="176.0" styleClass="button2" text="Analizuj Wyniki" />
+                <Button fx:id="manageUserButtonMenu" minWidth="150" onAction="#manageUser" prefHeight="37.0" prefWidth="176.0" styleClass="button3" text="Zarządzaj Użytkownikami" />
                 <Button fx:id="historyOfAddedSurveysButtonMenu" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button7" text="Historia Ankiet" />
-                <Button fx:id="backToDashboardButtonMenu" onAction="#backToDashboard" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button6" text="Wróć do pulpitu" />
-                <Button fx:id="logoutButtonMenu" onAction="#logout" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button4" text="Wyloguj" />
+                <Button fx:id="backToDashboardButtonMenu" minWidth="150" onAction="#backToDashboard" prefHeight="37.0" prefWidth="176.0" styleClass="button6" text="Wróć do pulpitu" />
+                <Button fx:id="logoutButtonMenu" minWidth="150" onAction="#logout" prefHeight="37.0" prefWidth="176.0" styleClass="button4" text="Wyloguj" />
             </VBox>
         </VBox>
     </left>
 
     <center>
-        <Label text="asdasda"/>
+        <VBox alignment="CENTER">
+            <Label prefHeight="75.0" prefWidth="395.0" style="-fx-text-fill: #ffffff; -fx-font-size: 27px;" text="Ankiety stworzone przez Ciebie" textAlignment="CENTER" />
+            <TableView fx:id="surveyTable" maxWidth="810.0" prefHeight="400.0" prefWidth="830.0">
+                <columns>
+                    <TableColumn fx:id="authorCol" prefWidth="100" text="Autor" />
+                    <TableColumn fx:id="titleCol" prefWidth="205" text="Tytuł" />
+                    <TableColumn fx:id="descCol" prefWidth="160" text="Opis" />
+                    <TableColumn fx:id="tagsCol" prefWidth="105.0" text="Tagi" />
+                    <TableColumn fx:id="dateAddedCol" prefWidth="130" text="Data stworzenia" />
+                    <TableColumn fx:id="nQuestionsCol" prefWidth="105" text="Ilość pytań" />
+                </columns>
+            </TableView>
+        </VBox>
     </center>
 </BorderPane>
