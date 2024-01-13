@@ -146,6 +146,10 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 		return matchingSurveys;
 	}
 
+	public void getAllSurveysCreatedByLogin(String login) {
+
+	}
+
 	@Override
 	public void deleteByID(int id) {}
 }
