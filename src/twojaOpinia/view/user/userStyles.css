@@ -161,3 +161,8 @@
 .dialog-pane {
     -fx-background-color: transparent;
 }
+
+#mainVBoxHistorySurveys {
+    -fx-background-image: url('img/green-abstract-geometric-shape-background-free-vector-scroll.jpg');
+    -fx-background-size: cover;
+}
