@@ -269,6 +269,24 @@ public class AvailableSurveysController {
     //USER_MENU
     //===================================================================================================================
     @FXML
+    private void surveysHistory() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/user/HistorySurveys.fxml")));
+            fxmlLoader.setControllerFactory(param -> new HistorySurveysController(this.userLogin));
+            Parent surveysHistory = fxmlLoader.load();
+
+            Scene scene = new Scene(surveysHistory, 1100, 700);
+            Stage stage = (Stage) surveysHistoryButtonMenu.getScene().getWindow();
+            stage.setScene(scene);
+
+            centerStage(stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+        }
+    }
+
+    @FXML
     private void backToDashboard() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/user/UserDashboard.fxml")));
