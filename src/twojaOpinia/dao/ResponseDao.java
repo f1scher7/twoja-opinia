@@ -84,6 +84,18 @@ public class ResponseDao implements InterfaceDAO<Response, Integer>{
 		return answersIDs;
 	}
 
+	public void changeUserLogin(String newLogin, String oldLogin) {
+		String query = "UPDATE responses SET login = ? WHERE login = ?";
+		try(Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setString(1, newLogin);
+			preparedStatement.setString(2, oldLogin);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Błąd podczas zmiany loginu użytkownika: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void deleteByID(int id) {}
 }
