@@ -146,6 +146,23 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 		return matchingSurveys;
 	}
 
+	public int getSurveyIDByTitle(String title) {
+	    int surveyID = -1;
+	    String query = "SELECT id FROM surveys WHERE title = ?";
+	    try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+	        preparedStatement.setString(1, title);
+
+	        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+	            if (resultSet.next()) {
+	                surveyID = resultSet.getInt("id");
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return surveyID;
+	}
+	
 	public void getAllSurveysCreatedByLogin(String login) {
 
 	}

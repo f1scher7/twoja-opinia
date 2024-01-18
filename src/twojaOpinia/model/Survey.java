@@ -66,6 +66,13 @@ public class Survey {
 	public ArrayList<Response> getResponses() { return this.responses; }
 	public void setResponses(ArrayList<Response> responses) { this.responses = responses; }
 
+	public int getSurveyIDFromQuestions() {
+	    if (!this.questions.isEmpty()) {
+	        return this.questions.get(0).getSurveyID();
+	    }
+	    return -1;
+	}
+	
 	@Override
 	public String toString() {
 		return "===========================================\n" +

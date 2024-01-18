@@ -42,6 +42,58 @@ public class ResponseDao implements InterfaceDAO<Response, Integer>{
 		return res;
 	}
 
+	public int getResponseCountForAnswer(int answerId) {
+		
+		if (answerId <= 0) {
+	        System.out.println("Niepoprawne answerId");
+	        return -1;
+	    }
+		
+	    int res = 0;
+	    String query = "SELECT COUNT(*) AS responsescount FROM `responses` WHERE answer_id = ?";
+	    try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+	        preparedStatement.setInt(1, answerId);
+	        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+	            if (resultSet.next()) {
+	                res = resultSet.getInt("responsescount");
+	            }
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("Błąd podczas pobierania liczby odpowiedzi: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    return res;
+	}
+	
+	public int getResponseCountForAnswerAndLogin(int answerId, String login) {
+	    if (answerId <= 0 || login == null || login.isEmpty()) {
+	        System.out.println("Niepoprawne argumenty");
+	        return -1;
+	    }
+
+	    int res = 0;
+	    String query = "SELECT COUNT(*) AS responsescount FROM `responses` " +
+	                   "JOIN `users` ON `responses`.`login` = `users`.`login` " +
+	                   "WHERE `responses`.`answer_id` = ? AND `responses`.`login` = ?";
+	    
+	    try (Connection connection = DataBaseUtil.connect();
+	         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+	        preparedStatement.setInt(1, answerId);
+	        preparedStatement.setString(2, login);
+
+	        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+	            if (resultSet.next()) {
+	                res = resultSet.getInt("responsescount");
+	            }
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("Błąd podczas pobierania liczby odpowiedzi: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+
+	    return res;
+	}
+	
 	@Override
 	public void deleteByID(int id) {
 
