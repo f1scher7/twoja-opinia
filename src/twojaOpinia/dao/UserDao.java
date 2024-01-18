@@ -8,6 +8,8 @@ import twojaOpinia.util.SHA256;
 import java.sql.*;
 
 public class UserDao implements InterfaceDAO<User, String>{
+	private ResponseDao responseDao = new ResponseDao();
+
 	@Override
 	public User getByID(String id) {
 		return null;
@@ -66,6 +68,36 @@ public class UserDao implements InterfaceDAO<User, String>{
 			e.printStackTrace();
 		}
 		return res;
+	}
+
+	public boolean isUserDataTaken(String dataType, String value) {
+		String query = "SELECT COUNT(*) > 0 FROM users WHERE " + dataType + "= ?";
+		boolean res;
+		try(Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setString(1, value);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				return resultSet.getBoolean(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	public void changeUserData(String dataType, String value, String login) {
+		String query = "UPDATE users SET " + dataType + " = ? WHERE login = ?";
+		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setString(1, value);
+			preparedStatement.setString(2, login);
+			preparedStatement.executeUpdate();
+			if(dataType.equals("login")) {
+				responseDao.changeUserLogin(value, login);
+			}
+		} catch (SQLException e) {
+			System.out.println("Błąd podczas zmiany danych użytkownika: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	public int deleteUserByLogin(String userLogin) {
