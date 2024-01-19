@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="borderPaneUser" prefHeight="600.0" prefWidth="1000.0" stylesheets="@userStyles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twojaOpinia.controller.user.SettingsAccountController">
+    <left>
+        <VBox alignment="TOP_LEFT" spacing="10" style="-fx-background-color: rgba(105,255,88,0.5);" BorderPane.alignment="CENTER">
+            <StackPane />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="13.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 27px;" textAlignment="JUSTIFY">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <Label fx:id="twojaOpiniaLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="203.0" style="-fx-text-fill: #ffffff; -fx-font-size: 27px;" text="TwojaOpinia" textAlignment="JUSTIFY">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="85.0" prefWidth="203.0" spacing="7">
+                <Circle fx:id="userAvatar" fill="WHITE" radius="38.0" />
+                <Label fx:id="userLoginLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="87.0" style="-fx-text-fill: #ffffff;">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+            </HBox>
+            <VBox alignment="CENTER" spacing="10">
+                <Button fx:id="availableSurveysButtonMenu" minWidth="150" onAction="#availableSurveys" prefHeight="37.0" prefWidth="176.0" styleClass="button1" text="Dostępne Ankiety" />
+                <Button fx:id="surveysHistoryButtonMenu" minWidth="150" onAction="#surveysHistory" prefHeight="37.0" prefWidth="176.0" styleClass="button2" text="Historia Ankiet" />
+                <Button fx:id="accountSettingsButtonMenu" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button3" text="Ustawienia Konta" />
+                <Button fx:id="backToDashboardButtonMenu" minWidth="150" onAction="#backToDashboard" prefHeight="37.0" prefWidth="176.0" styleClass="button6" text="Wróć do pulpitu" />
+                <Button fx:id="logoutButtonMenu" minWidth="150" onAction="#logout" prefHeight="37.0" prefWidth="176.0" styleClass="button4" text="Wyloguj" />
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <ScrollPane fitToHeight="true" fitToWidth="true">
+            <VBox fx:id="mainVBoxHistorySurveys" alignment="CENTER" spacing="10">
+                <Label style="-fx-text-fill: #ffffff; -fx-font-size: 10px;" />
+                <Label style="-fx-text-fill: #ffffff; -fx-font-size: 25px;" text="Ustawienia twego konta" />
+                <HBox alignment="CENTER">
+                    <VBox>
+                        <Label prefHeight="28.0" prefWidth="48.0" style="-fx-text-fill: #ffffff; -fx-font-size: 14" text="Login" />
+                        <HBox alignment="CENTER" spacing="3">
+                            <TextField fx:id="UserLoginField" maxWidth="406.0" prefHeight="57.0" prefWidth="406.0" promptText="Login" style="-fx-font-size: 14; -fx-background-radius: 7" />
+                            <Button fx:id="changeLoginButton" onAction="#changeLogin" prefWidth="60.0" styleClass="changeInfoButton" text="Zapisz" />
+                        </HBox>
+                    </VBox>
+                </HBox>
+                <VBox fx:id="loginErrorVBox" alignment="CENTER">
+                    <Label fx:id="loginError" prefHeight="20.0" style="-fx-text-fill: #ff2929; -fx-font-size: 14; -fx-font-weight: bold;" />
+                </VBox>
+                <HBox alignment="CENTER">
+                    <VBox>
+                        <Label style="-fx-text-fill: #ffffff; -fx-font-size: 14;" text="Imię" />
+                        <HBox alignment="CENTER" spacing="3">
+                            <TextField fx:id="UserNameField" maxWidth="406.0" prefHeight="51.0" prefWidth="406.0" promptText="Imię" style="-fx-font-size: 14; -fx-background-radius: 7" />
+                            <Button fx:id="changeNameButton" onAction="#changeName" prefWidth="60.0" styleClass="changeInfoButton" text="Zapisz" />
+                        </HBox>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <VBox>
+                        <Label style="-fx-text-fill: #ffffff; -fx-font-size: 14;" text="Nazwisko" />
+                        <HBox alignment="CENTER" spacing="3">
+                            <TextField fx:id="UserSurnameField" maxWidth="406.0" prefHeight="65.0" prefWidth="406.0" promptText="Nazwisko" style="-fx-font-size: 14; -fx-background-radius: 7" />
+                            <Button fx:id="changeSurnameButton" onAction="#changeSurname" prefWidth="60.0" styleClass="changeInfoButton" text="Zapisz" />
+                        </HBox>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <VBox>
+                        <Label style="-fx-text-fill: #ffffff; -fx-font-size: 14;" text="Mail" />
+                        <HBox alignment="CENTER" spacing="3">
+                            <TextField fx:id="UserEmailField" maxWidth="406.0" prefHeight="70.0" prefWidth="406.0" promptText="Mail" style="-fx-font-size: 14; -fx-background-radius: 7" />
+                            <Button fx:id="changeEmailButton" onAction="#changeEmail" prefWidth="60.0" styleClass="changeInfoButton" text="Zapisz" />
+                        </HBox>
+                    </VBox>
+                </HBox>
+                <VBox fx:id="emailErrorVBox" alignment="CENTER">
+                    <Label fx:id="emailError" prefHeight="20.0" style="-fx-text-fill: #ff2929; -fx-font-size: 14; -fx-font-weight: bold;" text="Użytkownik o takim mailu już istnieje!" wrapText="true" />
+                </VBox>
+                <HBox alignment="CENTER">
+                    <VBox>
+                        <Label style="-fx-text-fill: #ffffff; -fx-font-size: 14;" text="Kraj" />
+                        <HBox alignment="CENTER" spacing="3">
+                            <TextField fx:id="UserCountryField" maxWidth="406.0" prefHeight="54.0" prefWidth="406.0" promptText="Kraj" style="-fx-font-size: 14; -fx-background-radius: 7" />
+                            <Button fx:id="changeCountryButton" onAction="#changeCountry" prefWidth="60.0" styleClass="changeInfoButton" text="Zapisz" />
+                        </HBox>
+
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <VBox>
+                        <Label style="-fx-text-fill: #ffffff; -fx-font-size: 14;" text="Miasto" />
+                        <HBox alignment="CENTER" spacing="3">
+                            <TextField fx:id="UserCityField" maxWidth="406.0" prefHeight="58.0" prefWidth="406.0" promptText="Miasto" style="-fx-font-size: 14; -fx-background-radius: 7" />
+                            <Button fx:id="changeCityButton" onAction="#changeCity" prefWidth="60.0" styleClass="changeInfoButton" text="Zapisz" />
+                        </HBox>
+
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <VBox alignment="CENTER" prefHeight="306.0" prefWidth="450.0" spacing="10">
+                        <Label style="-fx-text-fill: #ffffff; -fx-font-size: 25px;" />
+                        <Label style="-fx-text-fill: #ffffff; -fx-font-size: 20px;" text="Zmiana hasła" />
+                        <VBox>
+                            <Label style="-fx-text-fill: #ffffff; -fx-font-size: 14;" text="Stare hasło" />
+                            <HBox alignment="CENTER" spacing="3">
+                                <TextField fx:id="UserOldPasswordField" maxWidth="502.0" prefHeight="30.0" prefWidth="502.0" promptText="Stare hasło" style="-fx-font-size: 14; -fx-background-radius: 7" />
+                            </HBox>
+                        </VBox>
+                        <VBox fx:id="oldPasswordErrorVBox" alignment="CENTER">
+                            <Label fx:id="oldPasswordError" prefHeight="20.0" style="-fx-text-fill: #ff2929; -fx-font-size: 14; -fx-font-weight: bold;" text="Nieprawidłowe hasło!" wrapText="true" />
+                        </VBox>
+                        <VBox>
+                            <Label style="-fx-text-fill: #ffffff; -fx-font-size: 14;" text="Wpisz nowe hasło" />
+                            <HBox alignment="CENTER" spacing="3">
+                                <TextField fx:id="UserNewPasswordField" maxWidth="471.0" prefHeight="30.0" prefWidth="471.0" promptText="Nowe hasło" style="-fx-font-size: 14; -fx-background-radius: 7" />
+                            </HBox>
+                        </VBox>
+                        <VBox fx:id="newPasswordErrorVBox" alignment="CENTER">
+                            <Label fx:id="newPasswordError" prefHeight="20.0" style="-fx-text-fill: #ff2929; -fx-font-size: 14; -fx-font-weight: bold;" text="Hasło ma zawierać min. 8 znaków, co najmniej jedną literę lub cyfrę!" wrapText="true" />
+                        </VBox>
+                        <Button fx:id="changePasswordButton" onAction="#changePassword" styleClass="button1" text="Zmień hasło" />
+                        <Label style="-fx-text-fill: #ffffff; -fx-font-size: 7px;" />
+                    </VBox>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
