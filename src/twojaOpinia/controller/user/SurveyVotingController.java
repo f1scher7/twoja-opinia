@@ -72,13 +72,14 @@ public class SurveyVotingController {
         cancelSurveyButton.setOnMouseExited(e -> cancelSurveyButton.setCursor(Cursor.DEFAULT));
 
         if (nCurrentQuestions + 1 == nQuestions) {
-            nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #62ee51; -fx-text-fill: #ffffff;");
+            nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #62ee51; -fx-text-fill: #ffffff;");
             nextQuestionButton.setText("Zakończ ankietę");
         } else {
-            nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;");
+            nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;");
         }
-        nextQuestionButton.setOnMouseEntered(e -> {nextQuestionButton.setCursor(Cursor.HAND); nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);");});
-        nextQuestionButton.setOnMouseExited(e -> {nextQuestionButton.setCursor(Cursor.DEFAULT); nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;");});
+        previousQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #7ba0ff; -fx-text-fill: #ffffff;");
+        nextQuestionButton.setOnMouseEntered(e -> {nextQuestionButton.setCursor(Cursor.HAND); nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);");});
+        nextQuestionButton.setOnMouseExited(e -> {nextQuestionButton.setCursor(Cursor.DEFAULT); nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;");});
 
         previousQuestionButton.setVisible(false);
         previousQuestionButton.setDisable(true);
@@ -244,12 +245,12 @@ public class SurveyVotingController {
         nCurrentQuestions++;
 
         if (nCurrentQuestions == nQuestions - 1) {
-            nextQuestionButton.setOnMouseEntered(e -> {nextQuestionButton.setCursor(Cursor.HAND); nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #5afa67; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);");});
-            nextQuestionButton.setOnMouseExited(e -> {nextQuestionButton.setCursor(Cursor.DEFAULT); nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #5afa67; -fx-text-fill: #FFFFFF;");});
+            nextQuestionButton.setOnMouseEntered(e -> {nextQuestionButton.setCursor(Cursor.HAND); nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #5afa67; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);");});
+            nextQuestionButton.setOnMouseExited(e -> {nextQuestionButton.setCursor(Cursor.DEFAULT); nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #5afa67; -fx-text-fill: #FFFFFF;");});
             nextQuestionButton.setText("Zakończ ankietę");
         } else {
-            previousQuestionButton.setOnMouseEntered(e -> {previousQuestionButton.setCursor(Cursor.HAND); previousQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);");});
-            previousQuestionButton.setOnMouseExited(e -> {previousQuestionButton.setCursor(Cursor.DEFAULT); previousQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;");});
+            previousQuestionButton.setOnMouseEntered(e -> {previousQuestionButton.setCursor(Cursor.HAND); previousQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);");});
+            previousQuestionButton.setOnMouseExited(e -> {previousQuestionButton.setCursor(Cursor.DEFAULT); previousQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10;-fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;");});
         }
         if(nCurrentQuestions == nQuestions) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -388,13 +389,13 @@ public class SurveyVotingController {
     @FXML
     private void previousQuestion() {
         if (nCurrentQuestions == nQuestions) {
-            nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #62ee51; -fx-text-fill: #ffffff;");
+            nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #62ee51; -fx-text-fill: #ffffff;");
             nextQuestionButton.setText("Zakończ ankietę");
         } else {
             nextQuestionButton.setText("Następne pytanie");
-            nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;");
-            nextQuestionButton.setOnMouseEntered(e -> nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);"));
-            nextQuestionButton.setOnMouseExited(e -> nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;"));
+            nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;");
+            nextQuestionButton.setOnMouseEntered(e -> nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);"));
+            nextQuestionButton.setOnMouseExited(e -> nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;"));
         }
 
         if (nCurrentQuestions > 1) {
@@ -404,8 +405,8 @@ public class SurveyVotingController {
             previousQuestionButton.setVisible(false);
             previousQuestionButton.setDisable(true);
         }
-        previousQuestionButton.setOnMouseEntered(e -> previousQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);"));
-        previousQuestionButton.setOnMouseExited(e -> previousQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;"));
+        previousQuestionButton.setOnMouseEntered(e -> previousQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);"));
+        previousQuestionButton.setOnMouseExited(e -> previousQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;"));
 
         nCurrentQuestions--;
         answersVBox.getChildren().clear();

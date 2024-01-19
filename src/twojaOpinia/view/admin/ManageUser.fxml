@@ -54,42 +54,42 @@
             <HBox alignment="CENTER" spacing="10">
                 <VBox>
                     <Label style="-fx-text-fill: #ffffff;" text="Imię" />
-                    <TextField fx:id="newUserNameField" maxWidth="200.0" prefHeight="30.0" prefWidth="165.0" promptText="Imię" />
+                    <TextField fx:id="newUserNameField" maxWidth="200.0" prefHeight="30.0" prefWidth="165.0" promptText="Imię" style="-fx-background-radius: 6;"/>
                 </VBox>
                 <VBox>
                     <Label style="-fx-text-fill: #ffffff;" text="Nazwisko" />
-                    <TextField fx:id="newUserSurnameField" maxWidth="200.0" prefHeight="30.0" prefWidth="165.0" promptText="Nazwisko" />
+                    <TextField fx:id="newUserSurnameField" maxWidth="200.0" prefHeight="30.0" prefWidth="165.0" promptText="Nazwisko" style="-fx-background-radius: 6;"/>
                 </VBox>
             </HBox>
             <VBox alignment="CENTER">
                 <Label prefHeight="18.0" prefWidth="344.0" style="-fx-text-fill: #ffffff;" text="Data urodzenia" />
-                <DatePicker fx:id="newUserBirthdayDate" maxWidth="344.0" prefHeight="30.0" prefWidth="345.0" promptText="Data urodzenia" />
+                <DatePicker fx:id="newUserBirthdayDate" maxWidth="344.0" prefHeight="30.0" prefWidth="345.0" promptText="Data urodzenia" style="-fx-background-radius: 6;"/>
             </VBox>
             <HBox alignment="CENTER" spacing="10">
                 <VBox>
                     <Label style="-fx-text-fill: #ffffff;" text="Kraj" />
-                    <TextField fx:id="newUserCountryField" maxWidth="200.0" prefHeight="30.0" prefWidth="165.0" promptText="Kraj" />
+                    <TextField fx:id="newUserCountryField" maxWidth="200.0" prefHeight="30.0" prefWidth="165.0" promptText="Kraj" style="-fx-background-radius: 6;"/>
                 </VBox>
                 <VBox>
                     <Label style="-fx-text-fill: #ffffff;" text="Miasto" />
-                    <TextField fx:id="newUserCityField" maxWidth="200.0" prefHeight="30.0" prefWidth="165.0" promptText="Miasto" />
+                    <TextField fx:id="newUserCityField" maxWidth="200.0" prefHeight="30.0" prefWidth="165.0" promptText="Miasto" style="-fx-background-radius: 6;"/>
                 </VBox>
             </HBox>
             <VBox alignment="CENTER">
                 <Label prefHeight="18.0" prefWidth="343.0" style="-fx-text-fill: #ffffff;" text="Mail" />
-                <TextField fx:id="newUserEmailField" maxWidth="344.0" prefHeight="30.0" prefWidth="340.0" promptText="Mail" />
+                <TextField fx:id="newUserEmailField" maxWidth="344.0" prefHeight="30.0" prefWidth="340.0" promptText="Mail" style="-fx-background-radius: 6;"/>
             </VBox>
             <VBox alignment="CENTER">
                 <Label prefHeight="18.0" prefWidth="343.0" style="-fx-text-fill: #ffffff;" text="Login" />
-                <TextField fx:id="newUserLoginField" maxWidth="344.0" prefHeight="30.0" prefWidth="340.0" promptText="Login" />
+                <TextField fx:id="newUserLoginField" maxWidth="344.0" prefHeight="30.0" prefWidth="340.0" promptText="Login" style="-fx-background-radius: 6;"/>
             </VBox>
             <VBox alignment="CENTER">
                 <Label prefHeight="18.0" prefWidth="343.0" style="-fx-text-fill: #ffffff;" text="Hasło" />
-                <PasswordField fx:id="newUserPasswordField" maxWidth="344.0" prefHeight="30.0" prefWidth="340.0" promptText="Hasło" />
+                <PasswordField fx:id="newUserPasswordField" maxWidth="344.0" prefHeight="30.0" prefWidth="340.0" promptText="Hasło" style="-fx-background-radius: 6;"/>
             </VBox>
             <VBox alignment="CENTER">
                 <Label prefHeight="18.0" prefWidth="343.0" style="-fx-text-fill: #ffffff;" text="Powtórz hasło" />
-                <PasswordField fx:id="newUserFinalPasswordField" maxWidth="344.0" prefHeight="30.0" prefWidth="340.0" promptText="Powtórz hasło" />
+                <PasswordField fx:id="newUserFinalPasswordField" maxWidth="344.0" prefHeight="30.0" prefWidth="340.0" promptText="Powtórz hasło" style="-fx-background-radius: 6;"/>
             </VBox>
             <Label fx:id="passwordFieldErrorLabel" style="-fx-text-fill: red;" text="" />
             <CheckBox fx:id="newUserIsAdminCheck" style="-fx-alignment: center; -fx-text-fill: #ffffff;" text="Admin" />
@@ -108,11 +108,11 @@
                 </Label>
                 <VBox alignment="CENTER" spacing="10">
                     <HBox alignment="CENTER" spacing="5">
-                        <TextField fx:id="findUserByLoginField" minWidth="100" prefHeight="30.0" prefWidth="150.0" promptText="Wpisz login użytkownika" />
+                        <TextField fx:id="findUserByLoginField" minWidth="100" prefHeight="30.0" prefWidth="150.0" promptText="Wpisz login użytkownika" style="-fx-background-radius: 6;"/>
                     </HBox>
                 </VBox>
                 <VBox alignment="CENTER">
-                    <Button fx:id="findUserDataButton" onAction="#findUserDataByLogin"  minWidth="140" prefHeight="35.0" prefWidth="140.0" styleClass="button1" text="Sprawdź" />
+                    <Button fx:id="findUserDataButton" onAction="#findUserDataByLogin"  minWidth="140" prefHeight="35.0" prefWidth="140.0" styleClass="button1" text="Sprawdź" style="-fx-background-radius: 6;"/>
                 </VBox>
 
 
@@ -130,7 +130,7 @@
                 </Label>
                 <VBox alignment="CENTER" spacing="10">
                     <HBox alignment="CENTER" spacing="5">
-                        <TextField fx:id="deleteUserByLoginField" minWidth="100" prefHeight="30.0" prefWidth="150.0" promptText="Wpisz login użytkownika" />
+                        <TextField fx:id="deleteUserByLoginField" minWidth="100" prefHeight="30.0" prefWidth="150.0" promptText="Wpisz login użytkownika" style="-fx-background-radius: 6;"/>
                     </HBox>
                 </VBox>
                 <VBox alignment="CENTER">

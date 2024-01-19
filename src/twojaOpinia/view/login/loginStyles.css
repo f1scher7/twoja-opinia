@@ -3,6 +3,7 @@
     -fx-text-fill: white;
     -fx-font-size: 12px;
     -fx-margin: 10 25 10 0;
+    -fx-background-radius: 7;
 }
 
 .buttonRegistration {
@@ -10,6 +11,7 @@
     -fx-text-fill: white;
     -fx-font-size: 12px;
     -fx-margin: 10 25 10 0;
+    -fx-background-radius: 7;
 }
 
 .buttonLogin:hover {

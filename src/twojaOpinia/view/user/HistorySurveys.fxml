@@ -30,7 +30,7 @@
             <VBox alignment="CENTER" spacing="10">
                 <Button fx:id="availableSurveysButtonMenu" onAction="#availableSurveys" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button1" text="Dostępne Ankiety" />
                 <Button fx:id="surveysHistoryButtonMenu" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button2" text="Historia Ankiet" />
-                <Button fx:id="accountSettingsButtonMenu" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button3" text="Ustawienia Konta" />
+                <Button fx:id="accountSettingsButtonMenu" onAction="#settingsAccount" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button3" text="Ustawienia Konta" />
                 <Button fx:id="backToDashboardButtonMenu" onAction="#backToDashboard" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button6" text="Wróć do pulpitu" />
                 <Button fx:id="logoutButtonMenu" onAction="#logout" minWidth="150"  prefHeight="37.0" prefWidth="176.0" styleClass="button4" text="Wyloguj" />
             </VBox>
