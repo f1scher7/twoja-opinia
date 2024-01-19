@@ -1,6 +1,8 @@
 package twojaOpinia.controller.user;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
+import javafx.animation.SequentialTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -254,17 +256,29 @@ public class AvailableSurveysController {
                 }
             }
         });
+        animateElementsSequentially(mainLayout);
     }
 
     public void setUserLogin(String login) {
         this.userLogin = login;
         userLoginLabel.setText(login);
     }
+
     private String getAuthorNameAndSurname(String login) {
         User user = userDao.getUserDataByLogin(login);
         return "Autor: " + user.getName() + " " + user.getSurname();
     }
 
+    private void animateElementsSequentially(VBox vbox) {
+        SequentialTransition seqTransition = new SequentialTransition();
+        for (Node node : vbox.getChildren()) {
+            FadeTransition ft = new FadeTransition(Duration.millis(200), node);
+            ft.setFromValue(0.0);
+            ft.setToValue(1.0);
+            seqTransition.getChildren().add(ft);
+        }
+        seqTransition.play();
+    }
 
     //USER_MENU
     //===================================================================================================================
@@ -277,6 +291,24 @@ public class AvailableSurveysController {
 
             Scene scene = new Scene(surveysHistory, 1100, 700);
             Stage stage = (Stage) surveysHistoryButtonMenu.getScene().getWindow();
+            stage.setScene(scene);
+
+            centerStage(stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void settingsAccount() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/user/SettingsAccount.fxml")));
+            fxmlLoader.setControllerFactory(param -> new SettingsAccountController(this.userLogin));
+            Parent settingsAccount = fxmlLoader.load();
+
+            Scene scene = new Scene(settingsAccount, 1100, 700);
+            Stage stage = (Stage) accountSettingsButtonMenu.getScene().getWindow();
             stage.setScene(scene);
 
             centerStage(stage);
