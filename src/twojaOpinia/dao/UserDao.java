@@ -100,6 +100,21 @@ public class UserDao implements InterfaceDAO<User, String>{
 		}
 	}
 
+	public void changeUserPassword(String newPassword, String login) {
+		String salt = generateSalt();
+		String password = SHA256.toSHA256(newPassword + salt);
+		String query = "UPDATE users SET password = ?, salt = ? WHERE login = ?";
+		try(Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setString(1, password);
+			preparedStatement.setString(2, salt);
+			preparedStatement.setString(3, login);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Błąd podczas zmiany hasła użytkownika: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
 	public int deleteUserByLogin(String userLogin) {
 		String query = "DELETE FROM users WHERE login = ?";
 		int affectedRows = 0;
