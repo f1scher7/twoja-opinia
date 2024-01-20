@@ -29,61 +29,71 @@
             </HBox>
             <VBox alignment="CENTER" spacing="10">
                 <Button fx:id="availableSurveysButtonMenu" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button1" text="Dostępne Ankiety" />
-                <Button fx:id="surveysHistoryButtonMenu" onAction="#surveysHistory" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button2" text="Historia Ankiet" />
-                <Button fx:id="accountSettingsButtonMenu" onAction="#settingsAccount" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button3" text="Ustawienia Konta" />
-                <Button fx:id="backToDashboardButtonMenu" onAction="#backToDashboard" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button6" text="Wróć do pulpitu" />
-                <Button fx:id="logoutButtonMenu" onAction="#logout" minWidth="150" prefHeight="37.0" prefWidth="176.0" styleClass="button4" text="Wyloguj" />
+                <Button fx:id="surveysHistoryButtonMenu" minWidth="150" onAction="#surveysHistory" prefHeight="37.0" prefWidth="176.0" styleClass="button2" text="Historia Ankiet" />
+                <Button fx:id="accountSettingsButtonMenu" minWidth="150" onAction="#settingsAccount" prefHeight="37.0" prefWidth="176.0" styleClass="button3" text="Ustawienia Konta" />
+                <Button fx:id="backToDashboardButtonMenu" minWidth="150" onAction="#backToDashboard" prefHeight="37.0" prefWidth="176.0" styleClass="button6" text="Wróć do pulpitu" />
+                <Button fx:id="logoutButtonMenu" minWidth="150" onAction="#logout" prefHeight="37.0" prefWidth="176.0" styleClass="button4" text="Wyloguj" />
             </VBox>
         </VBox>
     </left>
 
     <center>
-        <StackPane fx:id="mainContainer" alignment="BASELINE_CENTER" >
+        <StackPane fx:id="mainContainer" alignment="BASELINE_CENTER">
             <VBox fx:id="mainLayout" alignment="CENTER">
-                <Label contentDisplay="CENTER" prefHeight="10.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY"/>
-                <Label contentDisplay="CENTER" prefHeight="20.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY"/>
+                <Label contentDisplay="CENTER" prefHeight="10.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY" />
+                <Label contentDisplay="CENTER" prefHeight="20.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY" />
 
                 <VBox fx:id="searchVBox" alignment="TOP_CENTER">
-                    <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="596.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" text="Wyszukaj ankietę" textAlignment="JUSTIFY"/>
+                    <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="596.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" text="Wyszukaj ankietę" textAlignment="JUSTIFY" />
                     <TextField fx:id="searchSurveysField" maxWidth="600.0" prefHeight="34.0" prefWidth="555.0" promptText="Wyszukaj ankietę tutaj!" />
                     <ListView fx:id="searchResultsList" />
                 </VBox>
-                <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY"/>
-                <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY"/>
-                <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY"/>
-                <Label contentDisplay="CENTER" prefHeight="38.0" prefWidth="653.0" style="-fx-text-fill: #ffffff; -fx-font-size: 20px;" text="Ostatnio dodane ankiety:" textAlignment="JUSTIFY"/>
-
+                <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY" />
+                <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY" />
+                <Label contentDisplay="CENTER" prefHeight="0.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY" />
+                <VBox>
+                    <HBox alignment="CENTER" prefHeight="76.0" prefWidth="797.0">
+                        <ChoiceBox fx:id="choiceBox" minHeight="40.0" prefHeight="40.0" prefWidth="210.0" style="-fx-font-size: 15px; -fx-background-radius: 12; -fx-background-color: #63ff69; -fx-text-fill: white;" />
+                        <Label contentDisplay="CENTER" prefHeight="22.0" prefWidth="444.0" style="-fx-font-size: 15px; " textAlignment="JUSTIFY" />
+                    </HBox>
+                </VBox>
+                <Label contentDisplay="CENTER" prefHeight="2.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 3px;" textAlignment="JUSTIFY" />
                 <GridPane fx:id="blocksWithSurveysInfo" alignment="CENTER" hgap="10" prefHeight="288.0" prefWidth="692.0" vgap="10">
-                    <VBox fx:id="surveyShortInfo1"  alignment="CENTER" prefHeight="150.0" prefWidth="210.0" style="-fx-padding: 10;" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="surveysShortInfo">
-                        <Label styleClass="surveyTitle" fx:id="surveyTitleLabel1"/>
-                        <Label fx:id="surveyAuthorLabel1"/>
-                        <Label fx:id="surveyNQuestionsLabel1"/>
+                    <VBox fx:id="surveyShortInfo1" alignment="CENTER" prefHeight="150.0" prefWidth="210.0" style="-fx-padding: 10;" styleClass="surveysShortInfo" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label fx:id="surveyTitleLabel1" styleClass="surveyTitle" />
+                        <Label fx:id="surveyAuthorLabel1" />
+                        <Label fx:id="surveyNQuestionsLabel1" />
+                        <Label fx:id="extraLabel1" />
                     </VBox>
-                    <VBox fx:id="surveyShortInfo2" alignment="CENTER" prefHeight="150.0" prefWidth="210.0" style="-fx-padding: 10;" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="surveysShortInfo">
-                        <Label styleClass="surveyTitle" fx:id="surveyTitleLabel2"/>
-                        <Label fx:id="surveyAuthorLabel2"/>
-                        <Label fx:id="surveyNQuestionsLabel2"/>
+                    <VBox fx:id="surveyShortInfo2" alignment="CENTER" prefHeight="150.0" prefWidth="210.0" style="-fx-padding: 10;" styleClass="surveysShortInfo" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label fx:id="surveyTitleLabel2" styleClass="surveyTitle" />
+                        <Label fx:id="surveyAuthorLabel2" />
+                        <Label fx:id="surveyNQuestionsLabel2" />
+                        <Label fx:id="extraLabel2" />
                     </VBox>
-                    <VBox fx:id="surveyShortInfo3" alignment="CENTER" prefHeight="150.0" prefWidth="210.0" style=" -fx-padding: 10;" GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="surveysShortInfo">
-                        <Label styleClass="surveyTitle" fx:id="surveyTitleLabel3"/>
-                        <Label fx:id="surveyAuthorLabel3"/>
-                        <Label fx:id="surveyNQuestionsLabel3"/>
+                    <VBox fx:id="surveyShortInfo3" alignment="CENTER" prefHeight="150.0" prefWidth="210.0" style=" -fx-padding: 10;" styleClass="surveysShortInfo" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <Label fx:id="surveyTitleLabel3" styleClass="surveyTitle" />
+                        <Label fx:id="surveyAuthorLabel3" />
+                        <Label fx:id="surveyNQuestionsLabel3" />
+                        <Label fx:id="extraLabel3" />
                     </VBox>
-                    <VBox fx:id="surveyShortInfo4" alignment="CENTER" prefHeight="150.0" prefWidth="210.0" style=" -fx-padding: 10;" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="surveysShortInfo">
-                        <Label styleClass="surveyTitle" fx:id="surveyTitleLabel4"/>
-                        <Label fx:id="surveyAuthorLabel4"/>
-                        <Label fx:id="surveyNQuestionsLabel4"/>
+                    <VBox fx:id="surveyShortInfo4" alignment="CENTER" prefHeight="150.0" prefWidth="210.0" style=" -fx-padding: 10;" styleClass="surveysShortInfo" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label fx:id="surveyTitleLabel4" styleClass="surveyTitle" />
+                        <Label fx:id="surveyAuthorLabel4" />
+                        <Label fx:id="surveyNQuestionsLabel4" />
+                        <Label fx:id="extraLabel4" />
                     </VBox>
-                    <VBox fx:id="surveyShortInfo5" alignment="CENTER" prefHeight="150.0" prefWidth="210.0" style=" -fx-padding: 10;" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="surveysShortInfo">
-                        <Label styleClass="surveyTitle" fx:id="surveyTitleLabel5"/>
-                        <Label fx:id="surveyAuthorLabel5"/>
-                        <Label fx:id="surveyNQuestionsLabel5"/>
+                    <VBox fx:id="surveyShortInfo5" alignment="CENTER" prefHeight="150.0" prefWidth="210.0" style=" -fx-padding: 10;" styleClass="surveysShortInfo" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label fx:id="surveyTitleLabel5" styleClass="surveyTitle" />
+                        <Label fx:id="surveyAuthorLabel5" />
+                        <Label fx:id="surveyNQuestionsLabel5" />
+                        <Label fx:id="extraLabel5" />
                     </VBox>
-                        <VBox fx:id="surveyShortInfo6" alignment="CENTER" prefHeight="150.0" prefWidth="210.0" style="-fx-padding: 10;" GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="surveysShortInfo">
-                            <Label styleClass="surveyTitle" fx:id="surveyTitleLabel6" />
-                            <Label fx:id="surveyAuthorLabel6"/>
-                            <Label fx:id="surveyNQuestionsLabel6"/>
-
+                        <VBox fx:id="surveyShortInfo6" alignment="CENTER" prefHeight="150.0" prefWidth="210.0" style="-fx-padding: 10;" styleClass="surveysShortInfo" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <Label fx:id="surveyTitleLabel6" styleClass="surveyTitle" />
+                            <Label fx:id="surveyAuthorLabel6" />
+                            <Label fx:id="surveyNQuestionsLabel6" />
+                            <Label fx:id="extraLabel6" />
                         </VBox>
                     <columnConstraints>
                        <ColumnConstraints />
