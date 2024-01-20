@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import twojaOpinia.dao.*;
@@ -46,6 +47,10 @@ public class SurveyVotingController {
     @FXML
     private Label incQuestionLabel;
     @FXML
+    private Label surveyTitleLabel;
+    @FXML
+    private Label surveyDescriptionLabel;
+    @FXML
     private Label questionContentLabel;
 
     @FXML
@@ -70,6 +75,8 @@ public class SurveyVotingController {
     public void initialize() {
         cancelSurveyButton.setOnMouseEntered(e -> cancelSurveyButton.setCursor(Cursor.HAND));
         cancelSurveyButton.setOnMouseExited(e -> cancelSurveyButton.setCursor(Cursor.DEFAULT));
+        surveyTitleLabel.setText("Tytuł: " + survey.getTitle());
+        surveyDescriptionLabel.setText("Opis: " + survey.getDescription());
 
         if (nCurrentQuestions + 1 == nQuestions) {
             nextQuestionButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 10; -fx-background-color: #62ee51; -fx-text-fill: #ffffff;");
