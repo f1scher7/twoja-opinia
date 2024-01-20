@@ -20,18 +20,19 @@ public class UserDao implements InterfaceDAO<User, String>{
 		String salt = generateSalt();
 		user.setSalt(salt);
 		String hashedPassword = SHA256.toSHA256(user.getPassword() + salt);
-		String query = "INSERT INTO `users` (`name`, `surname`, `email`, `birthday`, `country`, `city`, `login`, `password`, `salt`, `admin`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO `users` (`name`, `surname`, `sex`, `email`, `birthday`, `country`, `city`, `login`, `password`, `salt`, `admin`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getSurname());
-			preparedStatement.setString(3, user.getEmail());
-			preparedStatement.setString(4, user.getBirthday());
-			preparedStatement.setString(5, user.getCountry());
-			preparedStatement.setString(6, user.getCity());
-			preparedStatement.setString(7, user.getLogin());
-			preparedStatement.setString(8, hashedPassword);
-			preparedStatement.setString(9, salt);
-			preparedStatement.setBoolean(10, user.isAdmin());
+			preparedStatement.setString(3, user.getSex());
+			preparedStatement.setString(4, user.getEmail());
+			preparedStatement.setString(5, user.getBirthday());
+			preparedStatement.setString(6, user.getCountry());
+			preparedStatement.setString(7, user.getCity());
+			preparedStatement.setString(8, user.getLogin());
+			preparedStatement.setString(9, hashedPassword);
+			preparedStatement.setString(10, salt);
+			preparedStatement.setBoolean(11, user.isAdmin());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Użytkownik o tym loginie już istnieje");
@@ -45,7 +46,7 @@ public class UserDao implements InterfaceDAO<User, String>{
 			preparedStatement.setString(1, login);
 			try (ResultSet resultSet = preparedStatement.executeQuery()) {
 				if (resultSet.next()) {
-					user = new User(resultSet.getString("name"), resultSet.getString("surname"), resultSet.getString("email"), resultSet.getString("birthday"), resultSet.getString("country"), resultSet.getString("city"), login, resultSet.getString("password"), resultSet.getString("salt"), resultSet.getBoolean("admin"));
+					user = new User(resultSet.getString("name"), resultSet.getString("surname"), resultSet.getString("sex"), resultSet.getString("email"), resultSet.getString("birthday"), resultSet.getString("country"), resultSet.getString("city"), login, resultSet.getString("password"), resultSet.getString("salt"), resultSet.getBoolean("admin"));
 				}
 			}
 		} catch (SQLException e) {

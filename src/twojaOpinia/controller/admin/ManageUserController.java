@@ -32,6 +32,8 @@ public class ManageUserController {
     @FXML
     private TextField newUserSurnameField;
     @FXML
+    private ChoiceBox<String> sexChoiceBox;
+    @FXML
     private DatePicker newUserBirthdayDate;
     @FXML
     private TextField newUserCountryField;
@@ -49,8 +51,8 @@ public class ManageUserController {
     private Label passwordFieldErrorLabel;
     @FXML
     private CheckBox newUserIsAdminCheck;
-        @FXML
-        private Button createNewUserButton;
+    @FXML
+    private Button createNewUserButton;
 
     @FXML
     private TextField findUserByLoginField;
@@ -118,6 +120,9 @@ public class ManageUserController {
         newUserPasswordField.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         newUserFinalPasswordField.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         newUserIsAdminCheck.selectedProperty().addListener((observable, oldValue, newValue) -> checkFields());
+
+        sexChoiceBox.getItems().addAll("M", "K");
+        sexChoiceBox.setValue("Płeć");
     }
 
     public void setAdminLogin(String login) {
@@ -156,6 +161,7 @@ public class ManageUserController {
     private void addNewUser() {
         String name = newUserNameField.getText();
         String surname = newUserSurnameField.getText();
+        String sex = sexChoiceBox.getValue();
         LocalDate date = newUserBirthdayDate.getValue();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String birthday = date.format(formatter);
@@ -167,7 +173,7 @@ public class ManageUserController {
         boolean isAdmin = newUserIsAdminCheck.isSelected();
 
         String salt = generateSalt();
-        User user = new User(name, surname, email, birthday, country, city, login, finalPassword, salt, isAdmin);
+        User user = new User(name, surname, sex, email, birthday, country, city, login, finalPassword, salt, isAdmin);
 
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("TwojaOpinia");
@@ -214,6 +220,7 @@ public class ManageUserController {
             newUserPasswordField.setText("");
             newUserFinalPasswordField.setText("");
             newUserIsAdminCheck.setSelected(false);
+            sexChoiceBox.setValue("Płeć");
         }
     }
 
@@ -224,6 +231,7 @@ public class ManageUserController {
         if (user != null) {
             String userDetails = "Imię: " + user.getName() + "\n" +
                     "Nazwisko: " + user.getSurname() + "\n" +
+                    "Płeć: " + user.getSex() + "\n" +
                     "Email: " + user.getEmail() + "\n" +
                     "Data urodzenia: " + user.getBirthday() + "\n" +
                     "Kraj: " + user.getCountry() + "\n" +
