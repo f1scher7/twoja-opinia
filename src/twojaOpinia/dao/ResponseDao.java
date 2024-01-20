@@ -1,9 +1,9 @@
 package twojaOpinia.dao;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import javafx.scene.chart.PieChart;
 import twojaOpinia.model.Answer;
 import twojaOpinia.model.Response;
 import twojaOpinia.util.DataBaseUtil;
@@ -94,6 +94,30 @@ public class ResponseDao implements InterfaceDAO<Response, Integer>{
 			System.out.println("Błąd podczas zmiany loginu użytkownika: " + e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	public Map<Integer, Integer> getSixMostPopularSurveysID() {
+		Map<Integer, Integer> surveysIDs = new HashMap<>();
+		String query = "SELECT survey_id, COUNT(DISTINCT login) as count FROM responses GROUP BY survey_id ORDER BY count DESC LIMIT 6;";
+		try(Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				surveysIDs.put(resultSet.getInt("survey_id"), resultSet.getInt("count"));
+			}
+		} catch (SQLException e) {
+			System.out.println("Błąd podczas pobierania ID ankiet " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		List<Map.Entry<Integer, Integer>> list = new ArrayList<>(surveysIDs.entrySet());
+		list.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+		Map<Integer, Integer> sortedSurveysIDs = new LinkedHashMap<>();
+		for (Map.Entry<Integer, Integer> entry : list) {
+			sortedSurveysIDs.put(entry.getKey(), entry.getValue());
+		}
+
+		return sortedSurveysIDs;
 	}
 
 	@Override
