@@ -1,7 +1,10 @@
 package twojaOpinia.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import twojaOpinia.model.Answer;
 import twojaOpinia.model.Response;
 import twojaOpinia.util.DataBaseUtil;
 
@@ -42,6 +45,58 @@ public class ResponseDao implements InterfaceDAO<Response, Integer>{
 		return res;
 	}
 
+
+	public List<Response> getAllResponsesByLogin(String login) {
+		List<Response> responses = new ArrayList<>();
+		String query = "SELECT * FROM responses WHERE login = ?";
+		try(Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setString(1, login);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Response response = new Response();
+				response.setUserLogin(login);
+				response.setAnswerID(resultSet.getInt("answer_id"));
+				response.setSurveyID(resultSet.getInt("survey_id"));
+
+				responses.add(response);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return responses;
+	}
+
+	public List<Integer> getAnswersIDsBuySurveyID(Integer surveyId) {
+		List<Integer> answersIDs = new ArrayList<>();
+
+		String query = "SELECT * FROM responses WHERE survey_id = ?";
+		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setInt(1, surveyId);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				int id = resultSet.getInt("answer_id");
+				answersIDs.add(id);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return answersIDs;
+	}
+
+	public void changeUserLogin(String newLogin, String oldLogin) {
+		String query = "UPDATE responses SET login = ? WHERE login = ?";
+		try(Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setString(1, newLogin);
+			preparedStatement.setString(2, oldLogin);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Błąd podczas zmiany loginu użytkownika: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
 	public int getResponseCountForAnswer(int answerId) {
 		
 		if (answerId <= 0) {
@@ -93,9 +148,7 @@ public class ResponseDao implements InterfaceDAO<Response, Integer>{
 
 	    return res;
 	}
-	
-	@Override
-	public void deleteByID(int id) {
 
-	}
+	@Override
+	public void deleteByID(int id) {}
 }

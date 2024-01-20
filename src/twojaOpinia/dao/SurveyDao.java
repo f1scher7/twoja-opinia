@@ -145,26 +145,57 @@ public class SurveyDao implements InterfaceDAO<Survey, Integer>{
 		}
 		return matchingSurveys;
 	}
-
-	public int getSurveyIDByTitle(String title) {
-	    int surveyID = -1;
-	    String query = "SELECT id FROM surveys WHERE title = ?";
-	    try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-	        preparedStatement.setString(1, title);
-
-	        try (ResultSet resultSet = preparedStatement.executeQuery()) {
-	            if (resultSet.next()) {
-	                surveyID = resultSet.getInt("id");
-	            }
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return surveyID;
-	}
 	
-	public void getAllSurveysCreatedByLogin(String login) {
+	public List<Survey> getAllSurveysCreatedByLogin(String login) {
+		List<Survey> surveys = new ArrayList<>();
+        String query = "SELECT * FROM surveys WHERE author = ?";
+        try(Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, login);
 
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                Survey survey = new Survey();
+                survey.setTitle(resultSet.getString("title"));
+                survey.setAuthorLogin(resultSet.getString("author"));
+                survey.setDescription(resultSet.getString("description"));
+                survey.setTags(resultSet.getString("tags"));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime dateAdded = LocalDateTime.parse(resultSet.getString("dateAdded"), formatter);
+                survey.setSurveyAddedDate(dateAdded);
+                survey.setNQuestions(resultSet.getInt("nquestions"));
+
+                surveys.add(survey);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return surveys;
+    }
+	
+	public List<Survey> getAllSurveysCreatedByAdmin(String login) {
+		List<Survey> surveys = new ArrayList<>();
+		String query = "SELECT * FROM surveys WHERE author = ?";
+		try(Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setString(1, login);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Survey survey = new Survey();
+				survey.setTitle(resultSet.getString("title"));
+				survey.setAuthorLogin(resultSet.getString("author"));
+				survey.setDescription(resultSet.getString("description"));
+				survey.setTags(resultSet.getString("tags"));
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+				LocalDateTime dateAdded = LocalDateTime.parse(resultSet.getString("dateAdded"), formatter);
+				survey.setSurveyAddedDate(dateAdded);
+				survey.setNQuestions(resultSet.getInt("nquestions"));
+
+				surveys.add(survey);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return surveys;
 	}
 
 	@Override

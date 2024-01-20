@@ -13,8 +13,21 @@ import twojaOpinia.util.DataBaseUtil;
 public class AnswerDao implements InterfaceDAO<Answer, Integer>{
 	@Override
 	public Answer getByID(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Answer answer = new Answer();
+
+		String query = "SELECT * FROM answers WHERE id = ?";
+		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setInt(1, id);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				answer.setOrder(resultSet.getInt("answer_order"));
+				answer.setAnswerText(resultSet.getString("answer_text"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return answer;
 	}
 
 	@Override

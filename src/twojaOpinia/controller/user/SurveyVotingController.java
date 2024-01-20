@@ -279,6 +279,8 @@ public class SurveyVotingController {
             alert.showAndWait();
 
             for(Response response: responses) {
+                response.setUserLogin(this.userLogin);
+                response.setSurveyID(this.surveyID);
                 responseDao.insert(response);
             }
             try {

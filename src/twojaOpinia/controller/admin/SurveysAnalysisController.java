@@ -3,6 +3,7 @@ package twojaOpinia.controller.admin;
 import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.StringConverter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -23,7 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
+import javafx.util.Callback;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,9 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
-
 import javafx.util.Duration;
-
 import twojaOpinia.dao.UserDao;
 import twojaOpinia.model.Answer;
 import twojaOpinia.model.Question;
@@ -114,6 +113,8 @@ public class SurveysAnalysisController {
     @FXML 
     private ChoiceBox<String> FiltersCB;
     private String[] Filters = {"Brak", "Kraj", "Miasto", "Rok Urodzenia"};
+    @FXML
+    private ListView QuestionInfoList;
    
     private Survey survey;
     private HashMap<Integer, Question> questionsHashMap;
@@ -125,11 +126,8 @@ public class SurveysAnalysisController {
     private int nQuestions;
     private int nAnswers;
     private int nCurrentQuestions = 0;
-    
     private Map<String, User> usersMap = new HashMap<>();
-    private List<String> Cities = new ArrayList<>();
-    private List<String> Countries = new ArrayList<>();
-    private List<String> BirthYears = new ArrayList<>();
+    
     
     @FXML
     public void initialize() {
@@ -148,6 +146,17 @@ public class SurveysAnalysisController {
         logoutButtonMenu.setOnMouseEntered(e -> logoutButtonMenu.setCursor(Cursor.HAND));
         logoutButtonMenu.setOnMouseExited(e -> logoutButtonMenu.setCursor(Cursor.DEFAULT));
         
+        SubmitButton.setOnMouseEntered(e ->SubmitButton.setCursor(Cursor.HAND) );
+    	SubmitButton.setOnMouseExited(e -> SubmitButton.setCursor(Cursor.DEFAULT));
+    	
+    	nextQuestionButton.setOnMouseEntered(e ->nextQuestionButton.setCursor(Cursor.HAND) );
+		nextQuestionButton.setOnMouseExited(e -> nextQuestionButton.setCursor(Cursor.DEFAULT));
+		
+		previousQuestionButton.setOnMouseEntered(e -> previousQuestionButton.setCursor(Cursor.HAND));
+		previousQuestionButton.setOnMouseExited(e -> previousQuestionButton.setCursor(Cursor.DEFAULT));
+		
+		FiltersCB.setOnMouseEntered(e -> FiltersCB.setCursor(Cursor.HAND));
+		FiltersCB.setOnMouseExited(e -> FiltersCB.setCursor(Cursor.DEFAULT));
         
         int itemHeight = 60;
         
@@ -240,69 +249,113 @@ public class SurveysAnalysisController {
                         if (selectedSurveyItem != null) {
                             for (Map.Entry<Integer, Survey> entry : matchingSurveys.entrySet()) {
                                 if (entry.getValue().getTitle().equals(((Label) selectedSurveyItem.getChildren().get(0)).getText())) {
-                                		searchSurveysField.clear();
-                                		BarChart.getData().clear();
-                                		survey = entry.getValue();
-                                    	this.nQuestions = survey.getNQuestions();
-                                        this.questionsHashMap = questionDao.getQuestionsBySurveyID(surveyDao.getSurveyIDByTitle(survey.getTitle()));
-                                        this.sortedQuestionsTreeMAp = new TreeMap<>(this.questionsHashMap);
-                                        this.questionsList = new ArrayList<>(this.sortedQuestionsTreeMAp.values());
-                                        this.questionsIDList = new ArrayList<>(this.sortedQuestionsTreeMAp.keySet());
-                                        
-                                		searchResultsList.setManaged(false);
-                                		searchResultsList.setVisible(false);
-                                		HBoxButtons.setManaged(true); 
-                                		HBoxButtons.setVisible(true);
-                                		BarChart.setManaged(true); 
-                                		BarChart.setVisible(true);
-                                		VBoxFilters.setManaged(true); 
-                                		VBoxFilters.setVisible(true);
-                                		previousQuestionButton.setManaged(true);
-                                		previousQuestionButton.setVisible(false);
-                                		BarChart.setVisible(true);
-                                		BarChart.setTitle("Pytanie nr." + (nCurrentQuestions + 1));
-                                		xAxis.setLabel("Odpowiedzi");
-                                		yAxis.setLabel("Liczba udzielonych odpowiedzi");
-                                		XYChart.Series<CategoryAxis, NumberAxis> data = new XYChart.Series<>();
-                                		data.setName("Wszyskie dane");
+                                	searchSurveysField.clear();
+                                	searchVBox.toFront();
+                                	HBoxButtons.toBack();
+                                	HBoxChartAndFilters.toBack();
+                            		
                                 	
-                                	    TreeMap<Integer, Answer> answersTreemap = answerDao.getAnswerByQuestionID(questionsIDList.get(nCurrentQuestions));
-                                	    List<Answer> answersList = new ArrayList<>(answersTreemap.values());
-                                	    List<Integer> answersIDList = new ArrayList<>(answersTreemap.keySet());
+                                	nCurrentQuestions = 0;	
+                                	BarChart.getData().clear();
+                                	survey = entry.getValue();
+                                   	this.nQuestions = survey.getNQuestions();
+                                    this.questionsHashMap = questionDao.getQuestionsBySurveyID(entry.getKey()); 
+                                    this.sortedQuestionsTreeMAp = new TreeMap<>(this.questionsHashMap);
+                                    this.questionsList = new ArrayList<>(this.sortedQuestionsTreeMAp.values());
+                                    this.questionsIDList = new ArrayList<>(this.sortedQuestionsTreeMAp.keySet());
+                                    searchByFilter.setManaged(true);
+                              		searchResultsList.setManaged(false);
+                               		searchResultsList.setVisible(false);
+                               		HBoxButtons.setManaged(true); 
+                               		HBoxButtons.setVisible(true);
+                               		BarChart.setManaged(true); 
+                               		BarChart.setVisible(true);
+                               		VBoxFilters.setManaged(true); 
+                               		VBoxFilters.setVisible(true);
+                               		previousQuestionButton.setManaged(true);
+                               		previousQuestionButton.setVisible(false);
+                               		BarChart.setVisible(true);
+                               		BarChart.setTitle("Pytanie nr." + (nCurrentQuestions + 1));
+                               		xAxis.setLabel("Odpowiedzi");
+                               		yAxis.setLabel("Liczba udzielonych odpowiedzi");
+                              
+                               		XYChart.Series<CategoryAxis, NumberAxis> data = new XYChart.Series<>();
+                               		data.setName("Wszyskie dane");
+                                	
+                               	    TreeMap<Integer, Answer> answersTreemap = answerDao.getAnswerByQuestionID(questionsIDList.get(nCurrentQuestions));
+                               	    List<Answer> answersList = new ArrayList<>(answersTreemap.values());
+                               	    List<Integer> answersIDList = new ArrayList<>(answersTreemap.keySet());
                                 	    
-                                		nAnswers = answersList.size();
-                                		for(int i = 0; i < nAnswers; i++) {
-                                			Integer responseAmount = responseDao.getResponseCountForAnswer(answersIDList.get(i));
-                                			data.getData().add(new XYChart.Data(""+answersList.get(i).getOrder(), responseAmount));
-                                		}
-                                		
-                                		BarChart.getData().add(data);
-                                		//nextQuestionButton.
-                               		  //setStyle("-fx-font-size: 14px; -fx-background-color: #5afa67; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);
-                                		BarChart.setStyle("-fx-text-fill: #000000; -fx-font-size: 16px; -fx-font-weight: bold");
-                                		xAxis.setStyle("-fx-text-fill: #000000; -fx-font-size: 16px; -fx-font-weight: bold");
-                                		yAxis.setStyle("-fx-text-fill: #000000; -fx-font-size: 16px; -fx-font-weight: bold");
-                                		BarChart.getStyleClass().add("chart-bar.chart-legend");
-                                		
-                                		FiltersCB.getSelectionModel().selectedItemProperty().addListener((CBObservable, CBOldValue, CBnewValue) -> {
-                                		    if (CBnewValue.equals("Kraj")) {
-                                		    	searchByFilter.setManaged(true);
-                                    			searchByFilter.setVisible(true);
+                               		nAnswers = answersList.size();
+                               		for(int i = 0; i < nAnswers; i++) {
+                               			Integer responseAmount = responseDao.getResponseCountForAnswer(answersIDList.get(i));
+                               			data.getData().add(new XYChart.Data(String.valueOf(i + 1), responseAmount));
+                               		}
+                               		
+                               		BarChart.getData().add(data);
+                               		
+                               		
+                               		BarChart.setStyle("-fx-text-fill: #FF5733; -fx-font-size: 16px; -fx-font-weight: bold");
+                               		BarChart.lookup(".chart-title").setStyle("-fx-font-weight: bold; -fx-text-fill: white;");//#FFA54B
+                               		xAxis.lookup(".axis-label").setStyle("-fx-font-weight: bold; -fx-text-fill: #FF9D3B;");
+                                    yAxis.lookup(".axis-label").setStyle("-fx-font-weight: bold; -fx-text-fill: #FFA54B;");
+                                    FiltersCB.getSelectionModel().selectedItemProperty().addListener((CBObservable, CBOldValue, CBnewValue) -> {
+                               		    if (CBnewValue.equals("Kraj")) {
+                                   			searchByFilter.setVisible(true);
                                     			
-                                		    } else if(CBnewValue.equals("Miasto")){
-                                		    	searchByFilter.setManaged(true);
-                                    			searchByFilter.setVisible(true);
+                               		    } else if(CBnewValue.equals("Miasto")){
+                                   			searchByFilter.setVisible(true);
                                     		
-                                		    }else  if(CBnewValue.equals("Rok Urodzenia")){
-                                		    	searchByFilter.setManaged(true);
-                                    			searchByFilter.setVisible(true);
+                               		    }else  if(CBnewValue.equals("Rok Urodzenia")){
+                                   			searchByFilter.setVisible(true);
                                     		
-                                		    }else {
-                                		    	searchByFilter.setManaged(false);
-                                    			searchByFilter.setVisible(false);
-                                		    }
-                                		});
-
+                               		    }else {
+                                   			searchByFilter.setVisible(false);
+                               		    }
+                               		});
+                                    FiltersCB.setConverter(new StringConverter<String>(){
+                       		    		@Override
+										public String toString(String s) {
+											return (s==null) ? "Filtry" : s;
+										}
+                       		    		@Override
+		                       		      public String fromString(String string) {
+		                       		          return null;
+		                       		      }
+                       		    	});
+                                    QuestionInfoList.setItems(FXCollections.observableArrayList());
+                                    ObservableList<String> dataInList = FXCollections.observableArrayList();
+                                    dataInList.add("Tytuł ankiety: " + survey.getTitle());
+                                    dataInList.add("Treść pytania: " + questionsList.get(nCurrentQuestions).getQuestionText());
+                                    for(int i = 0; i < nAnswers; i++) {
+                                    	dataInList.add("Odpowiedź nr. " + String.valueOf(i + 1) + " - "+ answersList.get(i).getAnswerText());
+                                    }
+                                    QuestionInfoList.setItems(dataInList);
+                                    QuestionInfoList.setFocusTraversable(false);
+                                    QuestionInfoList.getStyleClass().add("my-list-view");
+                                    QuestionInfoList.setStyle("-fx-background-color: null;  -fx-blend-mode: SRC_OVER;");
+                                    QuestionInfoList.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+                                        @Override
+                                        public ListCell<String> call(ListView<String> param) {
+                                            return new ListCell<String>() {
+                                                @Override
+                                                protected void updateItem(String item, boolean empty) {
+                                                    super.updateItem(item, empty);
+                                                    if (item == null || empty) {
+                                                        setText(null);
+                                                        setStyle("-fx-background-color: transparent;");
+                                                    } else {
+                                                        setText(item);
+                                                        setStyle("-fx-background-color: transparent;");
+                                                    }
+                                                }
+                                            };
+                                        }
+                                    });
+                                        
+                                    
+                                   
+                                    
                                 }
                             }
                         }
@@ -314,6 +367,8 @@ public class SurveysAnalysisController {
 
     @FXML
     private void submitButton() {
+    	
+    	
     	String FilterName = searchByFilter.getText();
     	BarChart.getData().clear();
     	BarChart.setTitle("Pytanie nr." + (nCurrentQuestions + 1));
@@ -323,24 +378,22 @@ public class SurveysAnalysisController {
 		data.setName("Wszyskie dane");
 		data.getData().clear();
 		XYChart.Series<CategoryAxis, NumberAxis> dataCountry = new XYChart.Series<>();
-    	dataCountry.setName("Filtr:" + FilterName);
+    	dataCountry.setName("Filtr: " + FilterName);
 		
     	XYChart.Series<CategoryAxis, NumberAxis> dataCity = new XYChart.Series<>();
-		dataCity.setName("Filtr:" + FilterName);
+		dataCity.setName("Filtr: " + FilterName);
 		
 		XYChart.Series<CategoryAxis, NumberAxis> dataBirthday = new XYChart.Series<>();
-		dataBirthday.setName("Filtr:" + FilterName);
+		dataBirthday.setName("Filtr: " + FilterName);
 
-		
 	    TreeMap<Integer, Answer> answersTreemap = answerDao.getAnswerByQuestionID(questionsIDList.get(nCurrentQuestions));
 	    List<Answer> answersList = new ArrayList<>(answersTreemap.values());
 	    List<Integer> answersIDList = new ArrayList<>(answersTreemap.keySet());
 	    
-		nAnswers = answersList.size();
-		
+		nAnswers = answersList.size();			
         String selectedValue = FiltersCB.getValue();
         if (selectedValue.equals("Kraj")) {
-        	
+        		
         	usersMap = userDao.getUsersByCountry(FilterName);
     		Collection<User> usersFromMap = usersMap.values();
     		
@@ -351,8 +404,8 @@ public class SurveysAnalysisController {
 		    		responseAmountCountries += responseDao.getResponseCountForAnswerAndLogin(answersIDList.get(i), user.getLogin());
 		    	}
 		    	Integer responseAmount = responseDao.getResponseCountForAnswer(answersIDList.get(i));
-     			data.getData().add(new XYChart.Data(""+answersList.get(i).getOrder(), responseAmount));
-		        dataCountry.getData().add(new XYChart.Data(""+answersList.get(i).getOrder(), responseAmountCountries));
+     			data.getData().add(new XYChart.Data(String.valueOf(i + 1), responseAmount)); //answersList.get(i).getOrder()
+		        dataCountry.getData().add(new XYChart.Data(String.valueOf(i + 1), responseAmountCountries));
 		        
 		    }
 		    BarChart.getData().addAll(data, dataCountry);
@@ -369,8 +422,8 @@ public class SurveysAnalysisController {
 		    		responseAmountCities += responseDao.getResponseCountForAnswerAndLogin(answersIDList.get(i), user.getLogin());
 		    	}
 		    	Integer responseAmount = responseDao.getResponseCountForAnswer(answersIDList.get(i));
-     			data.getData().add(new XYChart.Data(""+answersList.get(i).getOrder(), responseAmount));
-		        dataCountry.getData().add(new XYChart.Data(""+answersList.get(i).getOrder(), responseAmountCities));
+     			data.getData().add(new XYChart.Data(String.valueOf(i + 1), responseAmount));
+		        dataCountry.getData().add(new XYChart.Data(String.valueOf(i + 1), responseAmountCities));
 		        
 		    }
 		    BarChart.getData().addAll(data, dataCountry);
@@ -387,8 +440,8 @@ public class SurveysAnalysisController {
 		    		responseAmountBirthYear += responseDao.getResponseCountForAnswerAndLogin(answersIDList.get(i), user.getLogin());
 		    	}
 		    	Integer responseAmount = responseDao.getResponseCountForAnswer(answersIDList.get(i));
-     			data.getData().add(new XYChart.Data(""+answersList.get(i).getOrder(), responseAmount));
-		        dataCountry.getData().add(new XYChart.Data(""+answersList.get(i).getOrder(), responseAmountBirthYear));
+     			data.getData().add(new XYChart.Data(String.valueOf(i + 1), responseAmount));
+		        dataCountry.getData().add(new XYChart.Data(String.valueOf(i + 1), responseAmountBirthYear));
 		        
 		    }
 		    BarChart.getData().addAll(data, dataCountry);
@@ -397,97 +450,65 @@ public class SurveysAnalysisController {
 			for(int i = 0; i < nAnswers; i++) {
 				
 		    	Integer responseAmount = responseDao.getResponseCountForAnswer(answersIDList.get(i));
-     			data.getData().add(new XYChart.Data(""+answersList.get(i).getOrder(), responseAmount));
+     			data.getData().add(new XYChart.Data(String.valueOf(i + 1), responseAmount));
 		        
 		    }
 			 BarChart.getData().add(data);
 		}
+        QuestionInfoList.setItems(FXCollections.observableArrayList());
+        ObservableList<String> dataInList = FXCollections.observableArrayList();
+        dataInList.add("Tytuł ankiety: " + survey.getTitle());
+        dataInList.add("Treść pytania: " + questionsList.get(nCurrentQuestions).getQuestionText());
+        for(int i = 0; i < nAnswers; i++) {
+        	dataInList.add("Odpowiedź nr. " + String.valueOf(i + 1) + " - "+ answersList.get(i).getAnswerText());
+        }
+        QuestionInfoList.setItems(dataInList);
     }
-    
+    //#FF5733
     @FXML
     private void nextQuestion() {
-		nextQuestionButton.setOnMouseEntered(e ->nextQuestionButton.setCursor(Cursor.HAND) );
-		nextQuestionButton.setOnMouseExited(e -> nextQuestionButton.setCursor(Cursor.DEFAULT));
+	
         
 		nCurrentQuestions++;
-
-		/*
-		 * if (nCurrentQuestions == nQuestions - 1) {
-		 * nextQuestionButton.setOnMouseEntered(e ->
-		 * {nextQuestionButton.setCursor(Cursor.HAND); nextQuestionButton.
-		 * setStyle("-fx-font-size: 14px; -fx-background-color: #5afa67; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);"
-		 * );}); nextQuestionButton.setOnMouseExited(e ->
-		 * {nextQuestionButton.setCursor(Cursor.DEFAULT); nextQuestionButton.
-		 * setStyle("-fx-font-size: 14px; -fx-background-color: #5afa67; -fx-text-fill: #FFFFFF;"
-		 * );}); } else { previousQuestionButton.setOnMouseEntered(e ->
-		 * {previousQuestionButton.setCursor(Cursor.HAND); previousQuestionButton.
-		 * setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);"
-		 * );}); previousQuestionButton.setOnMouseExited(e ->
-		 * {previousQuestionButton.setCursor(Cursor.DEFAULT); previousQuestionButton.
-		 * setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;"
-		 * );}); }
-		 */
         if(nCurrentQuestions + 1 == nQuestions) {
         	nextQuestionButton.setVisible(false);
         	nextQuestionButton.setDisable(true);
         } 
         previousQuestionButton.setVisible(true);
         previousQuestionButton.setDisable(false);
+        
         BarChart.getData().clear();
         BarChart.setTitle("Pytanie nr." + (nCurrentQuestions + 1));
 		xAxis.setLabel("Odpowiedzi");
 		yAxis.setLabel("Liczba udzielonych odpowiedzi");
 		XYChart.Series<CategoryAxis, NumberAxis> data = new XYChart.Series<>();
 		data.setName("Wszyskie dane");
-	
+		data.getData().clear();
 	    TreeMap<Integer, Answer> answersTreemap = answerDao.getAnswerByQuestionID(questionsIDList.get(nCurrentQuestions));
 	    List<Answer> answersList = new ArrayList<>(answersTreemap.values());
 	    List<Integer> answersIDList = new ArrayList<>(answersTreemap.keySet());
 	    
 		nAnswers = answersList.size();
+		
 		for(int i = 0; i < nAnswers; i++) {
 			Integer responseAmount = responseDao.getResponseCountForAnswer(answersIDList.get(i));
-			data.getData().add(new XYChart.Data(""+answersList.get(i).getOrder(), responseAmount));
+			data.getData().add(new XYChart.Data(String.valueOf(i + 1), responseAmount));
+			
 		}
-		
 		BarChart.getData().add(data);
 		
-		FiltersCB.getSelectionModel().selectedItemProperty().addListener((CBObservable, CBOldValue, CBnewValue) -> {
-		    if (CBnewValue.equals("Kraj")) {
-		    	searchByFilter.setManaged(true);
-    			searchByFilter.setVisible(true);
-    			
-		    } else if(CBnewValue.equals("Miasto")){
-		    	searchByFilter.setManaged(true);
-    			searchByFilter.setVisible(true);
-    		
-		    }else  if(CBnewValue.equals("Rok Urodzenia")){
-		    	searchByFilter.setManaged(true);
-    			searchByFilter.setVisible(true);
-    		
-		    }else {
-		    	searchByFilter.setManaged(false);
-    			searchByFilter.setVisible(false);
-		    }
-		});
+		 QuestionInfoList.setItems(FXCollections.observableArrayList());
+         ObservableList<String> dataInList = FXCollections.observableArrayList();
+         dataInList.add("Tytuł ankiety: " + survey.getTitle());
+         dataInList.add("Treść pytania: " + questionsList.get(nCurrentQuestions).getQuestionText());
+         for(int i = 0; i < nAnswers; i++) {
+         	dataInList.add("Odpowiedź nr. " + String.valueOf(i + 1) + " - "+ answersList.get(i).getAnswerText());
+         }
+         QuestionInfoList.setItems(dataInList);
     }
 
     @FXML
     private void previousQuestion() {
-		/*
-		 * if (nCurrentQuestions == nQuestions) { nextQuestionButton.
-		 * setStyle("-fx-font-size: 14px; -fx-background-color: #62ee51; -fx-text-fill: #ffffff;"
-		 * ); nextQuestionButton.setText("Zakończ ankietę"); } else {
-		 * nextQuestionButton.setText("Następne pytanie"); nextQuestionButton.
-		 * setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;"
-		 * ); nextQuestionButton.setOnMouseEntered(e -> nextQuestionButton.
-		 * setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);"
-		 * )); nextQuestionButton.setOnMouseExited(e -> nextQuestionButton.
-		 * setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;"
-		 * )); }
-		 */
-    	previousQuestionButton.setOnMouseEntered(e -> previousQuestionButton.setCursor(Cursor.HAND));
-		previousQuestionButton.setOnMouseExited(e -> previousQuestionButton.setCursor(Cursor.DEFAULT));
         if (nCurrentQuestions > 1) {
             previousQuestionButton.setVisible(true);
             previousQuestionButton.setDisable(false);
@@ -498,20 +519,15 @@ public class SurveysAnalysisController {
 		nCurrentQuestions--;
         nextQuestionButton.setVisible(true);
     	nextQuestionButton.setDisable(false);
-		/*
-		 * previousQuestionButton.setOnMouseEntered(e -> previousQuestionButton.
-		 * setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);"
-		 * )); previousQuestionButton.setOnMouseExited(e -> previousQuestionButton.
-		 * setStyle("-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;"
-		 * ));
-		 */
+
+    	
     	BarChart.getData().clear();
         BarChart.setTitle("Pytanie nr." + (nCurrentQuestions + 1));
 		xAxis.setLabel("Odpowiedzi");
 		yAxis.setLabel("Liczba udzielonych odpowiedzi");
 		XYChart.Series<CategoryAxis, NumberAxis> data = new XYChart.Series<>();
 		data.setName("Wszyskie dane");
-	
+		data.getData().clear();
 	    TreeMap<Integer, Answer> answersTreemap = answerDao.getAnswerByQuestionID(questionsIDList.get(nCurrentQuestions));
 	    List<Answer> answersList = new ArrayList<>(answersTreemap.values());
 	    List<Integer> answersIDList = new ArrayList<>(answersTreemap.keySet());
@@ -519,30 +535,20 @@ public class SurveysAnalysisController {
 		nAnswers = answersList.size();
 		for(int i = 0; i < nAnswers; i++) {
 			Integer responseAmount = responseDao.getResponseCountForAnswer(answersIDList.get(i));
-			data.getData().add(new XYChart.Data(""+answersList.get(i).getOrder(), responseAmount));
+			data.getData().add(new XYChart.Data(String.valueOf(i + 1), responseAmount));
 		}
 		
 		BarChart.getData().add(data);
-		
-		FiltersCB.getSelectionModel().selectedItemProperty().addListener((CBObservable, CBOldValue, CBnewValue) -> {
-		    if (CBnewValue.equals("Kraj")) {
-		    	searchByFilter.setManaged(true);
-    			searchByFilter.setVisible(true);
-    			
-		    } else if(CBnewValue.equals("Miasto")){
-		    	searchByFilter.setManaged(true);
-    			searchByFilter.setVisible(true);
-    		
-		    }else  if(CBnewValue.equals("Rok Urodzenia")){
-		    	searchByFilter.setManaged(true);
-    			searchByFilter.setVisible(true);
-    		
-		    }else {
-		    	searchByFilter.setManaged(false);
-    			searchByFilter.setVisible(false);
-		    }
-		});
         
+		 QuestionInfoList.setItems(FXCollections.observableArrayList());
+         ObservableList<String> dataInList = FXCollections.observableArrayList();
+         dataInList.add("Tytuł ankiety: " + survey.getTitle());
+         dataInList.add("Treść pytania: " + questionsList.get(nCurrentQuestions).getQuestionText());
+         for(int i = 0; i < nAnswers; i++) {
+         	dataInList.add("Odpowiedź nr. " + String.valueOf(i + 1) + " - "+ answersList.get(i).getAnswerText());
+         }
+         QuestionInfoList.setItems(dataInList);
+		
     }
     
     public void setAdminLogin(String login) {

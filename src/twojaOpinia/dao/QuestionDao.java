@@ -12,7 +12,42 @@ import twojaOpinia.util.DataBaseUtil;
 public class QuestionDao implements InterfaceDAO<Question, Integer>{
 	@Override
 	public Question getByID(Integer id) {
-		return null;
+		Question question = new Question();
+
+		String query = "SELECT * FROM questions WHERE id = ?";
+		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setInt(1, id);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				question.setOrder(resultSet.getInt("question_order"));
+				question.setQuestionText(resultSet.getString("question_text"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return question;
+	}
+
+	public List<Question> getQuestionsBySurveyIDWithoutID(Integer surveyId) {
+		List<Question> questions = new ArrayList<>();
+
+		String query = "SELECT * FROM questions WHERE survey_id = ?";
+		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setInt(1, surveyId);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Question question = new Question();
+				question.setOrder(resultSet.getInt("question_order"));
+				question.setQuestionText(resultSet.getString("question_text"));
+
+				questions.add(question);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return questions;
 	}
 
 	@Override
@@ -42,8 +77,8 @@ public class QuestionDao implements InterfaceDAO<Question, Integer>{
 
 	public HashMap<Integer, Question> getQuestionsBySurveyID(int surveyID) {
 		HashMap<Integer, Question> questions = new HashMap<>();
-		String query = "SELECT * FROM questions WHERE questions.survey_id = ?";
 
+		String query = "SELECT * FROM questions WHERE questions.survey_id = ?";
 		try (Connection connection = DataBaseUtil.connect(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 			preparedStatement.setInt(1, surveyID);
 

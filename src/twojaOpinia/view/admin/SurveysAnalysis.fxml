@@ -50,50 +50,61 @@
 
     <center>
 		<StackPane fx:id="mainContainer" alignment="BASELINE_CENTER">
-            <VBox fx:id="mainLayout" alignment="CENTER">
-            	<Label contentDisplay="CENTER" prefHeight="10.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY" />
+            <VBox fx:id="mainLayout">
                 <Label contentDisplay="CENTER" prefHeight="20.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY" />                
                 <VBox fx:id="searchVBox" alignment="TOP_CENTER">
-                    <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="596.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" text="Wyszukaj ankietę" textAlignment="JUSTIFY" />
-                    <TextField fx:id="searchSurveysField" maxWidth="600.0" prefHeight="34.0" prefWidth="555.0" promptText="Wyszukaj ankietę tutaj!" />
-                    <ListView fx:id="searchResultsList" />
+	               <children>
+	                       <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="596.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" text="Wyszukaj ankietę" textAlignment="JUSTIFY" />
+	                       <TextField fx:id="searchSurveysField" maxWidth="600.0" prefHeight="34.0" prefWidth="555.0" promptText="Wyszukaj ankietę tutaj!" />
+	                       <ListView fx:id="searchResultsList" />
+	               </children>
                 </VBox>
-                <Label contentDisplay="CENTER" prefHeight="109.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY" />
-                <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY" />
-            <HBox fx:id="HBoxChartAndFilters" prefHeight="474.0" prefWidth="797.0">
-               <children>
-                  <VBox fx:id="VBoxFilters" prefHeight="247.0" prefWidth="166.0">
-                     <children>
+            	<HBox fx:id="HBoxButtons" alignment="CENTER" prefHeight="100.0" prefWidth="100.0" spacing="150.0">
+	               <children>
+	                  <Label prefHeight="18.0" prefWidth="40.0" />
+	                  <Button fx:id="previousQuestionButton" onAction="#previousQuestion" prefHeight="40.0" prefWidth="140.0" styleClass="buttonCenter" text="Poprzednie pytanie" />
+	                <Button fx:id="nextQuestionButton" onAction="#nextQuestion" prefHeight="40.0" prefWidth="140.0" styleClass="buttonCenter" text="Następne pytanie" />
+	               </children>
+            	</HBox>
+	            <HBox fx:id="HBoxChartAndFilters" alignment="CENTER" prefHeight="474.0" prefWidth="797.0">
+	               <children>
+	                  <VBox fx:id="VBoxFilters" prefHeight="247.0" prefWidth="166.0">
+	                     <children>
+	                        <Label />
+	                        <ChoiceBox fx:id="FiltersCB" prefHeight="26.0" prefWidth="199.0" />
+	                        <Label />
+	                        <Label />
+	                        <Label />
+	                        <TextField fx:id="searchByFilter" prefHeight="26.0" prefWidth="202.0" promptText="Wprowadź filtr!" />
+	                        <Label />
+	                        <Button fx:id="SubmitButton" contentDisplay="CENTER" onAction="#submitButton" prefHeight="20.0" prefWidth="82.0" styleClass="buttonCenter" text="Potwierdź" />
                         <Label />
-                        <ChoiceBox fx:id="FiltersCB" prefWidth="150.0" />
-                        <Label />
-                        <Label />
-                        <Label />
-                        <TextField fx:id="searchByFilter" prefHeight="26.0" prefWidth="202.0" promptText="Wprowadź filtr!" />
-                        <Label />
-                        <Button fx:id="SubmitButton" contentDisplay="CENTER" onAction="#submitButton" prefHeight="20.0" prefWidth="82.0" style="-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;" styleClass="prevQuestion" text="Potwierdź" />
-                     </children>
-                  </VBox>
+                        <ListView fx:id="QuestionInfoList" cache="true" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" />
+	                     </children>
+	                  </VBox>
                       
-                  <BarChart fx:id="BarChart" legendSide="RIGHT" prefHeight="311.0" prefWidth="638.0">
-                    <xAxis>
-                      <CategoryAxis fx:id="xAxis" prefHeight="34.0" prefWidth="564.0" side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis fx:id="yAxis" prefHeight="166.0" prefWidth="59.0" side="LEFT" />
-                    </yAxis>
-                  </BarChart>
-               </children>
-            </HBox>
-            <HBox fx:id="HBoxButtons" prefHeight="100.0" prefWidth="100.0" spacing="200">
-               <children>
-                  <Label prefHeight="18.0" prefWidth="102.0" />
-                  <Button fx:id="previousQuestionButton" onAction="#previousQuestion" prefHeight="40.0" prefWidth="140.0" style="-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;" styleClass="prevQuestion" text="Poprzednie pytanie" />
-                <Button fx:id="nextQuestionButton" onAction="#nextQuestion" prefHeight="40.0" prefWidth="140.0" style="-fx-font-size: 14px; -fx-background-color: #7ba0ff; -fx-text-fill: #FFFFFF;" styleClass="nextQuestion" text="Następne pytanie" />
-               </children>
-            </HBox>
-            <Label />
-            <Label />
+                  	  <BarChart fx:id="BarChart" blendMode="HARD_LIGHT" cache="true" prefHeight="311.0" prefWidth="638.0">
+		                    <xAxis>
+		                      <CategoryAxis prefHeight="33.0" prefWidth="536.0" side="BOTTOM" tickLabelFill="#fff539" tickLabelGap="1.0" tickLength="5.0" tickMarkVisible="false" fx:id="xAxis">
+		                           <tickLabelFont>
+		                              <Font name="System Bold" size="10.0" />
+		                           </tickLabelFont>
+		                        </CategoryAxis>
+		                    </xAxis>
+		                    <yAxis>
+		                      <NumberAxis fx:id="yAxis" minorTickCount="0" minorTickLength="0.0" minorTickVisible="false" prefHeight="166.0" prefWidth="69.0" side="LEFT" tickLabelFill="#fff23b" tickLabelGap="0.0" tickLabelRotation="-90.0" tickUnit="1.0">
+		                           <tickLabelFont>
+		                              <Font name="System Bold" size="10.0" />
+		                           </tickLabelFont>
+		                        </NumberAxis>
+		                    </yAxis>
+                 	   </BarChart>
+               		</children>
+            	</HBox>
+	                <Label contentDisplay="CENTER" prefHeight="109.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY" />
+	                <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="439.0" style="-fx-text-fill: #ffffff; -fx-font-size: 15px;" textAlignment="JUSTIFY" />
+		            <Label />
+		            <Label />
             
             </VBox>
         </StackPane>

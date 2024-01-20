@@ -30,7 +30,8 @@ public class User {
 		this.admin = false;
 	}
 
-	public User(String name, String surname, String email, String birthday, String country, String city, String login, String password, String salt, boolean admin) {
+	public User(String name, String surname, String email, String birthday, String country,
+				String city, String login, String password, String salt, boolean admin) {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
