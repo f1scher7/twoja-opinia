@@ -129,7 +129,7 @@ public class ManageSurveyController {
 
         TextArea newAnswer = new TextArea();
         newAnswer.setPromptText("Odpowiedź nr. " + incAnswers);
-        newAnswer.setStyle("-fx-max-width: 350.0; -fx-min-width: 120;  -fx-pref-height: 42; -fx-pref-width: 350.0");
+        newAnswer.setStyle("-fx-max-width: 350.0; -fx-min-width: 120; -fx-background-radius: 10; -fx-pref-height: 42; -fx-pref-width: 350.0");
 
         Button submitAnswerButton = new Button("Zatwierdź");
         submitAnswerButton.setStyle("-fx-min-width: 65; -fx-pref-height: 30.0; -fx-pref-width: 65.0");
@@ -205,7 +205,7 @@ public class ManageSurveyController {
         TextArea newQuestion = new TextArea();
         newQuestion.setWrapText(true);
         newQuestion.setPromptText("Pytanie nr. " + incQuestions);
-        newQuestion.setStyle("-fx-max-width: 400.0; -fx-min-width: 120;  -fx-pref-height: 42; -fx-pref-width: 400.0");
+        newQuestion.setStyle("-fx-max-width: 400.0; -fx-min-width: 120;  -fx-background-radius: 10; -fx-pref-height: 42; -fx-pref-width: 400.0");
 
 
         Button submitQuestionButton = new Button("Zatwierdź");

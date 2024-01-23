@@ -189,6 +189,24 @@ public class UserPulpitController {
     }
 
     @FXML
+    private void settingsAccount() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/user/SettingsAccount.fxml")));
+            fxmlLoader.setControllerFactory(param -> new SettingsAccountController(this.userLogin));
+            Parent settingsAccount = fxmlLoader.load();
+
+            Scene scene = new Scene(settingsAccount, 1100, 700);
+            Stage stage = (Stage) accountSettingsButtonMenu.getScene().getWindow();
+            stage.setScene(scene);
+
+            centerStage(stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+        }
+    }
+
+    @FXML
     private void logout() {
         try {
             Parent logout = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/login/LoginView.fxml")));

@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -79,6 +80,9 @@ public class HistorySurveysController {
         accountSettingsButtonMenu.setOnMouseEntered(e -> accountSettingsButtonMenu.setCursor(Cursor.HAND));
         accountSettingsButtonMenu.setOnMouseExited(e -> accountSettingsButtonMenu.setCursor(Cursor.DEFAULT));
 
+        backToDashboardButtonMenu.setOnMouseEntered(e -> backToDashboardButtonMenu.setCursor(Cursor.HAND));
+        backToDashboardButtonMenu.setOnMouseExited(e -> backToDashboardButtonMenu.setCursor(Cursor.DEFAULT));
+
         logoutButtonMenu.setOnMouseEntered(e -> logoutButtonMenu.setCursor(Cursor.HAND));
         logoutButtonMenu.setOnMouseExited(e -> logoutButtonMenu.setCursor(Cursor.DEFAULT));
 
@@ -86,7 +90,7 @@ public class HistorySurveysController {
         List<Response> responses = responseDao.getAllResponsesByLogin(this.userLogin);
         if (responses.isEmpty()) {
             Label noResponses = new Label("Nie masz wypełnionych ankiet");
-            noResponses.setStyle("-fx-pref-height: 30; -fx-pref-width: 560; -fx-padding: 100 0 0 0; -fx-text-fill: white; -fx-font-size: 27");
+            noResponses.setStyle("-fx-pref-height: 30; -fx-padding: 100 0 0 0; -fx-text-fill: white; -fx-font-size: 27");
             mainVBoxHistorySurveys.getChildren().add(noResponses);
         } else {
             Label emptyLabel = new Label();
@@ -196,6 +200,18 @@ public class HistorySurveysController {
                 });
             }
         }
+        animateElementsSequentially(mainVBoxHistorySurveys);
+    }
+
+    private void animateElementsSequentially(VBox vbox) {
+        SequentialTransition seqTransition = new SequentialTransition();
+        for (Node node : vbox.getChildren()) {
+            FadeTransition ft = new FadeTransition(Duration.millis(200), node);
+            ft.setFromValue(0.0);
+            ft.setToValue(1.0);
+            seqTransition.getChildren().add(ft);
+        }
+        seqTransition.play();
     }
 
     //USER_MENU
@@ -211,6 +227,24 @@ public class HistorySurveysController {
 
             Scene scene = new Scene(availableSurveys, 1100, 700);
             Stage stage = (Stage) availableSurveysButtonMenu.getScene().getWindow();
+            stage.setScene(scene);
+
+            centerStage(stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void settingsAccount() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/user/SettingsAccount.fxml")));
+            fxmlLoader.setControllerFactory(param -> new SettingsAccountController(this.userLogin));
+            Parent settingsAccount = fxmlLoader.load();
+
+            Scene scene = new Scene(settingsAccount, 1100, 700);
+            Stage stage = (Stage) accountSettingsButtonMenu.getScene().getWindow();
             stage.setScene(scene);
 
             centerStage(stage);

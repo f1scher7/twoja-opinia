@@ -3,6 +3,7 @@
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-margin: 10 25 10 0;
+    -fx-background-radius: 10;
 }
 
 .button1:hover {
@@ -14,6 +15,7 @@
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-margin: 10 25 10 0;
+    -fx-background-radius: 10;
 }
 
 .button2:hover {
@@ -25,6 +27,7 @@
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-margin: 10 25 10 0;
+    -fx-background-radius: 10;
 }
 
 .button3:hover {
@@ -36,6 +39,7 @@
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-margin: 10 25 10 0;
+    -fx-background-radius: 10;
 }
 
 .button4:hover {
@@ -47,6 +51,7 @@
     -fx-text-fill: white;
     -fx-font-size: 11px;
     -fx-margin: 10 25 10 0;
+    -fx-background-radius: 10;
 }
 
 .button5:hover {
@@ -58,6 +63,7 @@
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-margin: 10 25 10 0;
+    -fx-background-radius: 10;
 }
 
 .button6:hover {
@@ -69,6 +75,7 @@
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-margin: 10 25 10 0;
+    -fx-background-radius: 10;
 }
 
 .lockButton:hover {
@@ -79,6 +86,7 @@
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-margin: 10 25 10 0;
+    -fx-background-radius: 10;
 }
 
 .extraStyleButton:hover {
@@ -139,6 +147,7 @@
     -fx-background-color: rgba(0, 0, 0, 0);
     -fx-text-fill: white;
     -fx-font-size: 12px;
+    -fx-background-radius: 7;
 }
 
 .cancelSurvey:hover {
@@ -165,4 +174,24 @@
 #mainVBoxHistorySurveys {
     -fx-background-image: url('img/green-abstract-geometric-shape-background-free-vector-scroll.jpg');
     -fx-background-size: cover;
+}
+
+.changeInfoButton {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-margin: 10 25 10 0;
+    -fx-background-radius: 7;
+}
+
+.changeInfoButton:hover {
+    -fx-background-color: #66BB6A;
+}
+
+.choice-box .menu-item {
+    -fx-text-fill: white; /* Kolor tekstu dla nieaktywnych elementów na liście */
+}
+
+.choice-box .menu-item:focused {
+    -fx-text-fill: white; /* Kolor tekstu dla aktywnego elementu na liście */
 }

@@ -1,6 +1,8 @@
 package twojaOpinia.controller.user;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
+import javafx.animation.SequentialTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,21 +12,21 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import twojaOpinia.dao.ResponseDao;
 import twojaOpinia.dao.SurveyDao;
 import twojaOpinia.dao.UserDao;
 import twojaOpinia.model.Survey;
 import twojaOpinia.model.User;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static twojaOpinia.util.JavaFXMethods.centerStage;
@@ -32,6 +34,7 @@ import static twojaOpinia.util.JavaFXMethods.centerStage;
 public class AvailableSurveysController {
 
     private SurveyDao surveyDao = new SurveyDao();
+    private ResponseDao responseDao = new ResponseDao();
     private UserDao userDao = new UserDao();
     private HashMap<Integer, Survey> matchingSurveys = new HashMap<>();
     private String userLogin;
@@ -47,6 +50,8 @@ public class AvailableSurveysController {
     private TextField searchSurveysField;
     @FXML
     private ListView searchResultsList;
+    @FXML
+    private ChoiceBox<String> choiceBox;
     @FXML
     private GridPane blocksWithSurveysInfo;
 
@@ -87,74 +92,176 @@ public class AvailableSurveysController {
         logoutButtonMenu.setOnMouseEntered(e -> logoutButtonMenu.setCursor(Cursor.HAND));
         logoutButtonMenu.setOnMouseExited(e -> logoutButtonMenu.setCursor(Cursor.DEFAULT));
 
-        TreeMap<Integer, Survey> lastAddedSurveysTreeMap = surveyDao.getSixLastAddedSurveys();
-        List<Survey> lastAddedSurveys = new ArrayList<>(lastAddedSurveysTreeMap.values());
-        List<Integer> lastAddedSurveysID = new ArrayList<>(lastAddedSurveysTreeMap.keySet());
+        choiceBox.getItems().addAll("Ostatnio dodane ankiety", "Najpopularniejsze ankiety");
+        choiceBox.setValue("Wybierz filtr");
 
-        for (int i = 1; i <= 6; i++) {
-            VBox vBox = (VBox) blocksWithSurveysInfo.lookup("#surveyShortInfo" + i);
-            vBox.setStyle("-fx-background-radius: 12 12 12 12;");
-            Label surveyTitleLabel = (Label) vBox.lookup("#surveyTitleLabel" + i);
-            Label surveyNQuestionsLabel = (Label) vBox.lookup("#surveyNQuestionsLabel" + i);
-            Label surveyAuthorLabel = (Label) vBox.lookup("#surveyAuthorLabel" + i);
+        choiceBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue.equals("Ostatnio dodane ankiety")) {
+                TreeMap<Integer, Survey> lastAddedSurveysTreeMap = surveyDao.getSixLastAddedSurveys();
+                List<Survey> surveys = new ArrayList<>(lastAddedSurveysTreeMap.values());
+                List<Integer> surveysID = new ArrayList<>(lastAddedSurveysTreeMap.keySet());
 
-            surveyTitleLabel.setText(lastAddedSurveys.get(i - 1).getTitle());
-            if (surveyTitleLabel.getText().length() > 20) {
-                surveyTitleLabel.setStyle("-fx-font-size: 11px;\n" +
-                        "    -fx-font-weight: bold;\n" +
-                        "    -fx-text-fill: #333333; -fx-min-height: 25px");
-                surveyTitleLabel.setWrapText(true);
-                surveyTitleLabel.setTextAlignment(TextAlignment.CENTER);
-            }
-            surveyAuthorLabel.setText(getAuthorNameAndSurname(lastAddedSurveys.get(i - 1).getAuthorLogin()));
+                int incGridPaneLabels = 6;
+                for (int i = 1; i <= 6; i++) {
+                    VBox vBox = (VBox) blocksWithSurveysInfo.lookup("#surveyShortInfo" + incGridPaneLabels);
+                    vBox.setStyle("-fx-background-radius: 12 12 12 12;");
+                    Label surveyTitleLabel = (Label) vBox.lookup("#surveyTitleLabel" + incGridPaneLabels);
+                    Label surveyNQuestionsLabel = (Label) vBox.lookup("#surveyNQuestionsLabel" + incGridPaneLabels);
+                    Label surveyAuthorLabel = (Label) vBox.lookup("#surveyAuthorLabel" + incGridPaneLabels);
+                    Label surveyDateLabel = (Label) vBox.lookup("#extraLabel" + incGridPaneLabels);
 
-            if (lastAddedSurveys.get(i - 1).getNQuestions() == 1) {
-                surveyNQuestionsLabel.setText(1 + " pytanie");
-            } else if (lastAddedSurveys.get(i - 1).getNQuestions() == 2 || lastAddedSurveys.get(i - 1).getNQuestions() == 3 || lastAddedSurveys.get(i - 1).getNQuestions() == 4) {
-                surveyNQuestionsLabel.setText(lastAddedSurveys.get(i - 1).getNQuestions() + " pytania");
-            } else {
-                surveyNQuestionsLabel.setText(lastAddedSurveys.get(i - 1).getNQuestions() + " pytań");
-            }
-            ScaleTransition st = new ScaleTransition(Duration.millis(200), vBox);
-            vBox.setOnMouseEntered(e -> {
-                st.setToX(1.07);
-                st.setToY(1.07);
-                st.playFromStart();
-                vBox.setCursor(Cursor.HAND);
-            });
-            vBox.setOnMouseExited(e -> {
-                st.setToX(1.0);
-                st.setToY(1.0);
-                st.playFromStart();
-                vBox.setCursor(Cursor.DEFAULT);
-            });
+                    incGridPaneLabels--;
 
-            for (Node node : blocksWithSurveysInfo.getChildren()) {
-                if (node instanceof VBox) {
-                    VBox vBoxSurvey = (VBox) node;
-                    vBoxSurvey.setOnMouseClicked(event -> {
-                        for (int j = 0; j < lastAddedSurveys.size(); j++) {
-                            if(((Label) vBoxSurvey.getChildren().get(0)).getText().equals(lastAddedSurveys.get(j).getTitle())) {
-                                try {
-                                    FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/user/SurveyVoting.fxml")));
-                                    int finalJ = j;
-                                    fxmlLoader.setControllerFactory(param -> new SurveyVotingController(this.userLogin, lastAddedSurveysID.get(finalJ)));
+                    surveyTitleLabel.setText(surveys.get(i - 1).getTitle());
+                    if (surveyTitleLabel.getText().length() > 20) {
+                        surveyTitleLabel.setStyle("-fx-font-size: 11px;\n" +
+                                "    -fx-font-weight: bold;\n" +
+                                "    -fx-text-fill: #333333; -fx-min-height: 25px");
+                        surveyTitleLabel.setWrapText(true);
+                        surveyTitleLabel.setTextAlignment(TextAlignment.CENTER);
+                    }
+                    surveyAuthorLabel.setText(getAuthorNameAndSurname(surveys.get(i - 1).getAuthorLogin()));
 
-                                    Parent surveyVoting = fxmlLoader.load();
+                    if (surveys.get(i - 1).getNQuestions() == 1) {
+                        surveyNQuestionsLabel.setText(1 + " pytanie");
+                    } else if (surveys.get(i - 1).getNQuestions() == 2 || surveys.get(i - 1).getNQuestions() == 3 || surveys.get(i - 1).getNQuestions() == 4) {
+                        surveyNQuestionsLabel.setText(surveys.get(i - 1).getNQuestions() + " pytania");
+                    } else {
+                        surveyNQuestionsLabel.setText(surveys.get(i - 1).getNQuestions() + " pytań");
+                    }
+                    LocalDateTime date = surveys.get(i - 1).getSurveyAddedDate();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    String formattedDate = date.format(formatter);
 
-                                    Scene scene = new Scene(surveyVoting, 1100, 700);
-                                    Stage stage = (Stage) vBoxSurvey.getScene().getWindow();
-                                    stage.setScene(scene);
-                                    centerStage(stage);
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
-                        }
+                    surveyDateLabel.setText("Data dodania: " + formattedDate);
+
+                    ScaleTransition st = new ScaleTransition(Duration.millis(200), vBox);
+                    vBox.setOnMouseEntered(e -> {
+                        st.setToX(1.07);
+                        st.setToY(1.07);
+                        st.playFromStart();
+                        vBox.setCursor(Cursor.HAND);
                     });
+                    vBox.setOnMouseExited(e -> {
+                        st.setToX(1.0);
+                        st.setToY(1.0);
+                        st.playFromStart();
+                        vBox.setCursor(Cursor.DEFAULT);
+                    });
+
+                    for (Node node : blocksWithSurveysInfo.getChildren()) {
+                        if (node instanceof VBox) {
+                            VBox vBoxSurvey = (VBox) node;
+                            vBoxSurvey.setOnMouseClicked(event -> {
+                                for (int j = 0; j < surveys.size(); j++) {
+                                    if(((Label) vBoxSurvey.getChildren().get(0)).getText().equals(surveys.get(j).getTitle())) {
+                                        try {
+                                            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/user/SurveyVoting.fxml")));
+                                            int finalJ = j;
+                                            fxmlLoader.setControllerFactory(param -> new SurveyVotingController(this.userLogin, surveysID.get(finalJ)));
+
+                                            Parent surveyVoting = fxmlLoader.load();
+
+                                            Scene scene = new Scene(surveyVoting, 1100, 700);
+                                            Stage stage = (Stage) vBoxSurvey.getScene().getWindow();
+                                            stage.setScene(scene);
+                                            centerStage(stage);
+                                        } catch (IOException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+            } else if (newValue.equals("Najpopularniejsze ankiety")) {
+                Map<Integer, Integer> responsesData = responseDao.getSixMostPopularSurveysID();
+                List<Integer> surveysID = new ArrayList<>(responsesData.keySet());
+                List<Integer> completedSurveysCount = new ArrayList<>(responsesData.values());
+                List<Survey> surveys = new ArrayList<>();
+
+                for (Integer integer : surveysID) {
+                    surveys.add(surveyDao.getByID(integer));
+                }
+
+                for (int i = 1; i <= 6; i++) {
+                    VBox vBox = (VBox) blocksWithSurveysInfo.lookup("#surveyShortInfo" + i);
+                    vBox.setStyle("-fx-background-radius: 12 12 12 12;");
+                    Label surveyTitleLabel = (Label) vBox.lookup("#surveyTitleLabel" + i);
+                    Label surveyNQuestionsLabel = (Label) vBox.lookup("#surveyNQuestionsLabel" + i);
+                    Label surveyAuthorLabel = (Label) vBox.lookup("#surveyAuthorLabel" + i);
+                    Label completedSurveysCountLabel = (Label) vBox.lookup("#extraLabel" + i);
+
+                    surveyTitleLabel.setText(surveys.get(i - 1).getTitle());
+                    if (surveyTitleLabel.getText().length() > 20) {
+                        surveyTitleLabel.setStyle("-fx-font-size: 11px;\n" +
+                                "    -fx-font-weight: bold;\n" +
+                                "    -fx-text-fill: #333333; -fx-min-height: 25px");
+                        surveyTitleLabel.setWrapText(true);
+                        surveyTitleLabel.setTextAlignment(TextAlignment.CENTER);
+                    }
+                    surveyAuthorLabel.setText(getAuthorNameAndSurname(surveys.get(i - 1).getAuthorLogin()));
+
+                    if (surveys.get(i - 1).getNQuestions() == 1) {
+                        surveyNQuestionsLabel.setText(1 + " pytanie");
+                    } else if (surveys.get(i - 1).getNQuestions() == 2 || surveys.get(i - 1).getNQuestions() == 3 || surveys.get(i - 1).getNQuestions() == 4) {
+                        surveyNQuestionsLabel.setText(surveys.get(i - 1).getNQuestions() + " pytania");
+                    } else {
+                        surveyNQuestionsLabel.setText(surveys.get(i - 1).getNQuestions() + " pytań");
+                    }
+
+                    if (completedSurveysCount.get(i - 1) == 1) {
+                        completedSurveysCountLabel.setText("Ukończono " + 1 + " raz");
+                    } else {
+                        completedSurveysCountLabel.setText("Ukończono " + completedSurveysCount.get(i - 1) + " razy");
+                    }
+
+                    ScaleTransition st = new ScaleTransition(Duration.millis(200), vBox);
+                    vBox.setOnMouseEntered(e -> {
+                        st.setToX(1.07);
+                        st.setToY(1.07);
+                        st.playFromStart();
+                        vBox.setCursor(Cursor.HAND);
+                    });
+                    vBox.setOnMouseExited(e -> {
+                        st.setToX(1.0);
+                        st.setToY(1.0);
+                        st.playFromStart();
+                        vBox.setCursor(Cursor.DEFAULT);
+                    });
+
+                    for (Node node : blocksWithSurveysInfo.getChildren()) {
+                        if (node instanceof VBox) {
+                            VBox vBoxSurvey = (VBox) node;
+                            vBoxSurvey.setOnMouseClicked(event -> {
+                                for (int j = 0; j < surveys.size(); j++) {
+                                    if(((Label) vBoxSurvey.getChildren().get(0)).getText().equals(surveys.get(j).getTitle())) {
+                                        try {
+                                            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/user/SurveyVoting.fxml")));
+                                            int finalJ = j;
+                                            fxmlLoader.setControllerFactory(param -> new SurveyVotingController(this.userLogin, surveysID.get(finalJ)));
+
+                                            Parent surveyVoting = fxmlLoader.load();
+
+                                            Scene scene = new Scene(surveyVoting, 1100, 700);
+                                            Stage stage = (Stage) vBoxSurvey.getScene().getWindow();
+                                            stage.setScene(scene);
+                                            centerStage(stage);
+                                        } catch (IOException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
                 }
             }
-        }
+
+        });
+
+
 
         int itemHeight = 60;
 
@@ -254,17 +361,29 @@ public class AvailableSurveysController {
                 }
             }
         });
+        animateElementsSequentially(mainLayout);
     }
 
     public void setUserLogin(String login) {
         this.userLogin = login;
         userLoginLabel.setText(login);
     }
+
     private String getAuthorNameAndSurname(String login) {
         User user = userDao.getUserDataByLogin(login);
         return "Autor: " + user.getName() + " " + user.getSurname();
     }
 
+    private void animateElementsSequentially(VBox vbox) {
+        SequentialTransition seqTransition = new SequentialTransition();
+        for (Node node : vbox.getChildren()) {
+            FadeTransition ft = new FadeTransition(Duration.millis(200), node);
+            ft.setFromValue(0.0);
+            ft.setToValue(1.0);
+            seqTransition.getChildren().add(ft);
+        }
+        seqTransition.play();
+    }
 
     //USER_MENU
     //===================================================================================================================
@@ -277,6 +396,24 @@ public class AvailableSurveysController {
 
             Scene scene = new Scene(surveysHistory, 1100, 700);
             Stage stage = (Stage) surveysHistoryButtonMenu.getScene().getWindow();
+            stage.setScene(scene);
+
+            centerStage(stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void settingsAccount() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/user/SettingsAccount.fxml")));
+            fxmlLoader.setControllerFactory(param -> new SettingsAccountController(this.userLogin));
+            Parent settingsAccount = fxmlLoader.load();
+
+            Scene scene = new Scene(settingsAccount, 1100, 700);
+            Stage stage = (Stage) accountSettingsButtonMenu.getScene().getWindow();
             stage.setScene(scene);
 
             centerStage(stage);

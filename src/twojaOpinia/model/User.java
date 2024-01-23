@@ -8,6 +8,7 @@ import twojaOpinia.util.SHA256;
 public class User {
 	private String name;
 	private String surname;
+	private String sex;
 	private String email;
 	private String birthday;
 	private String country;
@@ -20,6 +21,7 @@ public class User {
 	public User() {
 		this.name = "";
 		this.surname = "";
+		this.sex = "";
 		this.email = "";
 		this.birthday = "";
 		this.country = "";
@@ -30,10 +32,11 @@ public class User {
 		this.admin = false;
 	}
 
-	public User(String name, String surname, String email, String birthday, String country,
-				String city, String login, String password, String salt, boolean admin) {
+	public User(String name, String surname, String sex, String email, String birthday, String country, String city, String login, String password, String salt, boolean admin) {
+
 		this.name = name;
 		this.surname = surname;
+		this.sex = sex;
 		this.email = email;
 		this.birthday = birthday;
 		this.country = country;
@@ -47,8 +50,11 @@ public class User {
 	public String getName() { return this.name; }
 	public void setName(String login) { this.name = name; }
 
-	public String getSurname() { return surname; }
+	public String getSurname() { return this.surname; }
 	public void setSurname(String surname) { this.surname = surname; }
+
+	public String getSex() { return this.sex; }
+	public void setSex(String sex) { this.sex = sex; }
 
 	public String getEmail() { return email; }
 	public void setEmail(String email) { this.email = email; }
