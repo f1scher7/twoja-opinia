@@ -1,0 +1,61 @@
+#RegistrationBorderPane {
+    -fx-background-image: url('img/istockphoto-863482284-170667a.jpg');
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
+
+.button6 {
+    -fx-background-color: #205aff;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-margin: 10 25 10 0;
+    -fx-background-radius: 7;
+    -fx-pref-height: 30;
+    -fx-pref-width: 100;
+}
+
+.button6:hover {
+    -fx-background-color: #376cff;
+}
+
+
+.button7 {
+    -fx-background-color: #45ff60;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-margin: 10 25 10 0;
+    -fx-background-radius: 7;
+    -fx-pref-height: 30;
+    -fx-pref-width: 160;
+}
+
+.button7:hover {
+    -fx-background-color: #5afd72;
+}
+
+.date-picker > .text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 7;
+    -fx-border-width: 2;
+    -fx-border-color: #bebebe;
+    -fx-border-radius: 7;
+}
+
+.root {
+    -fx-background-image: url('img/tenor.gif');
+    -fx-background-repeat: stretch;
+    -fx-background-size: cover;
+    width: 50em; /* 50 times the font size */
+    height: 30em; /* 30 times the font size */
+}
+.alert .content-panel {
+    -fx-background-color: transparent;
+}
+
+.alert .header-panel {
+    -fx-background-color: transparent;
+}
+
+.dialog-pane {
+    -fx-background-color: transparent;
+}

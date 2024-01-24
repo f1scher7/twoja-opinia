@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<BorderPane fx:id="RegistrationBorderPane" prefHeight="570.0" prefWidth="430.0" stylesheets="@registrationStyles.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twojaOpinia.controller.RegistrationController">
+    <center>
+        <VBox fx:id="mainVBox" alignment="TOP_CENTER" spacing="10">
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: black;"/>
+
+            <ImageView fx:id="logoImage" style="-fx-background-radius: 6; -fx-font-size: 15" />
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: black;" text="Stwórz konto na TwojaOpinia" />
+            <Label fx:id="infoLabel" style="-fx-font-size: 15px; -fx-text-fill: black;"/>
+            <Label style="-fx-font-size: 5px; -fx-font-weight: bold; -fx-text-fill: black;"/>
+
+        </VBox>
+    </center>
+
+</BorderPane>
