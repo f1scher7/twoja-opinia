@@ -38,6 +38,8 @@ public class LoginController {
     @FXML
     private Button loginButton;
     @FXML
+    private Button registrationButton;
+    @FXML
     private Label errorMess;
     private UserDao userDao = new UserDao();
 
@@ -45,6 +47,9 @@ public class LoginController {
     public void initialize() {
         loginButton.setOnMouseEntered(e -> loginButton.setCursor(Cursor.HAND));
         loginButton.setOnMouseExited(e -> loginButton.setCursor(Cursor.DEFAULT));
+
+        registrationButton.setOnMouseEntered(e -> registrationButton.setCursor(Cursor.HAND));
+        registrationButton.setOnMouseExited(e -> registrationButton.setCursor(Cursor.DEFAULT));
 
     }
     @FXML
@@ -85,6 +90,22 @@ public class LoginController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @FXML
+    private void registration() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/registration/RegistrationView.fxml")));
+            Parent registration = fxmlLoader.load();
+
+            Scene scene = new Scene(registration,430, 570);
+            Stage stage = (Stage) registrationButton.getScene().getWindow();
+            stage.setScene(scene);
+            centerStage(stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Błąd podczas ładowania pliku FXML: " + e.getMessage());
         }
     }
 }
