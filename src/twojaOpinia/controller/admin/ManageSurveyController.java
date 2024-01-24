@@ -3,12 +3,15 @@ package twojaOpinia.controller.admin;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -77,7 +80,18 @@ public class ManageSurveyController {
 
     @FXML
     public void initialize() {
-        manageUserButtonMenu.setOnMouseEntered(e -> manageUserButtonMenu.setCursor(Cursor.HAND));
+
+        //klasa anonimowa EventHandler
+        //Tworzysz nową klasę anonimową, która implementuje interfejs EventHandler<MouseEvent>.
+        // Ta klasa anonimowa definiuje implementację metody handle(MouseEvent event), która zostanie wywołana,
+        // gdy mysz najedzie na przycisk manageUserButtonMenu. W tym przypadku, kursor zmienia się na Cursor.HAND.
+        manageUserButtonMenu.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                manageSurveyButtonMenu.setCursor(Cursor.HAND);
+            }
+        });
+
         manageUserButtonMenu.setOnMouseExited(e -> manageUserButtonMenu.setCursor(Cursor.DEFAULT));
 
         analyzeResultsButtonMenu.setOnMouseEntered(e -> analyzeResultsButtonMenu.setCursor(Cursor.HAND));
@@ -104,7 +118,14 @@ public class ManageSurveyController {
         saveSurveyButton.setOnMouseEntered(e -> saveSurveyButton.setCursor(Cursor.HAND));
         saveSurveyButton.setOnMouseExited(e -> saveSurveyButton.setCursor(Cursor.DEFAULT));
 
-        addAnswerButton.setOnAction(e -> addAnswer());
+        addAnswerButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                addAnswer();
+            }
+        });
+
+
         addQuestionButton.setOnAction(e -> addQuestion());
         saveSurveyButton.setDisable(true);
     }
@@ -503,7 +524,7 @@ public class ManageSurveyController {
         try {
             Parent logout = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/login/LoginView.fxml")));
 
-            Scene scene = new Scene(logout, 400, 350);
+            Scene scene = new Scene(logout, 400, 420);
             Stage stage = (Stage) logoutButtonMenu.getScene().getWindow();
             stage.setScene(scene);
 

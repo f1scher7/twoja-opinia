@@ -19,8 +19,7 @@ import javafx.scene.image.Image;
 
 import java.util.Objects;
 
-public class Main extends Application{
-
+public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view/login/LoginView.fxml")));

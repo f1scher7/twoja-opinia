@@ -440,7 +440,7 @@ public class ManageUserController {
     private void logout() {
         try {
             Parent logout = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/twojaOpinia/view/login/LoginView.fxml")));
-            Scene scene = new Scene(logout, 400, 350);
+            Scene scene = new Scene(logout, 400, 420);
             Stage stage = (Stage) logoutButtonMenu.getScene().getWindow();
             stage.setScene(scene);
             centerStage(stage);
