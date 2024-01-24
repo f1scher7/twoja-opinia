@@ -1,6 +1,10 @@
 package twojaOpinia.model;
 
-public class Response {
+import java.io.Serializable;
+
+public class Response implements Serializable {
+	
+	private static final long serialVersionUID = -5121337194455836960L;
 	
 	private int surveyID;
 	private int answerID;

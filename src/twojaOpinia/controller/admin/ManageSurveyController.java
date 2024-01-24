@@ -15,7 +15,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -28,7 +32,8 @@ import twojaOpinia.model.Survey;
 import static twojaOpinia.util.JavaFXMethods.centerStage;
 
 public class ManageSurveyController {
-    private Survey survey = new Survey();
+	
+	private Survey survey = new Survey();
     private Question question;
     private Answer answer;
     private SurveyDao surveyDao = new SurveyDao();
@@ -39,6 +44,8 @@ public class ManageSurveyController {
     private int incQuestions = 0;
 
     private String adminLogin;
+    
+    List<Survey> surveyList = new ArrayList<>();
 
     @FXML
     private TextField surveyTitleField;
@@ -58,6 +65,12 @@ public class ManageSurveyController {
     private TextField deleteSurveyIdField;
     @FXML
     private Button deleteSurveyButton;
+    
+    @FXML
+    private Button serializeSurveysButton;
+    
+    @FXML
+    private Button deserializeSurveysButton;
 
     @FXML
     private Label adminLoginLabel;
@@ -107,6 +120,7 @@ public class ManageSurveyController {
         addAnswerButton.setOnAction(e -> addAnswer());
         addQuestionButton.setOnAction(e -> addQuestion());
         saveSurveyButton.setDisable(true);
+        surveyList = surveyDao.getAllSurveys();
     }
 
     public void setAdminLogin(String login) {
@@ -398,6 +412,33 @@ public class ManageSurveyController {
         deleteSurveyIdField.setText("");
     }
 
+    
+    @FXML
+    private void serializeSurveys() {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("serialized.file"))) {
+            outputStream.writeObject(surveyList);
+            System.out.println("Lista ankiet została zserializowana i zapisana do pliku.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void deserializeSurveyList() {
+        List<Survey> deserializedList = new ArrayList<>();
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("serialized.file"))) {
+            deserializedList = (List<Survey>) inputStream.readObject();
+            System.out.println("Lista ankiet została deserializowana z pliku.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        for(Survey s  :  deserializedList) {
+        	System.out.println(s.toString());
+        }
+    }
+
+    
+    
     //ADMIN_MENU
     // ===================================================================================================================
     @FXML

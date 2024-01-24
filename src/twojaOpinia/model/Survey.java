@@ -3,12 +3,17 @@
 
 package twojaOpinia.model;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Survey {
+public class Survey implements Serializable {
+	
+	private static final long serialVersionUID = 6767786457485354787L;
+	
 	private String authorLogin;
 	private String title;
 	private String description;
@@ -81,5 +86,26 @@ public class Survey {
 				"\nNazwa: " + this.title +
 				"\nOpis: " + this.description +
 				"\n===========================================";
+	}
+	
+	
+	private void readObject(java.io.ObjectInputStream stream) throws IOException, ClassNotFoundException{
+		authorLogin = stream.readUTF();
+		title = stream.readUTF();
+		description = stream.readUTF();
+		tags = stream.readUTF();
+		nQuestions = stream.readInt();
+		questions = (ArrayList<Question>) stream.readObject();
+		responses = (ArrayList<Response>) stream.readObject();
+	}
+	
+	private void writeObject(java.io.ObjectOutputStream stream) throws IOException, ClassNotFoundException{
+		stream.writeUTF(authorLogin);
+		stream.writeUTF(title);
+		stream.writeUTF(description);
+		stream.writeUTF(tags);
+		stream.writeInt(nQuestions);
+		stream.writeObject(questions);
+		stream.writeObject(responses);
 	}
 }
