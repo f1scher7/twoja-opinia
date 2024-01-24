@@ -9,5 +9,6 @@ module TwojaOpinia {
     opens twojaOpinia.controller.admin to javafx.fxml;
     opens twojaOpinia.controller.user to javafx.fxml;
     opens twojaOpinia.model to javafx.base;
+    exports twojaOpinia.controller;
 
 }

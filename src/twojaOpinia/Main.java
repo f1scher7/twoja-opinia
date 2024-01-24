@@ -25,12 +25,11 @@ public class Main extends Application{
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view/login/LoginView.fxml")));
         primaryStage.setTitle("TwojaOpinia");
-        primaryStage.setScene(new Scene(root, 400, 350));
+        primaryStage.setScene(new Scene(root, 400, 420));
         Image image = new Image("file:src/twojaOpinia/iconTwojaOpinia.png");
         primaryStage.getIcons().add(image);
         primaryStage.show();
         centerStage(primaryStage);
-
     }
 
     public static void main(String[] args) {
