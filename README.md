@@ -25,18 +25,21 @@ TwojaOpinia is a comprehensive survey application designed for both users and ad
    
    3. **Available Surveys**
       - In this section, users can search for surveys or opt to browse surveys based on popularity or the most recently added ones.
-           
-   4. **History Surveys**
-      - Umożliwia użytkownikom zarządzanie swoimi opiniami, edytowanie i usuwanie.
-   
-   5. **History Surveys**
-      - Umożliwia użytkownikom zarządzanie swoimi opiniami, edytowanie i usuwanie.
-   
+
+   4. **Survey Voting**
+      - When a user clicks on the desired survey, the Survey Voting window will appear. This window includes brief information about the survey, the list of questions, buttons for navigating to the next and               previous questions, and a button to cancel the survey.
+              
    6. **History Surveys**
-      - Umożliwia użytkownikom zarządzanie swoimi opiniami, edytowanie i usuwanie.
+      - In this window, users can see which surveys have been completed by them.
    
-   7. **History Surveys**
-      - Umożliwia użytkownikom zarządzanie swoimi opiniami, edytowanie i usuwanie.
+   7. **Account settings**
+      - Users have the ability to modify all their personal information, such as name, surname, login, password, email, etc.
+   
+   8. **Back to dashboard**
+      - User can return to the dashboard.
+   
+   9. **Log out**
+      - User can return to the login window.
 
 
 ### Admin
@@ -52,12 +55,16 @@ TwojaOpinia is a comprehensive survey application designed for both users and ad
    
    4. **Edycja i Usuwanie Opinii**
       - Umożliwia użytkownikom zarządzanie swoimi opiniami, edytowanie i usuwanie.
-      - 
-
+      
+   7. **Back to dashboard**
+      - Admin can return to the dashboard.
+   
+   8. **Log out**
+      - Admin can return to the login window.
 ## Autor
 
-[Maks Szyło] - [maksymilian.fischer7@gmail.com]
+Maks Szyło - maksymilian.fischer7@gmail.com
 
 ## Licencja
 
-Ten projekt jest dostępny na licencji [Typ licencji]. Szczegóły znajdziesz w pliku LICENSE.md. napisz po angielsku
+This project is available under the MIT License. Details can be found in the LICENSE.md file.
