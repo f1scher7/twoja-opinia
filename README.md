@@ -5,7 +5,7 @@
 ## Technologies
 
 ### Front-End
-- ![Java FX](https://upload.wikimedia.org/wikipedia/en/c/cc/JavaFX_Logo.png)
+- ![Java FX](https://upload.wikimedia.org/wikipedia/commons/3/30/JavaFX_text_logo.png)
 - ![Java FXML](https://example.com/java_fxml_logo.png)
 - ![CSS](https://example.com/css_logo.png)
 
