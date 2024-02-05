@@ -37,18 +37,20 @@ https://github.com/f1scher7/twoja-opinia/assets/115926717/ed78fd4c-991f-42eb-833
 
 https://github.com/f1scher7/twoja-opinia/assets/115926717/93468244-1c1a-4b51-baed-05fc42c1f032
      
-   6. **History Surveys**
+   5. **History Surveys**
       - In this window, users can see which surveys have been completed by them.
    
 https://github.com/f1scher7/twoja-opinia/assets/115926717/25203da6-04dd-4990-8273-415ceadf7bdb
 
-   7. **Account settings**
+   6. **Account settings**
       - Users have the ability to modify all their personal information, such as name, surname, login, password, email, etc.
    
-   8. **Back to dashboard**
+   ![Account_Settings](https://github.com/f1scher7/twoja-opinia/assets/115926717/4ac27f6b-f3af-47fd-8f7a-bc36649fb1be)
+
+   7. **Back to dashboard**
       - User can return to the dashboard.
    
-   9. **Log out**
+   8. **Log out**
       - User can return to the login window.
 
 
