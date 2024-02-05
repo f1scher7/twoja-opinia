@@ -40,6 +40,8 @@ https://github.com/f1scher7/twoja-opinia/assets/115926717/93468244-1c1a-4b51-bae
    6. **History Surveys**
       - In this window, users can see which surveys have been completed by them.
    
+https://github.com/f1scher7/twoja-opinia/assets/115926717/25203da6-04dd-4990-8273-415ceadf7bdb
+
    7. **Account settings**
       - Users have the ability to modify all their personal information, such as name, surname, login, password, email, etc.
    
