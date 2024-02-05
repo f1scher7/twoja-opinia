@@ -20,7 +20,7 @@ TwojaOpinia is a comprehensive survey application designed for both users and ad
    1. **Registration and Login**
       - Users can create new account and log in to the application.
    
-   <iframe width="560" height="315" src="https://www.youtube.com/watch?v=WUcUCUcUVXg" frameborder="0" allowfullscreen></iframe>
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/WUcUCUcUVXg" frameborder="0" allowfullscreen></iframe>
 
    2. **User Dashboard**
       - Upon logging in, users will be welcomed with a dashboard featuring a greeting message and a quick snapshot of the application's survey activity statistics. On the left side, users can find their login avatar (#TODO) along with a menu that includes options such as Available Surveys, History Surveys, Account Settings, Back to Dashboard, and Logout.
