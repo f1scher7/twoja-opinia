@@ -5,13 +5,13 @@
 ## Technologies
 
 ### Front-End
-- ![Java FX](https://upload.wikimedia.org/wikipedia/commons/3/30/JavaFX_text_logo.png)
-- ![Java FXML](https://example.com/java_fxml_logo.png)
-- ![CSS](https://example.com/css_logo.png)
+- Java FX
+- Java FXML
+- CSS
 
 ### Back-End
-- ![Java](https://example.com/java_logo.png)
-- ![MySQL](https://example.com/mysql_logo.png)
+- Java
+- MySQL
 
 ## Functions
 
