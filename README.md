@@ -52,17 +52,11 @@ TwojaOpinia is a comprehensive survey application designed for both users and ad
    
    4. **Edycja i Usuwanie Opinii**
       - Umożliwia użytkownikom zarządzanie swoimi opiniami, edytowanie i usuwanie.
-
-
-## Struktura Katalogów
-
-- `frontend/`: Kod źródłowy front-endu.
-- `backend/`: Kod źródłowy back-endu.
-- `docs/`: Dokumentacja projektu.
+      - 
 
 ## Autor
 
-[Imię Nazwisko] - [Adres e-mail]
+[Maks Szyło] - [maksymilian.fischer7@gmail.com]
 
 ## Licencja
 
