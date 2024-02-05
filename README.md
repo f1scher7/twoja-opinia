@@ -20,13 +20,13 @@ TwojaOpinia is a comprehensive survey application designed for both users and ad
    1. **Registration and Login**
       - Users can create new account and log in to the application.
 
-
-https://github.com/f1scher7/twoja-opinia/assets/115926717/8a7abc31-8617-41fe-b661-100729336363
-
+https://github.com/f1scher7/twoja-opinia/assets/115926717/0ebf1009-ab0e-4af5-9c56-15d1a2bc1015
 
    2. **User Dashboard**
       - Upon logging in, users will be welcomed with a dashboard featuring a greeting message and a quick snapshot of the application's survey activity statistics. On the left side, users can find their login avatar (#TODO) along with a menu that includes options such as Available Surveys, History Surveys, Account Settings, Back to Dashboard, and Logout.
    
+   ![UserDashboard](https://github.com/f1scher7/twoja-opinia/assets/115926717/1ab4d415-7d51-4e9f-a7f9-6d85c1854768)
+
    3. **Available Surveys**
       - In this section, users can search for surveys or opt to browse surveys based on popularity or the most recently added ones.
 
