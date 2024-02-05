@@ -51,7 +51,7 @@ https://github.com/f1scher7/twoja-opinia/assets/115926717/25203da6-04dd-4990-827
       - User can return to the dashboard.
    
    8. **Log out**
-      - User can return to the login window.
+      - User can log out and return to the login window.
 
 
 ### Admin
@@ -72,7 +72,7 @@ https://github.com/f1scher7/twoja-opinia/assets/115926717/25203da6-04dd-4990-827
       - Admin can return to the dashboard.
    
    8. **Log out**
-      - Admin can return to the login window.
+      - Admin can log out and return to the login window.
 ## Autor
 
 Maks Szyło - maksymilian.fischer7@gmail.com
