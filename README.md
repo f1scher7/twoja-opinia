@@ -1,6 +1,6 @@
 # TwojaOpinia - Full Stack Application
 
-"TwojaOpinia" is a comprehensive survey application designed for both users and administrators. With a user-friendly interface, it facilitates user registration, login, and offers a seamless experience for sharing opinions on various surveys.
+TwojaOpinia is a comprehensive survey application designed for both users and administrators. With a user-friendly interface, it facilitates user registration, login, and offers a seamless experience for sharing opinions on various surveys. Furthermore, administrators have the capability to manage surveys, users, and analyze data with users' answers etc.
 
 ## Technologies
 
