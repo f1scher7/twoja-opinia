@@ -2,18 +2,18 @@
 
 "TwojaOpinia" is a comprehensive survey application designed for both users and administrators. With a user-friendly interface, it facilitates user registration, login, and offers a seamless experience for sharing opinions on various surveys.
 
-## Technologie
+## Technologies
 
 ### Front-End
-- Java FX
-- Java FXML
-- CSS
+- ![Java FX](https://upload.wikimedia.org/wikipedia/en/c/cc/JavaFX_Logo.png)
+- ![Java FXML](https://example.com/java_fxml_logo.png)
+- ![CSS](https://example.com/css_logo.png)
 
 ### Back-End
-- Java 
-- MySQL
+- ![Java](https://example.com/java_logo.png)
+- ![MySQL](https://example.com/mysql_logo.png)
 
-## Funkcje
+## Functions
 
 1. **Rejestracja i Logowanie**
    - Użytkownicy mogą tworzyć konta, logować się i zarządzać swoim profilem.
