@@ -30,6 +30,10 @@ https://github.com/f1scher7/twoja-opinia/assets/115926717/0ebf1009-ab0e-4af5-9c5
    3. **Available Surveys**
       - In this section, users can search for surveys or opt to browse surveys based on popularity or the most recently added ones.
 
+
+https://github.com/f1scher7/twoja-opinia/assets/115926717/ed78fd4c-991f-42eb-8334-ebd9f2404758
+
+
    4. **Survey Voting**
       - When a user clicks on the desired survey, the Survey Voting window will appear. This window includes brief information about the survey, the list of questions, buttons for navigating to the next and               previous questions, and a button to cancel the survey.
               
