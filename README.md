@@ -1,20 +1,17 @@
-# TwojaOpinia - Aplikacja Full Stack
+# TwojaOpinia - Full Stack Application
 
-## Opis Projektu
-
-"TwojaOpinia" to aplikacja Full Stack, która umożliwia użytkownikom dzielenie się swoimi opiniami na różne tematy. Aplikacja skupia się na zapewnieniu intuicyjnego interfejsu użytkownika i kompleksowej funkcjonalności zarówno po stronie front-end, jak i back-end.
+"TwojaOpinia" is a comprehensive survey application designed for both users and administrators. With a user-friendly interface, it facilitates user registration, login, and offers a seamless experience for sharing opinions on various surveys.
 
 ## Technologie
 
 ### Front-End
-- HTML
+- Java FX
+- Java FXML
 - CSS
-- JavaScript
-- React.js (opcjonalnie: Angular, Vue.js)
 
 ### Back-End
-- Node.js (Express)
-- MongoDB (opcjonalnie: MySQL, PostgreSQL)
+- Java 
+- MySQL
 
 ## Funkcje
 
