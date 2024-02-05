@@ -15,26 +15,44 @@ TwojaOpinia is a comprehensive survey application designed for both users and ad
 
 ## Functions
 
-1. **Rejestracja i Logowanie**
-   - Użytkownicy mogą tworzyć konta, logować się i zarządzać swoim profilem.
+### User
 
-2. **Dodawanie Opinii**
-   - Umożliwia użytkownikom dodawanie swoich opinii na wybrane tematy.
+   1. **Registration and Login**
+      - Users can create new account and log in to the application.
+   
+   2. **User Dashboard**
+      - Upon logging in, users will be welcomed with a dashboard featuring a greeting message and a quick snapshot of the application's survey activity statistics. On the left side, users can find their login avatar (#TODO) along with a menu that includes options such as Available Surveys, History Surveys, Account Settings, Back to Dashboard, and Logout.
+   
+   3. **Available Surveys**
+      - In this section, users can search for surveys or opt to browse surveys based on popularity or the most recently added ones.
+           
+   4. **History Surveys**
+      - Umożliwia użytkownikom zarządzanie swoimi opiniami, edytowanie i usuwanie.
+   
+   5. **History Surveys**
+      - Umożliwia użytkownikom zarządzanie swoimi opiniami, edytowanie i usuwanie.
+   
+   6. **History Surveys**
+      - Umożliwia użytkownikom zarządzanie swoimi opiniami, edytowanie i usuwanie.
+   
+   7. **History Surveys**
+      - Umożliwia użytkownikom zarządzanie swoimi opiniami, edytowanie i usuwanie.
 
-3. **Przeglądanie Opinii**
-   - Pozwala użytkownikom przeglądać opinie innych użytkowników.
 
-4. **Edycja i Usuwanie Opinii**
-   - Umożliwia użytkownikom zarządzanie swoimi opiniami, edytowanie i usuwanie.
+### Admin
 
-## Instalacja
+   1. **Login**
+      - Admins can log in to the application using a login and password, just like regular users.
+   
+   2. **Admin Dashboard**
+      - Umożliwia użytkownikom dodawanie swoich opinii na wybrane tematy.
+   
+   3. **Przeglądanie Opinii**
+      - Pozwala użytkownikom przeglądać opinie innych użytkowników.
+   
+   4. **Edycja i Usuwanie Opinii**
+      - Umożliwia użytkownikom zarządzanie swoimi opiniami, edytowanie i usuwanie.
 
-1. Sklonuj repozytorium: `git clone [link_do_repozytorium]`
-2. Przejdź do katalogu projektu: `cd TwojaOpinia`
-3. Zainstaluj zależności front-end: `cd frontend && npm install`
-4. Zainstaluj zależności back-end: `cd backend && npm install`
-5. Uruchom front-end: `cd frontend && npm start`
-6. Uruchom back-end: `cd backend && npm start`
 
 ## Struktura Katalogów
 
