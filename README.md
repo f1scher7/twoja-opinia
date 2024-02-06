@@ -76,8 +76,8 @@ https://github.com/f1scher7/twoja-opinia/assets/115926717/25203da6-04dd-4990-827
       - 
 ## Author
 
-Maks Szyło - maksymilian.fischer7@gmail.com
+Maks Szyło maksymilian.fischer7@gmail.com
 
 ## License
 
-This project is available under the MIT License. Details can be found in the LICENSE.md file. jak to zmienic na html
+This project is available under the MIT License. Details can be found in the LICENSE.md file.
