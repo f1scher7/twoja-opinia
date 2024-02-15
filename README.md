@@ -11,7 +11,7 @@ TwojaOpinia is a comprehensive survey application designed for both users and ad
 
 ### Back-End
 - Java
-- MySQL
+- MySQL, XAMMP (Local data base)
 
 ## Functions
 
@@ -73,7 +73,7 @@ https://github.com/f1scher7/twoja-opinia/assets/115926717/25203da6-04dd-4990-827
    
    8. **Log out**
       - Admin can log out and return to the login window.
-      - 
+      
 ## Author
 
 Maks Szyło maksymilian.fischer7@gmail.com
