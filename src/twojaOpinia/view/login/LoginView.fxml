@@ -18,14 +18,14 @@
             <HBox alignment="CENTER" spacing="10">
                 <VBox>
                     <Label style="-fx-text-fill: #ffffff; -fx-font-size: 13" text="Login:" />
-                    <TextField fx:id="userNameField" prefHeight="30.0" prefWidth="230.0" promptText="Wpisz login" style="-fx-font-size: 13; -fx-background-radius: 7" />
+                    <TextField fx:id="userNameField" prefHeight="30.0" prefWidth="240.0" promptText="Wpisz login" style="-fx-font-size: 13; -fx-background-radius: 7" />
                 </VBox>
             </HBox>
 
             <HBox alignment="CENTER" spacing="10">
                 <VBox>
                     <Label style="-fx-text-fill: #ffffff; -fx-font-size: 13" text="Hasło:" />
-                    <PasswordField fx:id="userPasswordField" prefHeight="30.0" prefWidth="230.0" promptText="Wpisz hasło" style="-fx-font-size: 13; -fx-background-radius: 7" />
+                    <PasswordField fx:id="userPasswordField" prefHeight="30.0" prefWidth="240.0" promptText="Wpisz hasło" style="-fx-font-size: 13; -fx-background-radius: 7" />
                 </VBox>
             </HBox>
             <Label style="-fx-text-fill: #ffffff; -fx-font-size: 5" />
