@@ -11,7 +11,7 @@ TwojaOpinia is a comprehensive survey application designed for both users and ad
 
 ### Back-End
 - Java
-- MySQL, XAMMP (Local data base)
+- MySQL, XAMPP (Local data base)
 
 ## Functions
 
@@ -60,23 +60,41 @@ https://github.com/f1scher7/twoja-opinia/assets/115926717/25203da6-04dd-4990-827
       - Admins can log in to the application using a login and password, just like regular users.
    
    2. **Admin Dashboard**
-      - Umożliwia użytkownikom dodawanie swoich opinii na wybrane tematy.
+      - Upon logging in, admins will be welcomed with a dashboard featuring a greeting message and a quick snapshot of the application's survey activity statistics. On the left side, admin can find their login avatar (#TODO) along with a menu that includes options such as Manage Surveys, Results Analyzer, Manage Users, History of Added Surveys by Admin, Back to Dashboard, and Logout.
    
-   3. **Przeglądanie Opinii**
-      - Pozwala użytkownikom przeglądać opinie innych użytkowników.
+   ![Admin_Dashboard](https://github.com/f1scher7/twoja-opinia/assets/115926717/cb7dc646-20bb-4f43-ae14-f31368fa16d9)
+
+   3. **Manage Surveys**
+      - In this section, the admin can add new surveys and save them to the database. Additionally, the admin can delete surveys by their ID in the database.
+        
+   ![Manage_Surveys_Window](https://github.com/f1scher7/twoja-opinia/assets/115926717/5ad7121c-e6be-4833-976b-a31bb16d08f9)
+
+   4. **Results Analyzer**
+      - In the Result Analyzer window, there is a search bar to find surveys for analysis. Once a survey is selected, a graph appears for each question in the survey. Additionally, administrators can apply filters based on the country, city, and age of users.
+        
+   ![Result_Analyzer](https://github.com/f1scher7/twoja-opinia/assets/115926717/85cd77ea-304c-4191-996a-1a86f0947459)
+
+   7. **Manage Users**
+      - Admins can create new user or admin accounts, delete user accounts by login, or check user data using information from the database..
    
-   4. **Edycja i Usuwanie Opinii**
-      - Umożliwia użytkownikom zarządzanie swoimi opiniami, edytowanie i usuwanie.
-      
-   7. **Back to dashboard**
-      - Admin can return to the dashboard.
+   ![Manage_User](https://github.com/f1scher7/twoja-opinia/assets/115926717/c1f6811c-56c7-4d65-8ba0-8eb634a18930)
+
+   8. **History of Added Surveys**
+      - Admins can view information about surveys they created in a table format.
+
+   ![Added_Surveys_History](https://github.com/f1scher7/twoja-opinia/assets/115926717/6add50de-fb70-4051-852f-a3a2f06b7b90)
    
-   8. **Log out**
-      - Admin can log out and return to the login window.
+   9. **Back to dashboard**
+      - User can return to the dashboard.
+   
+   10. **Log out**
+      - User can log out and return to the login window.
+
       
 ## Author
 
 Maks Szyło maksymilian.fischer7@gmail.com
+
 
 ## License
 
