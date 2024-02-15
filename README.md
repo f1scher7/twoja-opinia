@@ -86,15 +86,18 @@ https://github.com/f1scher7/twoja-opinia/assets/115926717/25203da6-04dd-4990-827
    
    9. **Back to dashboard**
       - User can return to the dashboard.
-   
+      
    10. **Log out**
       - User can log out and return to the login window.
 
-      
+## Application Security
+   - Hashing User Passwords with Salt.
+   - Utilizing Prepared Statements for Code-Data Separation.
+   - #TODO
+
 ## Author
 
 Maks Szyło maksymilian.fischer7@gmail.com
-
 
 ## License
 
