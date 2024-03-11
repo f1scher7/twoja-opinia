@@ -12,7 +12,7 @@ TwojaOpinia is a comprehensive survey application designed for both users and ad
 ### Back-End
 - Java
 - MySQL
-- XAMPP (Local data base)
+- XAMPP (local data base)
 
 ## Functions
 
